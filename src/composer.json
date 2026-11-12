@@ -1,0 +1,11 @@
+{
+    "require": {
+        "phpoffice/phpspreadsheet": "^5.7"
+    },
+    "config": {
+        "platform": {
+            "ext-gd": "2.0",
+            "ext-zip": "1.0"
+        }
+    }
+}

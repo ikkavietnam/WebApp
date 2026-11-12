@@ -1,0 +1,22 @@
+body {
+    margin:0;
+    font-family: Roboto condensed, sans-serif;
+    font-size: 12px;
+    width: 100vw;
+    height: 100vh;
+    
+
+
+}
+#APP{
+    display: flex;
+    flex-direction: row;
+    margin-top: 0px;
+    height: calc(100vh - 30px); 
+   /*  border: 1px solid red; */
+    box-sizing: border-box;
+    overflow-y: auto; /* Cho phép cuộn bên trong  nếu nội dung quá dài */
+}
+
+    
+

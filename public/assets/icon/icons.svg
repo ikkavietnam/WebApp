@@ -1,0 +1,47 @@
+<!-- src/storage/icon/icons.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+
+  <!-- Icon Download (Lucide) -->
+  <symbol id="ico-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 15V3"/>
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+    <path d="m7 10 5 5 5-5"/>
+  </symbol>
+
+  <!-- QUAYLAI -->
+
+  <symbol id="ico-quaylai" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+  </symbol>
+
+  <!-- ADD 1-->
+  <symbol id="ico-add1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="5" x2="12" y2="19"></line>
+      <line x1="5" y1="12" x2="19" y2="12"></line>
+  </symbol>
+  
+  <!-- ADD 1-->
+  <symbol id="ico-add2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+      <line x1="12" y1="8" x2="12" y2="16"></line>
+      <line x1="8" y1="12" x2="16" y2="12"></line>
+  </symbol>
+
+  <!-- ICON PDF -->
+  <symbol id="ico-pdf" viewBox="0 0 48 48">
+      <path fill="#E53935" d="M38,42H10c-2.2,0-4-1.8-4-4V8c0-2.2,1.8-4,4-4h21l11,11v23C42,40.2,40.2,42,38,42z"></path>
+      <path fill="#FFF" d="M34,15H29V10L34,15z"></path>
+      <path fill="#FFF" d="M14 26H18C19.1 26 20 25.1 20 24V22C20 20.9 19.1 20 18 20H14V30H16V26ZM16 22H18V24H16V22Z"></path>
+      <path fill="#FFF" d="M22 20H25C26.7 20 28 21.3 28 23V27C28 28.7 26.7 30 25 30H22V20ZM24 22V28H25C25.6 28 26 27.6 26 27V23C26 22.4 25.6 22 25 22H24Z"></path>
+      <path fill="#FFF" d="M30 20H36V22H32V24H35V26H32V30H30V20Z"></path>
+  </symbol>
+
+  <!-- ICON EXCEL -->
+  <symbol id="ico-excel" viewBox="0 0 48 48">
+      <path fill="#4CAF50" d="M38,42H10c-2.2,0-4-1.8-4-4V8c0-2.2,1.8-4,4-4h21l11,11v23C42,40.2,40.2,42,38,42z"></path>
+      <path fill="#FFF" d="M34,15H29V10L34,15z"></path>
+      <path fill="#FFF" d="M14 20H18L21 25L24 20H28L23 27L28 34H24L21 29L18 34H14L19 27L14 20Z"></path>
+  </symbol>
+
+</svg>

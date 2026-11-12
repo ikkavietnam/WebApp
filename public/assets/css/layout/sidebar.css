@@ -1,0 +1,131 @@
+#SIDEBAR {
+    width: 160px;
+    height: calc(100vh - 30px);
+    
+    color: var(--txtPri8);
+    background: var(--bgMain9);
+    font-family: var(--font-main);
+    float: left;
+    
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.555);
+    /* box-sizing: border-box; */
+    position: sticky; /* Giữ sidebar cố định khi cuộn trang (tùy chọn) */
+    overflow-y: auto; /* Cho phép cuộn bên trong sidebar nếu nội dung quá dài */
+}
+
+.frame {
+    margin-bottom: 2px;
+}
+
+.frame h4,.frame h5 {
+    padding: 10px 0px 5px 0px;
+    margin: 0px 5px 0px 10px;
+    border-bottom: 1px solid #07700781;
+    cursor:default;
+    padding: none;
+
+}
+
+/* MENU */
+.menu {
+    cursor: pointer;
+}
+
+.menu-title {
+
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    transition: 0.2s;
+    color: var(--txtPri6);
+
+}
+
+.menu-title:hover, .submenu-item:hover  {
+    background: var(--bgMain5);
+    color: var(--txtPri1);
+}
+
+
+/* SUBMENU */
+.submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+}
+/* MENU khi mở ra chứa các submenu bên trong */
+.menu.open .submenu { 
+    max-height: fit-content;
+    font-size: 10px;
+}
+
+.submenu-item {
+    margin: 2px 0px 2px 0px;
+    padding: 5px 0px 5px 24px;
+    border-radius: 3px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: 0.2s;
+    color: rgb(44, 44, 250);
+    font-weight: 500;
+    font-style: italic;
+}
+
+.submenu-item.active {
+    /* font-weight: 300; */
+    color: var(--txtPri2);
+    background: var(--bgMain3);
+    box-shadow: 0 0 5px rgba(2, 14, 7, 0.952);
+    transition: all 0.2s ease;
+    margin: 0px 5px;
+}
+
+
+
+
+
+
+
+/* Khi tiêu đề menu cha được gắn class đổi màu */
+.menu-title.sub-active {
+    text-transform: uppercase;
+    color: rgb(238, 5, 5) !important;
+    font-weight: 700;
+    /* 🎯 Kích hoạt Flexbox để căn giữa */
+    display: inline-flex;  
+    align-items: center;   /* Căn giữa tất cả các thành phần theo chiều dọc */
+    gap: 2px;              /* Khoảng cách cố định giữa ký tự chèn và chữ (thay vì dùng khoảng trắng) */
+    transition: color 0.5s, gap 0.5s;
+}
+
+/* Menu đơn (single) khi được active cũng chuyển đỏ cho đồng bộ */
+.menu.single.active .menu-title {
+    color: red !important;
+}
+
+
+
+
+/* Trạng thái mặc định khi đóng: ẩn và thu gọn chiều cao về 0 */
+.menu.has-sub .submenu {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    /* Hiệu ứng diễn ra trong 0.4 giây, biến đổi mượt mà */
+    transition: max-height 0.5s ease-in, opacity 1s ease, overflow 0.5s ease;
+}
+
+/* Trạng thái khi menu cha có class .open: xổ ra mượt mà */
+.menu.has-sub.open .submenu {
+    max-height: 500px; /* Đặt một chiều cao tối đa đủ lớn để chứa hết các sub-item */
+    opacity: 1;
+    transition: max-height 0.5s ease-in, opacity 0.5s ease;
+}
+/* Chèn thêm ký tự vào trước chữ */
+.menu-title.sub-active::before {
+    content: "★";              /* 🎯 Ký tự bạn muốn chèn, thêm khoảng trắng để giãn cách với chữ */ 
+    display: inline-block; /* Ép ký tự thành khối để căn chỉnh tọa độ chính xác */
+    line-height: 1;        /* Reset chiều cao dòng của ký tự về chuẩn */
+}

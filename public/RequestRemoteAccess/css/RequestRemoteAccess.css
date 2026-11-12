@@ -1,0 +1,179 @@
+/* HTML & BODY & GANERAL
+------------------------------------------------- */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;        
+    box-sizing: border-box;
+    overflow: auto;
+    font-family: var(--font-main);
+    font-family:'Segoe UI', Tahoma, Verdana, sans-serif;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+/* NOTE & MSG
+------------------------------------------------- */
+.ghichu{
+    font-size: 10px;
+    font-style: italic;
+    color: rgb(0, 72, 239);
+    padding: 3px 10px;
+}
+.thongbao{
+    font-size: 11px;
+    font-style: italic;
+    /* font-weight: 500; */
+    color: rgb(255, 1, 1);
+    padding: 3px 10px;
+}
+
+/* HEADER 
+------------------------------------------------- */
+#RRA-HEADER{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 10vh;
+    max-height: 25px;
+    background-color: rgb(208, 208, 208);
+}
+
+
+/* RRA_CONTENTS CHIA CỘT
+------------------------------------------------- */
+#RRA_CONTENTS{
+    display: flex;
+    width: 100%;
+    height: 90vh;
+    min-height: calc(100vh - 25px);
+   
+}
+
+
+/* COLUMN_LEFT
+------------------------------------------------- */
+#CONTENTS-L{
+    display: flex;
+    justify-content: center;
+}
+
+#CONTENTS-L input{
+    color: blue;
+    font-weight: 500;
+}
+
+#CONTENTS-L label{
+    color: rgba(0, 0, 0, 0.796);
+   /*  font-weight: 300; */
+    padding: 3px 10px;  
+    font-family:'Segoe UI', Tahoma, Verdana, sans-serif; 
+}
+
+
+/* LEFT FRAME
+------------------------------------------------- */
+
+#CONTENTS-L_FRAME{
+    height: 100%;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+#CONTENTS-L_FRAME input{
+    margin-left: 10px;
+}
+#CONTENTS-L_FRAME textarea{
+    margin-left: 10px;
+    width: auto;
+    height: 32px;
+}
+
+    #CONTENT01{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    #CONTENT02{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+
+    #MEMBERCODE{
+        font-size: large;
+        font-family: var(--font-main);   
+        background-color: transparent; /* Bỏ màu nền mặc định */
+        border: none;                  /* Bỏ viền xung quanh */
+        outline: none;                 /* Bỏ viền xanh/cam khi click vào (focus) */
+        cursor: default;               /* Đổi con trỏ chuột về dạng chọn văn bản/mặc định thay vì gạch I-beam */
+        box-shadow: none;              /* Bỏ bóng đổ (nếu thư viện CSS khác thêm vào) */
+    }
+
+    .input_date{font-family: var(--font-main); font-size: 12px;}
+
+    #CONTENTS-L h5{
+        padding: 5px 0px;
+        font-weight: 700;
+    }
+
+.taophieumoi,
+.xacnhanphieu {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.744);
+    gap:5px;
+}
+/* ------------------------------------------------- thông tin host*/
+.thongtinketnoi, 
+.thongtinkhach{
+    display: flex;
+    flex-direction: column;
+   
+}
+
+
+#BTN_CONFIRM_DONGY, #BTN_CONFIRM_TUCHOI {
+    display: none;
+    
+}
+#MsgText {
+    margin-left: 10px !important;
+}
+
+/* COLUMN_RIGHT
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

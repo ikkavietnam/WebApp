@@ -1,0 +1,11 @@
+
+
+
+* THÊM 1 MENU MỚI
+    menuConfig.js
+        -   thêm vào danh sách MENU gồm Name (Hiển thị), key 
+        -   phân quyền cho key
+
+    router.js
+        -   RENDERCONTENT   thêm switch(key)
+                            Gọi hàm chức năng(Import hàm này phía trên)

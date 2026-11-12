@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Approval request order</title>
+    <style>
+
+        /* ALL 🌟
+        🟢 ******************************************************* */    
+        * { box-sizing: border-box; }
+        
+        body { /* 🌟🌟🌟 */
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            color: #000000; 
+  
+        }
+      
+        /* Chuyển class email-container sang style inline trực tiếp trong table để đảm bảo chiều rộng */
+        .email-container { /* 🌟🌟🌟 */
+            width: 800px; 
+            margin: 0px auto; 
+            border-radius: 8px; 
+            overflow: hidden; 
+            box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.998); 
+            border-collapse: collapse; 
+            overflow: hidden;
+        }
+
+        
+        p {
+            padding: 5px 0; 
+            font-size: 13px; 
+            color: #272727; 
+            margin: 0;
+        }
+
+        /* HEADER 
+        🟢 ******************************************************* */      
+        .header { 
+            background-color: #143b2c !important; 
+            overflow: hidden;
+            text-align: left; 
+            color: #ffffff; 
+            width: 100%;
+        }
+
+            .header td { 
+                margin: 0;
+                padding: 5px 10px;
+            }
+            .header h4 { 
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+    
+            .hdboot {
+                color: #ffffff; 
+                border-collapse: collapse; 
+                overflow: hidden;
+                margin: 0;
+                padding: 0;
+                font-weight: 900;
+            }
+
+                .hdboot td {
+                    margin: 0;
+                    padding: 0; 
+                }
+
+                .hdboot p {
+                    color: #ffffff; 
+                    font-size: 10px;
+                }
+                
+        /* CONTENT
+        🟡 ******************************************************* */       
+        .content {
+            margin-top: 10px;
+            width: 100%;
+            line-height: 1.2;
+        }            
+
+        .content td p {
+            font-size: 11px;
+            font-weight: 500;
+        } 
+
+
+        /* FOOTER
+        🟡 ******************************************************* */   
+
+        .bangquytrinh .TitleSub,
+        .content td .TitleSub {
+            margin-top: 10px;
+            font-size: 11px; 
+            font-weight: bold; 
+            color: #000000; 
+            margin: 5px 0;
+            text-shadow: 0px 0px 0.75px #000000;
+        }
+        .content .TitleExt,
+        .bangquytrinh .TitleExt {
+            font-style: italic;
+            color: #114235; 
+            text-shadow: 0px 0px 0.5px #114235;
+        }
+        /*INFOMATION */
+        .info-box { 
+            padding: 10px 15px; 
+            margin-bottom: 20px; 
+            background-color: #fcfcfc; 
+        }
+        
+        /*NỘI DUNG CHI TIẾT */
+        .detail-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 15px; 
+            margin-bottom: 20px; 
+            border: 1px solid #acabab; 
+        }
+        .detail-table th { 
+            background-color: #dfdfdf; 
+            text-align: center; 
+            padding: 2px 5px !important; /* Ép buộc nhận padding 5px */
+            font-size: 11px; 
+            border: 1px solid #acabab; 
+            line-height: 1.2; 
+            max-height: fit-content;
+            margin: none;
+        }
+
+        .tableHeader {
+            margin: none !important;
+            padding: none !important;
+
+        }
+        .detail-table td { 
+            padding: 5px !important; /* Cố định padding 5px cho tất cả các ô dữ liệu */
+            border: 1px solid #acabab; 
+            font-size: 13px; 
+            line-height: 1.3; 
+        }
+     
+        /*THÔNG TIN KÝ DUYỆT --------------------- */
+        /* thead */
+            .bangquytrinh thead td {
+                text-align: left;
+                line-height: 1.2;
+                font-family: Arial, sans-serif;
+                font-size: 11px;
+                font-weight: bold;
+
+                border-top: 1px solid #c2c0c0;
+                padding: 2px 5px;
+            }
+        /* Body */    
+            .bangquytrinh tbody td {
+                
+                color: #5f5e5e;
+                text-align: left;
+                font-family: Arial, sans-serif;
+                font-size: 11px;
+                line-height: 1.2;
+                border-top: 1px solid #c2c0c0;
+                padding: 2px 5px;
+            }
+
+        /*THÔNG TIN KÝ DUYỆT --------------------- */
+        
+
+
+        /* FOOTER
+        🔴 */
+
+        .footer { 
+            background-color: #f1f1f1; 
+            padding: 15px; 
+            text-align: center; 
+            font-size: 11px; 
+            color: #666666; 
+        }
+        
+        
+
+        .btn-container { text-align: center; margin: 20px 0; padding: 10px; }
+        
+        /* Tối ưu hóa class button */
+        .btn-approve { 
+            display: inline-block; 
+            background-color: #143b2c; 
+            border: 1px solid #fdfdfd; 
+            border-radius: 4px; 
+            box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.998); 
+
+            font-size: 12px; 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            color: #ffffff !important; 
+            font-weight: bold;
+            text-decoration: none; 
+           
+            padding: 10px 30px; /* Tăng padding trực tiếp tại đây */
+        }
+        .btn-approve:hover { background-color: #084f63; }
+    
+   
+    </style>
+
+</head>
+<body>
+    <table align="left" border="0" cellpadding="0" cellspacing="0" width="800" class="email-container">
+        <tr>
+            <td>
+
+                <!--🟢 HEADER --------------------------------------------------------------------------------------------------------------------- -->
+                <table border="0" cellpadding="5" cellspacing="0" width="100%" Class= "header">
+                    <tr>
+                        <td>
+                            <h6 style="margin: 0;">YÊU CẦU XÁC NHẬN YÊU CẦU MỞ INTERNET CHO KẾT NỐI ULTRAVIEWER</h6>
+                        </td>
+                    </tr>
+                </table>
+                    
+
+
+                <!--🟢 CONTENT --------------------------------------------------------------------------------------------------------------------- -->
+                <table border="0" cellpadding="5" cellspacing="0" width="100%" Class= "content">
+                    <tr>
+                        <td><!-- 1 -->
+                            <p> <strong>Kính gửi Anh/Chị : {{NGUOIXACNHAN}}</strong></p>            <!-- ⭕⭕⭕ NGƯỜI ĐANG DUYỆT  Tên hiển thị-->
+                            <p>Hệ thống ghi nhận một yêu cầu mở ULTRAVIEWER mới cần bạn xác nhận 
+                                
+                            </p>
+                            <!-- 2 -->
+                            <p class="TitleSub">THÔNG TIN YÊU CẦU  <span class="TitleExt">Order Information</span></p>
+
+                            <div class="info-box" style="padding: 10px 15px; margin-bottom: 10px;">
+                                <table border="0" cellpadding="3" cellspacing="0" style="font-size: 11px; color: #272727; width: 100%;">
+                                    <tr>
+                                        <td style="padding: 2px 0; border: none; font-weight: 500;">◆ Thời gian tạo phiếu<span style="font-style: italic;">/Created time</span></td>
+                                        <td style="padding: 2px 0; border: none; font-weight: 700;">{{CREATE_TIME}}</td><!-- ⭕⭕⭕ Thời gian tạo phiếu -->
+                                    </tr>
+
+                                    <tr>
+                                        <td style="width: 180px; padding: 2px 0; border: none; font-weight: 500;">◆ Người yêu cầu <span style="font-style: italic;">/Created by</span></td>
+                                        <td><span style="padding: 2px 0; border: none; font-weight: 900; background-color: #b0b1b3">{{CREATE_BY}}</span></td><!-- ⭕⭕⭕ Mã Phiếu YCMH -->
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 2px 0; border: none; font-weight: 500;">◆ Mã nhân viên <span style="font-style: italic;">/Member code</span></td>
+                                        <td style="padding: 2px 0; border: none;  font-weight: 700;">{{MEMBER_CODE}}</td><!-- ⭕⭕⭕ Người tạo phiếu -->
+                                    </tr>
+
+                                    <tr>
+                                        <td style="padding: 2px 0; border: none; font-weight: 500;">◆ Bộ phận <span style="font-style: italic;">/Department</span></td>
+                                        <td style="padding: 2px 0; border: none;  font-weight: 700;">{{CREATE_DEPT}}</td><!-- ⭕⭕⭕ Bộ phận tạo phiếu-->
+                                    </tr>
+
+                                    <tr>
+                                        <td style="width: 180px; padding: 2px 0; border: none; font-weight: 500;">◆ Máy tính cần mở <span style="font-style: italic;">/Hostname</span></td>
+                                        <td><span style="padding: 2px 0; border: none; font-weight: 900; background-color: #b0b1b3">{{MAYTINH}}</span></td><!-- ⭕⭕⭕ Mã Phiếu YCMH -->
+                                    </tr>
+
+                                    <tr>
+                                        <td style="padding: 2px 0; border: none; font-weight: 500;">◆ Thời gian bắt đầu<span style="font-style: italic;">/Time start</span></td>
+                                        <td style="padding: 2px 0; border: none; font-weight: 700;">{{TIME_START}}</td><!-- ⭕⭕⭕ Thời gian tạo phiếu -->
+                                    </tr>
+
+                                    <tr>
+                                        <td style="padding: 2px 0; border: none; font-weight: 500;">◆ Thời gian kết thúc <span style="font-style: italic;">/Time end</span></td>
+                                        <td style="padding: 2px 0; border: none; font-weight: 700;">{{TIME_END}}</td><!-- ⭕⭕⭕ Thời gian tạo phiếu -->
+                                    </tr>
+
+                                    <tr>
+                                        <td style="padding: 2px 0; border: none; font-weight: 500;">◆ Tổng thời gian<span style="font-style: italic;">/Time total</span></td>
+                                        <td style="padding: 2px 0; border: none; font-weight: 700;">{{TIME_TOTAL}}</td><!-- ⭕⭕⭕ Thời gian tạo phiếu -->
+                                    </tr>
+
+
+                                    
+                                    
+                                    
+                                </table>
+                            </div>
+
+                            <!--🟢 NỘI DUNG CHI TIẾT --------------------------------------------------------------------------------------------------------------------- -->
+                            <p class="TitleSub">THÔNG TIN NGUỒN KẾT NỐI <span class="TitleExt">Destion infomation</span></p>
+                            
+                            <table border="0" cellpadding="3" cellspacing="0" style="font-size: 11px; color: #272727; width: 100%;">
+                                <tr>
+                                    <td style=" padding: 2px 20px; border: none; font-weight: 500;">◆ NGƯỜI DÙNG HOẶC TỔ CHỨC KẾT NỐI<span style="font-style: italic;">/Who connect</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td style=" padding: 2px 30px; border: none; font-weight: 700;">{{WHOCONNECT}}</td><!-- ⭕⭕⭕ Thời gian tạo phiếu -->
+                                </tr>
+
+                                <tr>
+                                    <td style=" padding: 2px 20px; border: none; font-weight: 500;">◆ MỤC ĐÍCH <span style="font-style: italic;">/Purpose</span></td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td style=" padding: 2px 30px; border: none; font-weight: 700;">{{PURPOSE}}</td><!-- ⭕⭕⭕ Thời gian tạo phiếu -->
+                                </tr>
+
+                            </table>
+                        
+                        </td>
+                    </tr>
+                </table>
+            
+                <!--🟢 PROCESS --------------------------------------------------------------------------------------------------------------------- -->
+                
+
+                <table border="0" cellpadding="5" cellspacing="0" width="100%" Class= "bangquytrinh">
+                    <tr>
+                        <td>
+                            <p class="TitleSub">QUY TRÌNH XÁC NHẬN<span class="TitleExt"> ( Processing info )</span></p>
+
+                        </td>
+                    </tr>
+                </table>
+                
+                <!--🟢 BUTTON --------------------------------------------------------------------------------------------------------------------- -->
+                
+                <table border="0" cellpadding="5" cellspacing="0" width="100%" Class= "btn_link">
+                    <tr>
+                        <td>
+                             <p style="font-size: 11px; color: #020202; font-style: italic; margin: 0 0 15px 0;">
+                                Sau khi xem xét, vui lòng nhấn vào 
+                                <a href="{{XACNHAN_URL}}" target="_blank">Click here</a>
+                                sau đó nhập mã xác nhận sau :
+                                
+                                <span style="font-size: 12px; color: #ff0000e2; font-weight: 900; font-style:normal;"> {{StrSec}} </span><br>
+
+                                Hoặc click vào nút xác nhận nhanh phía dưới
+                                
+                            </p>
+                            
+                            <a href="{{XACNHANNHANH_URL}}" class="btn-approve" style="margin: 0;font-size: 12px;" target="_blank"><!-- ⭕⭕⭕ LINK-->
+                                                XÁC NHẬN NHANH
+                            </a>
+                            <!-- Note -->
+                            <p style="font-size: 11px; color: #f60000 !important; font-style: italic;font-weight: 700; margin: 0 0 15px 0;">
+                                Lưu ý ! Trong khoảng thời gian mở kết nối, nếu có sự cố nào nghiêm trọng tới hệ thống thông tin của ITV 
+                                thì các bên liên quan phải có trách nhiệm hỗ trợ điều tra, và chịu trách nhiệm trước các hành vi được cho là nguyên nhân gây ra sự cố
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+
+                <!--🟢 FOOTER --------------------------------------------------------------------------------------------------------------------- -->
+                <div class="footer">
+                    <strong>HỆ THỐNG ITV-Workflow 2026</strong><br>
+                    <p style="font-size: 11px; color: #666666; margin-top: 5px; line-height: 1.4;">
+                        Email này được gửi tự động từ hệ thống quản lý tiến trình công việc (Workflow) do bộ phận IT phát triển<br>
+                        Nếu có sai sót hoặc đóng góp ý kiến vui lòng liên hệ Mr-Thuy qua email: <a href="mailto:adm6@ikka-itv.com.vn" style="color: #143b2c; font-size: 11px; font-weight: bold;">adm6@ikka-itv.com.vn</a>
+                    </p>   
+                </div>
+                <!--🟢 END --------------------------------------------------------------------------------------------------------------------- -->
+            </td>
+        </tr>
+    </table>     
+</body>
+</html>

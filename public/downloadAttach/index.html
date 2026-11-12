@@ -1,0 +1,82 @@
+ 
+<!DOCTYPE html>
+<html>
+    <head>
+ 
+        <!--
+        💛 META -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--
+        💚 TITLE -->
+        <title>ERP-Download</title>
+        <style>
+            body{
+                font-size: 12px;
+            }
+            #MsgContent {
+                margin: auto;
+            }
+        </style>
+        
+    </head>
+
+    <!--
+    ⬜⬜⬜~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~    BODY    ~~~~~~~~~~~~~~~~~~~~~~~~~~~   BODY -->
+    <body>
+        <div id="MsgContent"></div>
+    </body>
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() { 
+        Init_Download();
+        return;           
+    });
+
+    /* HÀM INIT
+    ⭕ ==================================================================================== */
+    async function Init_Download() {
+        try {
+            // ⬜ KHỞI TẠO VÀ LẤY CÁC THAM SỐ TỪ URL
+            const urlParams = new URLSearchParams(window.location.search);
+
+                //Phân tách
+                const paramsId   = urlParams.get('Id');
+                const paramsType = urlParams.get('Type');
+                const paramsSec  = urlParams.get('Sec');
+
+            const msgContent = document.getElementById('MsgContent');
+
+
+            // Kiểm tra xem MsgContent có tồn tại trên DOM không để tránh lỗi null
+            if (!msgContent) {
+                console.error("Không tìm thấy phần tử có id 'MsgContent'");
+                return;
+            }
+
+            // Kiểm tra tính hợp lệ của Id (phải là số nguyên)
+            const isInteger = /^\d+$/.test(paramsId);
+            if (isInteger) {
+                msgContent.innerText = "BẠN CẦN ĐĂNG NHẬP ĐỂ TIẾP TỤC QUÁ TRÌNH XEM VÀ DUYỆT !";
+            } else {
+                msgContent.innerText = "Link không chính xác !";
+                return;
+            }
+
+
+            msgContent.innerText = `
+
+            `;
+
+        } catch (error) {
+            console.error("Lỗi trong quá trình khởi tạo ứng dụng:", error);
+        }
+    }//❌❌❌❌❌ End Function 
+
+
+
+
+
+</script>

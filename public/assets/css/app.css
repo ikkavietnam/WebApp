@@ -1,0 +1,50 @@
+
+/*=========================================================================⚪
+1.💦 FONTS 💕 (Luôn đứng đầu để trình duyệt tải trước) 💦
+  »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» */
+    @import url("base/fonts.css"); 
+
+/*=========================================================================⚪
+2.💦 NỀN TẢNG 💕(Reset và Biến) 💦
+  »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» */
+    @import url("base/base.css");
+
+/*=========================================================================⚪
+3.💦 BỐ CỤC CHÍNH 💕(Sidebar, Header) 💦
+  »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» */
+   
+    @import url("layout/header.css");
+    @import url("layout/body.css");
+    @import url("layout/sidebar.css");
+    
+    @import url("modules/login.css");
+    @import url("modules/FollowWork.css");
+    /* @import url("modules/YCMH.css"); */
+
+
+/*⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⚪
+4.💦 CÁC THÀNH PHẦN DÙNG CHUNG 💕(Button, Table, Input) 💦
+  »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» */
+    @import url("components/components.css");
+    @import url("components/tableTabulator.css");
+     
+
+
+
+
+/*⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⁜⚪
+5.💦 MODULES (Style cho từng trang cụ thể) 💦 
+  »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» */
+   @import url("modules/login.css");
+   
+
+     /* tets */
+
+     /* Khi thêm trang mới, chỉ cần khai báo thêm 1 dòng ở đây  */
+
+
+
+
+
+
+

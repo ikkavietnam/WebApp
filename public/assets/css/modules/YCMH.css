@@ -1,0 +1,1745 @@
+
+#YCMH_HEADER_FRAME {
+    width: 100%;
+    
+}
+
+.YCMH-checkbox input[type="checkbox"]{
+   margin: 0px !important;
+}
+
+
+
+.YCMH-Create-Note {
+    font-size:11px; font-style: italic; color:rgb(125, 125, 125); margin-top: 10px;
+}
+
+/* HEADER
+☘️◆◆◆◆◆☘️◆◆◆◆◆☘️◆◆◆◆◆☘️◆◆◆◆◆☘️◆◆◆◆◆☘️◆◆◆◆◆☘️◆◆◆◆◆☘️◆◆◆◆◆*/
+
+/* Layout Header của danh sách - Xếp hàng ngang */
+.YCMH_List_Header {
+    height: 18px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center; 
+}
+/*✅*/
+/* CHÍNH XÁC: Áp dụng tỷ lệ 7 cho Wrapper của ô tìm kiếm */
+.YCMH_List_Header_Left {
+    height: 18px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 7; /* Chiếm 70% độ rộng hàng */
+}
+/*✅*/
+/* Định vị icon kính lúp */
+    .YCMH_List_Header_Left .search-icon {
+        position: absolute;
+        right: 2px;
+        color: #1d5e37;
+        display: flex;
+        align-items: center;
+        pointer-events: none; 
+    }
+/*✅*/
+/* CHÍNH XÁC: Áp dụng tỷ lệ 2 cho Select box */
+.Box_Input {
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+
+}
+.YCMH_List_Header_Right {
+    flex: 2; /* Chiếm 20% độ rộng hàng */
+    padding: 2px 32px 2px 10px; /* Chừa 30px bên phải cho icon mũi tên */
+    font-size: 11px;
+    color: #323130;
+    border: 1px solid #cbd5e1;
+    border-radius: 2px;
+    background-color: #ffffff;
+    outline: none;
+    cursor: pointer;
+    appearance: none; 
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23605e5c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+    background-repeat: no-repeat;
+    background-position: right 2px center;
+}
+
+.YCMH_List_Header_Right:focus {
+    border-color: #0078d4;
+}
+
+
+
+/* BODY TOP
+◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ */
+
+/*✅*/
+/* Khung bọc Body chứa Header phụ và Bảng */
+.YCMH_List_Body {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 20px); /* Khấu trừ chiều cao của YCMH_List_Header */
+}
+/*✅*/
+/* Thanh công cụ phụ (bodytop) đúng chất Outlook */
+.YCMH_List_Body .bodytop {
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 6px;
+    padding-left: 3px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #f3f3f3;
+    user-select: none;
+}
+/*✅*/
+/* Tiêu đề nhóm bên trái (Ví dụ: By Date, Today, Older...) */
+.bodytop-left #YCMH_List_Group_Title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #084847; /* Màu xám đặc trưng của Office */
+    text-transform: uppercase; /* Viết hoa nhẹ nhàng */
+    letter-spacing: 0.5px;
+    text-shadow: 0px 0px 2px #11824d;
+}
+/*✅*/
+/* Cụm điều khiển bên phải */
+.bodytop-right {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+/*✅*/ /* ICON MŨI TÊN */
+.outlook-icon-btn{
+    color: #0078d4 !important;
+    background: none;
+    border: none;
+    padding: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+}
+    .outlook-icon-btn:hover{
+        color: #0901f5 !important;
+    }
+
+
+
+
+/*✅*/ /* 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ALL DEPARTMENT */
+#YCMH_Dept_Dropdown_Toggle{
+    font-weight: 500;
+    width: 90px;
+    font-size: 11px;
+}
+    /* Dropdown chọn tiêu chí Sort */
+    .outlook-sort-dropdown {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        color: #0078d4; 
+        cursor: pointer;
+    }
+    /*✅*/
+        .outlook-sort-dropdown:hover {
+            color: #0901f5;
+        }
+
+
+/*🟢*//* 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< MENU LIST */
+/* FRAME */
+#YCMH_Dept_Menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    width:100%;
+    right: 0;
+    background: #ffffff;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    border: 1px solid #dadada;
+    border-radius: 4px;
+    z-index: 9999;
+    padding: 5px 0;
+}
+
+/*🟢*//* Từng dòng bộ phận trong menu */
+#YCMH_Dept_Menu .sort-item {
+    display: flex;
+    color: #929292;
+    width: 100%;
+    padding: 5px 0px;
+    align-items: center;
+    justify-self: start;
+    text-align: center;
+    cursor: pointer;
+    gap: 10px 5px; /* Khoảng cách giữa dấu tích và chữ tên bộ phận */
+    transition: background 0.1s ease;
+}
+/*🟢*/
+#YCMH_Dept_Menu .sort-item:hover {
+    background-color: #87c6e1; /* Hiệu ứng hover dòng */
+    color: #000000;
+    scale: 1.05;
+    transition: ease-in-out 0.3s;
+}
+/*🟢*/
+/* Ô chứa dấu tích nằm bên trái tên bộ phận */
+#YCMH_Dept_Menu .menu-check-icon {
+    display: inline-block;
+    text-align: center;
+    width: 14px;
+    height: 100%;
+    font-size: 10px;
+    font-weight: bold;
+    color: transparent; /* Mặc định ẩn dấu tích đi */
+}
+/*🟢*/
+/* 🌟 KHI DÒNG ĐƯỢC KÍCH HOẠT (CÓ CLASS .ACTIVE) */
+#YCMH_Dept_Menu .sort-item.active {
+    background-color: #e0edf6; /* Nền xanh cực nhẹ cho dòng được chọn */
+    margin: 2px 0px;
+
+}
+/*🟢*/
+/*Thêm dấu ::before vào sau để trình duyệt chịu vẽ dấu ✓ */
+#YCMH_Dept_Menu .sort-item.active .menu-check-icon::before {
+    content: "✓";
+    color: #0078d4; /* Hiện dấu tích màu xanh thương hiệu Outlook */
+    font-weight: bold;
+    font-size: 11px;
+}
+/*🟢*/
+#YCMH_Dept_Menu .sort-item.active .dept-text {
+    color: #000000; /* Chữ tên bộ phận cũng chuyển xanh cho đồng bộ */
+    font-weight: 600;
+}
+/*🟢*/
+#YCMH_Dept_Menu .dept-text {
+    display: inline-flex;     /* Chuyển sang inline-flex */
+    align-items: center;      /* Ép bản thân chữ luôn nằm giữa trục dọc */
+    font-size: 11px;
+    line-height: 1;           /* Triệt tiêu line-height thừa của font chữ hệ thống */
+    height: 100%;             /* Chiếm trọn chiều cao của dòng cha */
+    margin: 0;
+    padding: 0;
+}
+
+/* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */
+
+
+
+
+
+/* XỬ LÝ MENU FILTER DEPART
+◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ */
+
+
+
+
+
+/* TABULATOR
+◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ */
+/* *************************************************** LINE 1 */ 
+/*✅*/
+.card-line-1 {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 2px;
+}
+/*✅*/
+.card-line-1 .card-name{
+    font-family: 'Roboto condensed', sans-serif;
+    font-weight: 500;
+    
+}
+/*✅*/
+.card-status{
+    font-size: 11px;
+    
+}
+/* *************************************************** LINE 2 */ 
+/*✅*/
+.card-line-2{
+    font-size: 11px;
+    padding-left: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: #676767;
+}
+/*✅*/
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ LEFT */
+.cardleft{
+    display: flex;
+    flex-direction: row;
+    font-size: 11px;
+    font-style: italic;
+
+    white-space: nowrap; /* Không cho phép chữ tự động xuống dòng */
+    overflow: hidden; /* Ẩn tràn phía ngoài */
+    text-overflow: ellipsis; /* Biến phần chữ bị ẩn thành dấu ... */
+}
+
+/*✅*/
+.cardleft span   {
+    white-space: nowrap; /* Không cho phép chữ tự động xuống dòng */
+    overflow: hidden; /* Ẩn tràn phía ngoài */
+    text-overflow: ellipsis; /* Biến phần chữ bị ẩn thành dấu ... */
+}
+
+/*✅*/
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ LEFT  BỘ PHẬN */
+.card-bp{
+    width: 30px;
+    font-style:normal; 
+    flex-shrink: 0;   
+}
+/*✅*/
+.card-member{
+    padding: 0px 5px 0px 2px;
+    width: 80px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+/*✅*/
+.card-item{
+    padding: 0px 3px;
+    flex-shrink: 1;
+}
+/*✅*/
+.card-date{
+    padding: 0px 2px;
+    font-weight: 500;
+    width: 60px;
+    color: #5f5f5f; 
+    flex-shrink: 0; 
+}
+
+
+
+/* MARK FILTER HIGHTLIGHT
+◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ */
+/*✅*//* HIGHTLIGHT */
+mark {
+    background-color: #ffeb3b;
+    color: #000;               
+    padding: 0 2px;
+    border-radius: 2px;
+}
+/*✅*//* HIGHTLIGHT & SELECT*/
+#tblYCMH_LIST .tabulator-row.tabulator-selected mark {
+    background-color: #fff496; 
+}
+
+/* 
+◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ */
+
+
+#tblYCMH_LIST{
+    border: none;
+    background-color: none;
+    box-sizing: border-box;
+}
+
+#tblYCMH_LIST .tabulator-cell {
+    border-right: none !important;
+    font-family: 'Roboto condensed', sans-serif;
+}
+
+
+/* 1. Đưa tất cả các dòng về nền trắng */
+#tblYCMH_LIST .tabulator-row.tabulator-row-even,
+#tblYCMH_LIST .tabulator-row.tabulator-row-odd {
+    background-color: #ffffff !important;
+    border-bottom: solid 1px rgb(244, 244, 244);
+}
+
+/*✅ 2. KHI CLICK CHỌN */
+#tblYCMH_LIST .tabulator-row.tabulator-selected,
+#tblYCMH_LIST .tabulator-row.tabulator-row-even.tabulator-selected,
+#tblYCMH_LIST .tabulator-row.tabulator-row-odd.tabulator-selected {
+    box-sizing: border-box;
+    background-color: #18392b !important; 
+    transition: background-color 0.5s ease;
+}
+
+    /* ✅Khi row được select, đổi màu chữ card-name bên trong thành màu đỏ */
+    #tblYCMH_LIST .tabulator-row.tabulator-selected .card-line-1 {
+        color: #03ffe6 !important; 
+        transition: color 0.5s ease; 
+    }
+    #tblYCMH_LIST .tabulator-row.tabulator-selected .card-line-2,
+    #tblYCMH_LIST .tabulator-row.tabulator-selected .card-line-2 .card-date {
+        color: #a3dfc0 !important; 
+        transition: color 0.5s ease; 
+    }
+
+
+
+/*✅ 3. KHI HOVER (DI CHUỘT):(Trừ dòng đã chọn) */
+#tblYCMH_LIST .tabulator-row:not(.tabulator-selected):hover {
+    background-color: #bcd6da !important;
+}
+    #tblYCMH_LIST .tabulator-row:not(.tabulator-selected):hover .card-line-1 {
+        color: #0a06fa !important;
+        
+        text-shadow: 0px 0px 2px #11824d;
+    }
+/* /////////////////////////////////////////////////////////////////////////// */
+/* --- CUSTOM SCROLLBAR CHO RIÊNG BẢNG DANH SÁCH YCMH --- */
+
+/*❌ 1. Định nghĩa độ rộng của thanh cuộn dọc và chiều cao thanh cuộn ngang */
+.tabulator-tableholder::-webkit-scrollbar {
+    width: 15px;  /* Độ rộng thanh cuộn dọc (siêu mảnh) */
+    height: 6px; /* Chiều cao thanh cuộn ngang (nếu có) */
+}
+
+
+
+
+
+
+/* 2. Phần nền bên dưới của thanh cuộn (Track) 
+#tblYCMH_LIST .tabulator-tableholder::-webkit-scrollbar-track {
+    background: rgb(125, 18, 18) !important;
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.1) !important; Tạo một chút bóng ngầm để ép trình duyệt render 
+}*/
+
+/* 3. Cục kéo của thanh cuộn (Thumb) */
+
+/* 4. Hiệu ứng khi người dùng di chuột vào cục kéo */
+#tblYCMH_LIST .tabulator-tableholder::-webkit-scrollbar-thumb:hover {
+    background-color: #e80606; /* Tối hơn một chút khi di chuột vào để dễ định vị */
+}
+
+/* 1. Khử màu nền của chính container chứa bảng (Tabulator mặc định có màu nền xám nhẹ) */
+#tblYCMH_LIST.tabulator,
+#tblYCMH_LIST .tabulator-header {
+    background-color: #d9dcda !important;
+}
+
+
+/* ///////////////////////////////////////////////// */
+/* Ẩn hoàn toàn tay nắm kéo giãn cột (đường gạch dọc rìa phải) của riêng bảng YCMH */
+#tblYCMH_LIST .tabulator-col-resize-handle {
+    display: none !important;
+    width: 0 !important;
+    pointer-events: none !important; /* Triệt tiêu luôn tương tác chuột */
+}
+
+
+
+
+
+/* TABRIGHT
+☘️◆◆◆◆◆☘️◆◆◆◆◆☘️◆◆◆◆◆☘️◆◆◆◆◆☘️◆◆◆◆◆☘️◆◆◆◆◆☘️◆◆◆◆◆☘️◆◆◆◆◆ */
+
+/* TABRIGHT
+◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ */
+
+#TABRIGHT,
+#TABRIGHT_HD {
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    flex: 1 !important;
+    
+
+}
+#TABRIGHT_HD {
+    padding-bottom: 15px;
+    box-shadow: 0px 1px 0px rgb(61, 61, 61);
+}
+#TABRIGHT_CONTENTS,
+#TABRIGHT_PROCESS {
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+
+.HD_line1,
+.HD_line2,
+.HD_line2_R1,
+.HD_line2_R2 {
+    display: flex;
+    flex-direction: row;
+
+}
+/* TABRIGHT - LINE1
+◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ */
+/* /////////////////////////////////////////////////  LINE1 */
+.HD_line1 {
+    width: 100%;
+    padding-bottom: 5px;
+}
+
+/* /////////////////////////////////////////////////  LINE1-OPTION */
+.HD_line1_option {
+    min-width: fit-content;
+    margin-right: 10px;
+}
+
+/* /////////////////////////////////////////////////  LINE1-BTN */
+.HD_line1 .btn {
+    height: 20px;
+    margin:0px !important;
+    padding: 2px 10px;
+    box-sizing: border-box;
+    border-radius: 2px;
+    font-weight: 400;
+    font-size: 11px;
+    color: #feffff;
+   
+}
+
+
+/* TABRIGHT - LINE2
+◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ */
+.HD_line2 {
+    height: 40px;
+}
+/* ~~~~~~~~~~~~~~~~~~~~~ BÊN TRÁI tiêu đề YCMH_NAME */
+.HD_line2_L {
+    display: flex;
+    align-items: center;
+    min-width:  fit-content;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 0px 15px;
+    border-radius: 5px;
+    margin: 4px 0px;
+    box-shadow: 0px 0px 5px rgb(1, 1, 1);
+   
+
+/* ~~~~~~~~~~~~~~~~~~~~~ BÊN PHẢI */
+}
+.HD_line2_R {
+    width: 100%;
+}
+.HD_line2_R1 {
+    height: 20px;   
+    
+}
+/* ~~~~~~~~~~~~~~~~~~~~~ STATUS */
+.HD_line2_R1_STATUS {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 5px;
+    min-width: fit-content;
+    font-size: 11px;
+    font-weight: 900;
+    align-items: center;
+    justify-content: flex-end;
+    color: red;
+   
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~ STATUS */
+.HD_line2_R2 {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    height: 20px;
+    font-size: 11px;
+    
+   
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~ TIME GÓC PHẢI */
+.HD_line2_R2-time {
+    width: 100%;
+    text-align: right;
+   
+}
+/* ~~~~~~~~~~~~~~~~~~~~~ NỘI DUNG */
+.HD_line2_R2_noidung {
+    padding: 2px 5px;
+    min-width: fit-content;
+    color: #676767;
+    font-style: italic;
+}
+
+.HD_line2_R2-User,
+.HD_line2_R2-Part,
+.HD_line2_R2-Delivery{
+    color: #000000;
+    font-weight: 500;
+}
+
+
+/* TABRIGHT - CONTENTS
+◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ */
+#TABRIGHT_CONTENTS {
+    width: 100%;
+    flex-direction: column;
+}
+#TABRIGHT_CONTENTS h4,
+#TABRIGHT_PROCESS h4 {
+    font-weight: 700;
+    padding : 10px 0px;
+    min-width: fit-content;
+}
+
+
+
+
+/*  TABLATOR 
+*********************************************************************/
+
+
+/* 1. GIẢI PHÓNG TOÀN BỘ CHIỀU CAO CHO HEADER */
+#TABRIGHT_CONTENTS .tabulator .tabulator-header {
+    height: auto !important;
+    overflow: visible !important;
+}
+
+/* 2. ÉP TẤT CẢ CÁC Ô TIÊU ĐỀ PHẢI CAO BẰNG NHAU */
+#TABRIGHT_CONTENTS .tabulator .tabulator-header .tabulator-headers {
+    display: flex !important;
+    align-items: stretch !important; /* Ép tất cả các cột ngắn phải dãn cao bằng cột dài nhất */
+    height: auto !important;
+}
+
+/* 3. Cấu hình lại ô chứa từng cột */
+#TABRIGHT_CONTENTS .tabulator .tabulator-header .tabulator-col {
+    height: auto !important;
+    display: inline-flex !important;
+    flex-direction: column !important;
+
+}
+
+/* 4. Ép phần nội dung và màu nền chiếm trọn 100% chiều cao của ô */
+#TABRIGHT_CONTENTS .tabulator .tabulator-header .tabulator-col .tabulator-col-content {
+    height: 100% !important;
+    display: flex !important;
+    align-items: center; /* Căn giữa chữ theo chiều dọc cho các ô không xuống dòng */
+    box-sizing: border-box;
+    padding: 2px 4px; /* Khoảng cách đệm cho đẹp mắt */
+}
+
+/* 5. Cấu hình chữ tiêu đề tự do xuống dòng */
+#TABRIGHT_CONTENTS .tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-col-title {
+    white-space: normal !important;
+    text-overflow: clip !important;
+    overflow: visible !important;
+    width: 100%;
+}
+
+
+
+#TABRIGHT_CONTENTS .tabulator-row {
+    min-height: 20px !important;
+}
+ #TABRIGHT_CONTENTS .tabulator-cell{
+    min-height: 20px !important;
+
+ }
+
+#TABRIGHT_CONTENTS .tabulator,
+#TABRIGHT_CONTENTS .tabulator-header {
+    background-color: #ffffff !important;
+}
+
+#TABRIGHT_CONTENTS .tabulator-col {
+    background-color: #cfd0d1 !important;
+    color: #000000;
+    
+}
+
+
+/* 7. ĐẬP TAN VÀ ẨN HOÀN TOÀN MŨI TÊN SORT */
+#tblYCMH_CONTENTS .tabulator-arrow {
+    display: none !important; /* Ẩn mất tích, không chiếm diện tích */
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* ✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅ */
+/* KHUNG
+⭕>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+#YCMH_CREATE_FRAME {
+    box-sizing: border-box;
+    background-color: #ffffff;
+    
+}
+
+.BENTRAI {
+    background-color: #fafafa;
+
+}
+
+
+/* KHUNG PHIEU_TOP
+⭕>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+.PHIEU_TOP {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    box-sizing: border-box;
+    
+}
+
+.TIEUDE {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+    .TIEUDE_NEARBY { /* Logo */
+        display: flex;
+        flex-direction: column;
+        min-width: 80px; 
+        padding-left: 10px;
+        
+    }
+
+        .LogoITV {
+            width: 64px;  /* Ép độ rộng của ảnh bằng 100% độ rộng của TIEUDE_NEARBY */
+            object-fit: contain;
+            height: auto; /* Tự động tính chiều cao để ảnh không bị méo */
+            display: block;
+        }
+        /* SO PHIẾU REQUEST NO */
+        .Sophieu { 
+            min-width: fit-content;
+            align-items: center;
+            justify-content: center;
+        }
+        .SophieuNum {
+            font-weight: 700;
+            box-shadow: 0px 1px 5px px red;
+            padding: 10px 20px;
+        }
+
+
+
+
+    .TIEUDE_MID {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-items: center;
+    
+    }
+
+    .TIEUDE_MID h4 {
+        color: #1250a8;
+        padding: 3px;
+        font-weight: 500;
+        font-style: italic;
+    }
+
+
+        .PHIEU_INFO {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);  /* Chia thành 2 cột bằng nhau */
+            gap: 2px 5px;                          /* Khoảng cách giữa các dòng (10px) và cột (20px) */
+            justify-content: center;                /* Căn giữa toàn bộ lưới nếu có chiều rộng cố định */
+            align-items: center;                    /* Căn giữa các phần tử theo chiều dọc */
+            max-width: 600px;                       /* Giới hạn độ rộng tối đa của khung thông tin (tùy chỉnh) */
+            margin: 5px auto;               /* Căn giữa toàn bộ khối .PHIEU_INFO so với chữ phía trên */
+            text-align: left;
+            font-family:-'Roboto condensed';
+            font-size: 11px;
+        }
+
+        .PHIEU_INFO label {
+            color: #1250a8;
+            font-weight: 500;
+            font-style: italic;
+        }
+        .PHIEU_INFO input {
+            height: 15px ;
+            padding: 2px 5px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+
+
+
+.TIEUDE_BOT { /* mã số ISO */
+    height: 20px; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.FormISO {
+    width: 100%;
+    font-weight: 500;
+    font-size: 11px;
+    font-style: italic;
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+
+/* BTN XÓA DÒNG ĐÃ CHỌN
+⭕>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+#BTN_DELROW {
+    display: none;
+    margin-bottom: 5px;
+    min-width: fit-content;
+    height: 20px;
+    border-radius: 2px;
+    background-color: rgb(175, 53, 53);
+    font-weight: 400;
+    font-size: 11px;
+    
+}
+#BTN_DELROW:hover{
+    background-color: rgb(255, 255, 255);
+    font-weight: 500;
+    font-size: 11px;
+    color: rgb(207, 39, 5);
+}
+#BTN_DELROW:active {
+    background-color: #962d22; /* Màu tối hơn nữa tạo cảm giác nhấn sâu */
+    transform: scale(1.1);    /* Thu nhỏ nút lại 5% (Hiệu ứng lún nút cực đẹp) */
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2); /* Đổ bóng vào trong tạo độ lõm */
+}
+/* KHUNG PHIEU_CONTECTS
+⭕>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+/* 1. GIẢI PHÓNG TOÀN BỘ CHIỀU CAO CHO HEADER */
+.PHIEU_CONTENTS .tabulator .tabulator-header {
+    height: auto !important;
+    overflow: visible !important;
+    color: #0901f5;
+    font-size: 11px;
+    font-weight: 500;
+
+}
+
+#BTN_HOANTHANH {
+    width: fit-content;
+}
+/* BTN HOANTHANH
+⭕>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+#BTN_HOANTHANH:active {
+    color: rgb(255, 255, 255);
+    background-color: #084847;
+    transform: scale(0.95);    /* Thu nhỏ nút lại 5% (Hiệu ứng lún nút cực đẹp) */
+    transition: 0.5s ease;
+}
+
+
+
+
+/* 2. ÉP TẤT CẢ CÁC Ô TIÊU ĐỀ PHẢI CAO BẰNG NHAU */
+.PHIEU_CONTENTS .tabulator .tabulator-header .tabulator-headers {
+    display: flex !important;
+    align-items: stretch !important; /* Ép tất cả các cột ngắn phải dãn cao bằng cột dài nhất */
+    height: auto !important;
+}
+
+/* 3. Cấu hình lại ô chứa từng cột */
+.PHIEU_CONTENTS .tabulator .tabulator-header .tabulator-col {
+    height: auto !important;
+    display: inline-flex !important;
+    flex-direction: column !important;
+
+}
+
+/* 4. Ép phần nội dung và màu nền chiếm trọn 100% chiều cao của ô */
+.PHIEU_CONTENTS .tabulator .tabulator-header .tabulator-col .tabulator-col-content {
+    height: 100% !important;
+    display: flex !important;
+    align-items: center; /* Căn giữa chữ theo chiều dọc cho các ô không xuống dòng */
+    box-sizing: border-box;
+    padding: 2px 4px; /* Khoảng cách đệm cho đẹp mắt */
+}
+
+/* 5. Cấu hình chữ tiêu đề tự do xuống dòng */
+.PHIEU_CONTENTS .tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-col-title {
+    white-space: normal !important;
+    text-overflow: clip !important;
+    overflow: visible !important;
+    width: 100%;
+   
+}
+
+
+.PHIEU_BOT {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    height:fit-content;
+    
+}
+#YCMH_note {
+    box-sizing: border-box;
+   
+}
+/*  */
+.PHIEU_BOT .Box_Input{
+    margin-top: 10px; 
+    width: 100%; 
+    resize: none; 
+    min-height: fit-content;
+    border: 1px solid rgba(77, 77, 77, 0.439);
+}
+
+
+
+
+/* KHUNG PHIEU_BOT
+⭕>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+
+/* ✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅ */
+
+/* KHUNG BENPHAI - SEACH
+⭕>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+.BENPHAI {
+    display: flex;
+}
+
+.BENPHAI_MID {
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    height: 100%;
+}
+
+/* ....................................... */
+.IP_SEARCH {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+/* INPUT SEARCH */
+#List_Search {
+    width: 100%;
+    padding: 2px 20px;
+}
+/* ICON SEARCH */
+.search-icon2 {
+    position: absolute;
+    color: #023115;
+    margin-left: 2px;
+    display: flex;
+    align-items: center;
+}
+/* ....................................... */
+#danhsachITEM  {
+    font-style: italic;
+    border: none;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.263);
+    padding-left: 10px;
+}
+
+
+/* TABULATOR danhsachITEM
+⭕>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+
+/* Căn giữa phần tử bên trong Header cell của cột YCMH-checkbox */
+.tabulator-header .tabulator-col.YCMH-checkbox .tabulator-col-content {
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+
+/* 1. Đưa tất cả các dòng về nền trắng */
+#danhsachITEM .tabulator-row.tabulator-row-even,
+#danhsachITEM .tabulator-row.tabulator-row-odd {
+    background-color: #ffffff !important;
+    border-bottom: solid 1px rgb(244, 244, 244);
+}
+
+/*✅ 2. KHI CLICK CHỌN */
+#danhsachITEM .tabulator-row.tabulator-selected .tabulator-cell,
+#danhsachITEM .tabulator-row.tabulator-row-even.tabulator-selected .tabulator-cell,
+#danhsachITEM .tabulator-row.tabulator-row-odd.tabulator-selected .tabulator-cell {
+    box-sizing: border-box;
+    color: #ffffff !important;
+    background-color: #18392b !important; 
+    transition: background-color 0.5s ease;
+}
+
+/*✅ 2. KHI CLICK CHỌN (Bản rút gọn) */
+#danhsachITEM .tabulator-row.tabulator-selected .tabulator-cell {
+    box-sizing: border-box;
+    font-size: 500;
+    font-style: normal;
+    color: #ffffff !important;
+    background-color: #18392b !important; 
+    border-radius: 3px;
+    transition: background-color 0.5s ease;
+    border-right: none;
+}
+
+/*✅ 3. KHI HOVER (DI CHUỘT):(Trừ dòng đã chọn) */
+#danhsachITEM .tabulator-row:not(.tabulator-selected):hover {
+    border-radius: 3px;
+    font-style: normal;
+    font-weight: 700;
+    background-color: #abd4db !important;
+    transition: all 0.1s ease;
+
+}
+
+/* Xóa nền xám của bảng danh sách vật phẩm */
+#danhsachITEM {
+    background-color: #ffffff !important; /* Hoặc 'transparent' nếu muốn trong suốt */
+}
+
+#danhsachITEM .tabulator, 
+#danhsachITEM .tabulator-tableholder {
+    background-color: #ffffff !important; 
+    border: none !important; /* Nếu muốn ẩn luôn đường viền xám xung quanh bảng */
+}
+
+/* BODER CELLS */
+#danhsachITEM .tabulator-row .tabulator-cell {
+    border-right: none;
+}
+
+
+
+/* LIST KHI NHẬP LIỆU ĐƠN VỊ
+⭕>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+/* Hạ cỡ chữ của toàn bộ danh sách dropdown xổ xuống */
+.tabulator-edit-list {
+    font-size: 11px !important; /* Mặc định thường là 14px, bạn có thể chỉnh 11px hoặc 12px cho vừa mắt */
+    border: none !important;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.597);
+    max-height: 300px;
+}
+
+/* Hạ cỡ chữ của từng mục (item) bên trong danh sách */
+.tabulator-edit-list .tabulator-edit-list-item {
+    padding: 4px 8px !important; /* Tiện tay thu nhỏ khoảng cách padding để danh sách gọn gàng hơn, đỡ tốn diện tích cuộn */
+    line-height: 1.4 !important;
+}
+
+/* Tùy chỉnh cỡ chữ của dòng thông báo "Không tìm thấy kết quả" (Nếu có) */
+.tabulator-edit-list .tabulator-edit-list-empty {
+    font-size: 11px !important;
+    color: #790606 !important;
+    font-style: italic;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ATTACH FILE
+⭕>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+/* Container chứa các file đính kèm nằm ngang */
+.outlook-attachment-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    align-items: center;
+}
+
+/* Card mô phỏng Outlook 2019 Attachment */
+.outlook-att-card {
+    display: flex;
+    align-items: center;
+    background-color: #f3f2f1;
+    border: 1px solid #8a8a8a; /* Viền xanh nhẹ đặc trưng Outlook */
+    padding: 3px 6px;
+    border-radius: 2px;
+    font-size: 12px;
+    max-width: 250px;
+    position: relative;
+    user-select: none;
+}
+
+.outlook-att-card:hover {
+    background-color: #ffffff;
+    border: 1px solid #0078d4;
+}
+
+/* Icon định dạng tệp */
+.outlook-att-icon {
+    font-weight: bold;
+    margin-right: 8px;
+    font-size: 14px;
+}
+.outlook-att-icon.pdf { color: #a80000; }  /* Màu đỏ PDF */
+.outlook-att-icon.excel { color: #107c41; } /* Màu xanh lá Excel */
+
+/* Chi tiết thông tin tệp */
+.outlook-att-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding-right: 25px;
+}
+
+.outlook-att-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+    color: #323130;
+}
+
+.outlook-att-size {
+    font-size: 10px;
+    color: #605e5c;
+}
+
+/* Nút xóa tệp (X) */
+.outlook-att-remove {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #a19f9d;
+    font-weight: bold;
+    padding: 2px 6px;
+    margin-left: 10px;
+}
+
+.outlook-att-remove:hover {
+    color: #a80000;
+    background-color: #c8c8c8;
+    border-radius: 2px;
+}
+.outlook-att-icon svg {
+    width: 24px;   /* Kích thước tiêu chuẩn của icon đính kèm trong Outlook */
+    height: 24px;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+/* MESSENGER
+⭕>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+
+
+#CONTAINER_TOTAL,
+#CONTAINER_DETAIL {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Tùy chỉnh lớp hiển thị (Z-Index) khi cần chuyển đổi qua lại */
+#CONTAINER_TOTAL {
+    z-index: 5; /* Thẻ ở trên */
+    background-color: #f8f9fa;
+}
+
+#CONTAINER_DETAIL {
+    z-index: 2; /* Thẻ ở trên cùng (che CONTAINER_TOTAL) */
+    background-color: #ffffff;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+}
+#TOTAL_FRAME {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+
+
+
+
+
+/* 
+PHIẾU DETAIL
+*/
+html body{
+    font-family: var(--font-main);
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: auto;
+    box-sizing: border-box;
+}
+
+
+
+/* 🔴 */
+#duyetYCMH_WRAP{
+    display: flex;
+    flex-direction: column;
+
+    margin: auto;
+
+    width: 100%;
+    height: 100%;
+    min-width: 780px;
+    
+    
+    box-sizing: border-box;
+    background-color: rgb(255, 255, 255);
+}
+
+
+
+
+
+/* 🔴 =========================================================== thang ngang bên trên*/
+#HEADER {
+    display: flex;
+    width: 100%;
+    height: max-content;
+    max-height: 35px;
+    margin: 0;
+    padding: 5px 10px;
+    background-color: rgb(12, 40, 24);
+    box-sizing: border-box;
+}
+
+.HEADER-M {
+    display: flex;
+    justify-content: space-between;
+    max-width:1280px;
+    min-width: 860px;
+    width: 100%;
+    height: max-content;
+    max-height: 35px;
+    margin: 0;
+    padding: 5px 10px;
+    background-color: rgb(12, 40, 24);
+    box-sizing: border-box;
+    margin: 0;
+}
+
+    /*🟢 */
+    .duyetHD-LR{
+        display: flex;
+        align-items: center;
+       
+        
+    }
+
+
+
+/* 🔴 ===========================================================  Nội dung cừa sỏ LOGIN*/
+#CONTENTS {
+     display: flex;
+     flex-direction: column;
+     width: 100%;
+     height: 100%;
+     border: 1px solid white;
+     box-sizing: border-box;
+}
+
+    .contentLogin {
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        align-items: center;
+    }
+
+        #CONTENTS #APPLOGIN {
+            display: none;
+            box-sizing: border-box;
+        }
+
+    
+
+        #CONTENTS #LoginFrame {
+            background-color: rgb(255, 255, 255);
+            margin: 0;
+        }
+
+        #CONTENTS #LoginFrame input {
+            margin-bottom: 5px;
+        }
+
+        #CONTENTS #LoginFrame h4 {
+            margin: 10px 0px;
+        }
+
+        
+        #CONTENTS #LoginFrame button {
+            width: 95%;
+            background-color: rgb(12, 40, 24);
+            color: rgb(211, 238, 35);
+        }
+
+
+
+
+/* 🔴 =========================================================== Nội dung chính*/
+.phieu-frame{
+    display: flex;
+    width: 860px ;
+    min-width: 780px;
+    height: 100%;
+    margin: auto;
+    margin-top: 0;
+    box-sizing: border-box;
+    
+
+}
+
+#YCMH_FRAME {
+    display: flex;
+    flex-direction: column;
+    max-width: 1280px;
+    min-width: 780px;
+    width: 99%;
+    height: 100%;
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    padding: 10px 10px 20px 10px;
+   
+    box-shadow: 0px 0px 5px rgba(150, 150, 150, 0.39);
+    border-radius: 4px;
+    box-sizing: border-box;
+
+    
+    min-height: 297mm;
+    
+    
+}
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+.muahang_TOP{
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.muahang_tieude{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.muahang_tieude_canh{
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    flex: 1;
+}
+    .logo{
+        justify-content: top;
+    }
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+.muahang_tieude_mid{
+    display: flex;
+    justify-content: top;
+    align-items: center;
+    flex-direction: column;
+    flex: 3;
+    padding-right: 30px;
+}
+    .ikka1{margin-top: 0;}
+    .ikka{ margin: 2px;}
+    .ikka2 , 
+    .ikka4 {
+        margin-top: 0px;
+        font-weight: 500;
+        color: rgb(12, 85, 83);
+    }
+
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+.muahang_TOP .muahang_tieude_canh p {
+    margin: 0;
+}
+    .SophieuLabel{font-size: 13px !important;font-weight: 700;}
+    .SophieuNum{color: blue; padding-top: 5px !important;}
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+.muahang_tieude_BOT{padding-right: 20px;color: rgb(227, 75, 75)}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ INFO*/ 
+.muahang_INFO table{
+    margin:auto;
+    margin-top: 10px;
+    
+}
+
+.nguoikhoitaolbl {color:blue !important}
+
+.muahang_INFO table td {
+    min-width: max-content;
+    font-size: 11px ;
+    font-weight: 500;
+    padding: 4px 8px; /* Thêm chút padding cho các ô thoáng dễ nhìn */
+    /* font-family: 'Segoe UI', Arial, sans-serif; */
+    color: rgb(55, 55, 54);
+}
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ APP*/ 
+.appForm td {padding: 4px 5px; font-size: 11px; font-weight: bold; border: 1px solid #c2c0c0; line-height: 1.2; font-family: Arial, sans-serif;}
+.appcol {text-align: center;}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ATTFILE*/ 
+#ATTFILE_DETAIL{
+    display: flex;
+    flex-direction: row;    
+    gap: 5px;
+    margin-bottom: 15px;
+}
+.att_file_item {
+    margin: 0;
+    max-width: fit-content;
+    
+}
+.att_file_info{
+    min-width: max-content;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ NGƯỜI DUYỆT*/ 
+.NGUOIDUYET {
+    display: flex;
+    flex-direction: row;
+    margin-top: 35px;
+    width: 100%;
+    padding-top: 15px;
+    border-top: 1px solid rgb(213, 213, 213);
+}
+.nguoiduyet_button {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex: 1;
+    padding: 5px;
+ 
+}
+
+
+
+
+.nguoiduyet_note {
+    flex: 3;
+    padding: 5px 0px 15px 5px;
+}
+.Box_Input::placeholder{
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 11px;
+}
+
+.Box_Input{
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    font-size: 11px;
+}
+.Box_Input :hover{
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 11px;
+}
+
+
+.nguoiduyet_note textarea:focus,
+.nguoiduyet_note textarea:active {
+    outline: none !important;
+    border: 1px solid rgb(88, 130, 235);
+}
+
+/* =========================================================================
+   ⚪TRẠNG THÁI KHÓA GIAO DIỆN CHUNG (.is-locked)
+   ========================================================================= */
+
+.NGUOIDUYET.is-locked {
+    pointer-events: none; /* Khóa toàn bộ sự kiện Click, Focus, Hover */
+    user-select: none;    /* Mất khả năng bôi đen text */
+    opacity: 0.7;         /* Làm mờ nhẹ */
+    position: relative;
+}
+
+/* Đổi giao diện Nút bấm sang dạng Khóa */
+.NGUOIDUYET.is-locked .btn {
+    background-color: #e0e0e0 !important;
+    color: #8c8c8c !important;
+    border-color: #d9d9d9 !important;
+    cursor: not-allowed !important;
+    box-shadow: none !important;
+}
+
+/* Đổi giao diện Textarea sang Read-Only */
+.NGUOIDUYET.is-locked .nguoiduyet_note textarea {
+    background-color: #f5f5f5 !important;
+    color: #595959 !important;
+    border-color: #d9d9d9 !important;
+    cursor: not-allowed !important;
+    resize: none !important;
+}
+
+/* 🌟 DÙNG ATTR() ĐỂ LẤY NỘI DUNG TỪ DATA-STATUS-TEXT TRÊN THẺ HTML */
+.NGUOIDUYET.is-locked::after {
+    content: attr(data-status-text); /* Lấy chữ động từ HTML */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-4deg);
+    padding: 8px 18px;
+    font-weight: bold;
+    font-size: 13px;
+    
+    letter-spacing: 0.5px;
+    pointer-events: none;
+    white-space: nowrap;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+}
+
+/* 🎨 ĐỔI MÀU KHUNG BÁO TƯƠNG ỨNG THEO CÁC TRẠNG THÁI */
+
+.NGUOIDUYET.is-locked[data-status="ApprovedALL"]::after {
+    background-color: rgba(255, 255, 255, 0.12);
+    color: #160efd;
+    border: 1px dashed #0f17f3;
+}
+
+.NGUOIDUYET.is-locked[data-status="Created"]::after {
+    background-color: rgba(33, 150, 243, 0.12);
+    color: #1565c0;
+    border: 1px dashed #1565c0;
+}
+
+.NGUOIDUYET.is-locked[data-status="Approved"]::after {
+    background-color: rgba(76, 175, 80, 0.12);
+    color: #2e7d32;
+    border: 1px dashed #2e7d32;
+}
+
+.NGUOIDUYET.is-locked[data-status="Processing"]::after {
+    background-color: rgba(255, 152, 0, 0.12);
+    color: #ef6c00;
+    border: 1px dashed #ef6c00;
+}
+
+.NGUOIDUYET.is-locked[data-status="Waiting"]::after {
+    background-color: rgba(156, 39, 176, 0.12);
+    color: #7b1fa2;
+    border: 1px dashed #7b1fa2;
+}
+
+.NGUOIDUYET.is-locked[data-status="rejected"]::after {
+    background-color: rgba(244, 67, 54, 0.12);
+    color: #c62828;
+    border: 1px dashed #c62828;
+}
+
+
+/* =========================================================================
+   ⚪TRẠNG THÁI KHÓA GIAO DIỆN CHUNG (.is-locked)
+   ========================================================================= */
+
+/* 1. Giữ khung gốc làm điểm chuẩn để căn giữa */
+.BOXMSG_TemApproved,
+.BOXMSG_MaskApproved,
+.BOXMSG_TemRejected,
+.BOXMSG_MaskRejected {
+    position: relative; /* Cực kỳ quan trọng: để con dấu căn theo khung này */
+}
+/* 2. Tạo tem/con dấu dán ở chính giữa */
+
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ APPROVAL */ 
+/*  */
+.BOXMSG_TemApproved::after {
+    content: attr(data-status-text); /* Lấy chữ từ attribute JS bạn đã gán */
+    position: absolute;
+    top: 80%;
+    left: 30%;
+    transform: translate(-50%, -50%) rotate(-5deg); /* Căn giữa + xoay nhẹ 5 độ */ 
+    /* Kiểu dáng Tem / Con dấu */
+    color: #2e7d32;
+    font-weight: 900;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap; /* Không cho chữ xuống dòng */
+    
+    /* Khung viền con dấu */
+    border: 1px dashed #2e7d32; /* Dùng nét đứt (dashed) hoặc liền (solid) tùy bạn */
+    border-radius: 3px;
+    padding: 6px 16px;
+    background-color: rgba(255, 255, 255, 0.9); /* Nền trắng đục để che bớt phần nội dung dưới con dấu */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    
+    /* Đảm bảo tem nằm đè lên trên cùng */
+    z-index: 10;
+    pointer-events: none; /* Tránh cản trở click vào các nút bên dưới (nếu có) */
+}
+/* +++ */
+.BOXMSG_MaskApproved::after {
+    position: absolute;
+    content: attr(data-status-text); 
+    /* Dùng Flexbox để căn chữ nằm ở giữa chiều cao đó và xoay dọc 90 độ */
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    transform: rotate(45deg);
+    transform-origin: center;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    color: #2e7d323d;
+    font-weight: 900;
+    font-size: 30px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    z-index: 10;
+    pointer-events: none; 
+    text-transform: uppercase;
+    padding-left: 0;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ APPROVAL END*/ 
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ REJECTED */ 
+
+.BOXMSG_TemRejected::after {
+    position: absolute;
+    content: attr(data-status-text); /* Lấy chữ từ attribute JS bạn đã gán */
+
+    top: 80%;
+    left: 30%;
+    transform: translate(-50%, -50%) rotate(-5deg); /* Căn giữa + xoay nhẹ 5 độ */ 
+    /* ------------------------------Kiểu dáng Tem / Con dấu */
+    color: #ff0000;
+    font-weight: 900;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    /* ------------------------------ */
+    white-space: nowrap; /* Không cho chữ xuống dòng */
+    
+    /* Khung viền con dấu */
+    border: 1px dashed #ff0000; /* Dùng nét đứt (dashed) hoặc liền (solid) tùy bạn */
+    border-radius: 3px;
+    padding: 6px 16px;
+    background-color: rgba(255, 255, 255, 0.9); /* Nền trắng đục để che bớt phần nội dung dưới con dấu */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    
+    /* Đảm bảo tem nằm đè lên trên cùng */
+    z-index: 10;
+    pointer-events: none; /* Tránh cản trở click vào các nút bên dưới (nếu có) */
+}
+
+.BOXMSG_MaskRejected::after {
+    position: absolute;
+    content: attr(data-status-text); 
+    /* Dùng Flexbox để căn chữ nằm ở giữa chiều cao đó và xoay dọc 90 độ */
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    transform: rotate(50deg);
+    transform-origin: center;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    color: #a355559b;
+    font-weight: 900;
+    font-size: 30px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    z-index: 10;
+    pointer-events: none; 
+    text-transform: uppercase;
+    padding-left: 0;
+    
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ REJECTED END*/ 
+
+
+
+
+
+
+
+
+
+
+
+
+/* @media screen and (max-width: 1366px) {
+    #duyetYCMH_WRAP{
+        max-width:1366px;
+    }
+
+
+} */
+
+@media screen and (max-width: 1280px) {
+    #duyetYCMH_WRAP{
+        max-width:1280px;
+        
+    }
+
+}
+
+/* THIẾT LẬP VÙNG IN
+🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟 */
+@media print {
+  /* 1. Định dạng khổ giấy A4 và lề máy in */
+  @page {
+    size: A4 portrait; /* In dọc (đổi thành 'landscape' nếu muốn in ngang) */
+    margin: 5mm;      /* Lề giấy */
+  }
+
+  /* 2. Ẩn tất cả nội dung trên trang web */
+  body * {
+    visibility: hidden;
+  }
+
+  /* 3. Định hình và hiển thị riêng class .phieu-frame */
+  #YCMH_FRAME, 
+  #YCMH_FRAME * {
+    visibility: visible;
+  }
+
+  #YCMH_FRAME {
+    position: absolute;
+    left: 0;
+    top: 0;
+    
+    /* Kích thước vừa khít khổ A4 đã trừ lề */
+    width: 200mm;          /* 210mm - 20mm (lề trái + phải) */
+    min-height: 297mm;     /* 297mm - 20mm (lề trên + dưới) */
+    border: none;
+    box-shadow: none;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 5mm;         /* Khoảng cách đệm bên trong phiếu */
+    
+    /* Chống tràn trang và ngắt trang thừa */
+    overflow: hidden;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+}
+
+

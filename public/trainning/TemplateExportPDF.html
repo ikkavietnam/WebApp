@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <title>Ikka Tecnology VietNam co.,ltd - Phiếu Yêu cầu mua hàng hóa, dịch vụ</title>
+    
+    <style>
+        /* 🟡📌 BỘ FONT CHO ROBOTO CONDENSED */
+        
+        /* FONT REGULAR */
+        @font-face {
+            font-family: "Roboto Condensed"; font-style: normal; font-weight: 400;
+            src: url("{{FONT_PATH}}/RobotoCondensed-Regular.ttf") format("truetype");
+        }
+        @font-face {
+            font-family: "Roboto Condensed"; font-style: normal; font-weight: 500;
+            src: url("{{FONT_PATH}}/RobotoCondensed-Medium.ttf") format("truetype");
+        }
+        @font-face {
+            font-family: "Roboto Condensed"; font-style: normal; font-weight: 700;
+            src: url("{{FONT_PATH}}/RobotoCondensed-Bold.ttf") format("truetype");
+        }
+        @font-face {
+            font-family: "Roboto Condensed"; font-style: normal; font-weight: 900;
+            src: url("{{FONT_PATH}}/RobotoCondensed-Black.ttf") format("truetype");
+        }
+        
+        /* FONT ITALIC */
+        @font-face {
+            font-family: "Roboto Condensed"; font-style: italic; font-weight: 400;
+            src: url("{{FONT_PATH}}/RobotoCondensed-Italic.ttf") format("truetype");
+        }
+        @font-face {
+            font-family: "Roboto Condensed"; font-style: italic; font-weight: 500;
+            src: url("{{FONT_PATH}}/RobotoCondensed-MediumItalic.ttf") format("truetype");
+        }
+        @font-face {
+            font-family: "Roboto Condensed"; font-style: italic; font-weight: 700;
+            src: url("{{FONT_PATH}}/RobotoCondensed-BoldItalic.ttf") format("truetype");
+        }
+        @font-face {
+            font-family: "Roboto Condensed"; font-style: italic; font-weight: 900;
+            src: url("{{FONT_PATH}}/RobotoCondensed-ExtraBoldItalic.ttf") format("truetype");
+        }
+        /* SEGOE UI */
+        @font-face {
+            font-family: "Segoe UI"; font-style: normal; font-weight: 400;
+            src: url("{{FONT_PATH}}/SegoeUI.ttf") format("truetype");
+        }
+        @font-face {
+            font-family: "Segoe UI"; font-style: normal; font-weight: 700;
+            src: url("{{FONT_PATH}}/SegoeUI-Bold.ttf") format("truetype");
+        }
+
+        /*🟡 SETUP PAGE [ONLY APPLY FOR PRINT] */
+            /* Pages */
+            @page {
+                size: A4 portrait;
+                margin: 10mm 5mm 10mm 5mm;
+            }
+           
+            /* In chính xác màu nền của pages */
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                box-sizing: border-box;
+            }
+
+        /*🟡 COMPONENTS */
+            body {
+                font-family: "Roboto Condensed", "DejaVu Sans", sans-serif;
+                font-size: 10pt;
+                color: #000000;
+
+            
+                padding: 10px;
+                
+                line-height: 1.2;
+                width: 200mm;
+                max-width: 200mm;
+                
+                margin: auto;
+                background-color: #ffffff !important;
+            
+                box-sizing: border-box;
+            }
+
+        table { 
+            border-collapse: collapse; 
+            table-layout: fixed;
+            border-spacing: 0; 
+            width: 100%; 
+            
+        }
+
+
+
+        thead   { display: table-header-group; }
+            tr  { page-break-inside: avoid; }
+
+        .descrip { font-style: italic; font-size: 10px; color: #484848; }
+
+        h5 { font-size: 11px; font-weight: bold; margin: 12px 0 4px 0; color: #222; text-transform: uppercase; }
+
+
+        /* 🔴 HEADER */    
+        #HEADER {
+            display: none;
+            width: 100%;
+            height: max-content;
+            max-height: 30px;
+            padding: 5px 10px;
+            background-color: rgb(12, 40, 24) !important;
+            box-sizing: border-box;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .HEADER-colunm1,
+        .HEADER-colunm2,
+        .HEADER-colunm3 {
+            flex: 1;
+            display: flex;
+            
+        }
+
+        .btn_BACK {
+            height: 100%;
+            padding: 0px 10px;
+            box-shadow: 0px 0px 0px 0.5px white;
+        }
+        .btn_BACK:hover {
+            box-shadow: 0px 0px 0px 1px rgb(255, 255, 255);
+            transition: all 0.3s ease-in-out;
+            
+        }
+
+        .btn_BACK a {
+            font-size: 11px;
+            font-weight: 500;
+            color: whitesmoke !important;
+            text-decoration: none;
+        }
+        .btn_BACK a:hover{font-weight: 700;}
+
+
+
+
+
+
+
+
+
+        /* 🟢 TABLE INFO */
+            .table_info { width: 100%; margin-bottom: 5px; }
+            .table_info td { vertical-align: top; padding: 0; }
+
+            .col-left { width: 20%; }
+                .LogoITV { width: 60px; height: auto; object-fit: contain; }
+                
+            .col-mid { width: 60%; text-align: center; }
+                .ikka  { margin: 0; padding: 0; }
+                .ikka1 { font-size: 15px; font-weight: 700; }
+                .ikka2 { font-size: 10px; font-weight: 500; }
+                .ikka3 { font-size: 13px; font-weight: 700; margin-top: 4px; }
+                .ikka4 { font-size: 9px; font-weight: 400; font-style: italic; }
+
+                .top_info_M_table       { font-size: 10px; width: auto; margin: 8px auto 0 auto; }
+                .top_info_M_table td    { padding: 2px 4px; text-align: left; font-weight: 500; border: none; }
+
+                    .creator { font-weight: 500; }
+            /* RIGHT */
+            .col-right { width: 20%; text-align: center; vertical-align: middle !important;}
+                .SophieuLabel { font-size: 10px; font-weight: bold; margin: 0; text-align: center; }
+                .SophieuNum { font-size: 14px; font-weight: 900; margin-top: 2px;text-align: center; }
+
+        /* 🟢 DIV FormISO */
+            .FormISO { text-align: right; font-size: 9.5px; font-weight: 500; margin-bottom: 10px; } 
+
+        /* 🟢 TABLE table_detail_header */
+            .table_detail_header { width: 100%; border-collapse: collapse; margin-bottom: 10px; table-layout: fixed !important;}
+            
+            .table_detail_header th, 
+            .table_detail_header td { border: 0.5px solid #929292; padding: 2px 1px 2px 5px;  /* overflow: hidden; */}
+            
+            .table_detail_header th { font-size: 11px; background-color: #e7e7e7 !important; font-weight: 700; padding: 2px 1px 2px 1px;}
+            .table_detail_header td { font-size: 11px; font-family:'Segoe UI', 'Roboto Condensed', 'DejaVu Sans', sans-serif; word-wrap: break-word;}
+
+
+
+        /* 🟢 TABLE ATT_FILE */    
+            .att_file_item{
+                margin: 0;
+                max-width: fit-content;
+            }
+
+            .att_file_info{min-width: max-content; }
+
+        /* 🟢 TABLE app-table */
+            .app-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; table-layout: fixed; margin-top: 5px;  }
+            .app-table th, 
+            .app-table td { border: 0.5px solid #c2c0c0; padding: 1px 5px; vertical-align: middle; word-wrap: break-word;}
+
+            .app-table th { font-size: 11px; background-color: #e7e7e7 !important; font-weight: bold; text-align: center; padding: 2px 0px;}
+            .app-table td { font-size: 11px; font-family:'Segoe UI', 'Roboto Condensed', 'DejaVu Sans', sans-serif; word-wrap: break-word;}
+        
+        
+        /* 🟢 APPROVAL_FORM */
+        #AppForm {
+            display: flex;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 25px;
+            gap: 5px;
+
+        }  
+        .appform.IsLocked{
+            pointer-events: none;
+            user-select: none;
+            opacity: 0.7;
+            position: relative;
+        }
+        .app_button {
+           display: flex; 
+           flex-direction: column;
+         
+        } 
+            .Atcbtn{
+                height: 22px;
+                font-family: "Roboto Condensed", "DejaVu Sans", sans-serif;
+                font-size: 11px;
+                font-weight: 700;
+                color: blue;
+                padding: 0px 10px;
+                box-shadow: 0px 0px 0px 0.5px white;
+                border: 1px solid rgb(145, 145, 145);
+                box-shadow: 0px 0px 3px  rgb(145, 145, 145);
+                
+                
+            }
+
+            .Atcbtn:hover{
+                border: 1px solid rgb(255, 255, 255);
+                box-shadow: 0px 0px 3px 1px rgb(3, 75, 245);  
+                transition: all 0.3s ease-in-out;
+            }
+        .app_note {
+            width: 100%;
+            flex: 1;
+        }
+
+        textarea {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 11px;
+            width: 100%;
+            outline: none;
+            padding: 3px 10px;
+        }
+        textarea::placeholder {
+            font-size: 10px;
+        }
+        textarea:focus-visible {
+            outline: none !important;
+        }
+
+    </style>
+
+    
+
+</head>
+<body>
+    <table class="table_form_header">
+        <thead></thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div id="HEADER"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <table class="table_info">
+        <tr>
+            <td class="col-left">
+                <img class="LogoITV" src="{{LOGO_SRC}}" alt="Logo">
+                <!-- <img class="LogoITV" src="../../../../assets/img/ITV128x128.png" alt="Logo">  -->
+            </td>
+
+            <td class="col-mid">
+                <h3 class="ikka ikka1">CÔNG TY TNHH CÔNG NGHỆ IKKA (VIỆT NAM)</h3>
+                <h5 class="ikka ikka2">KCN TÂN TRƯỜNG, XÃ MAO ĐIỀN, TP HẢI PHÒNG</h5>
+                <h4 class="ikka ikka3">PHIẾU ĐỀ NGHỊ MUA HÀNG HÓA & DỊCH VỤ</h4>
+                <h5 class="ikka ikka4">REQUEST PURCHASE ORDER GOODS & SERVICES</h5>
+
+                <table class="top_info_M_table">
+                    <tr>
+                        <td>NGÀY TẠO PHIẾU / <span class="descrip">Date</span></td>
+                        <td class="creator">{{NGAY_TAO}}</td>
+                    </tr>
+                    <tr>
+                        <td>NGƯỜI LÀM PHIẾU / <span class="descrip">Created by</span></td>
+                        <td class="creator">{{NGUOI_TAO}}</td>
+                    </tr>
+                    <tr>
+                        <td>MÃ NHÂN VIÊN / <span class="descrip">Member code</span></td>
+                        <td class="creator">{{MA_NV}}</td>
+                    </tr>
+                    <tr>
+                        <td>BỘ PHẬN / <span class="descrip">Department</span></td>
+                        <td class="creator">{{BO_PHAN}}</td>
+                    </tr>
+                    <tr>
+                        <td>ĐIỂM GIAO HÀNG / <span class="descrip">Delivery</span></td>
+                        <td class="creator">{{DELIVERY}}</td>
+                    </tr>
+                </table>
+            </td>
+
+            <td class="col-right">
+                <p class="SophieuLabel">SỐ PHIẾU / REQUEST NO</p>
+                <div class="SophieuNum">{{SO_PHIEU}}</div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="FormISO">
+        <span class="descrip">ICS-ST-002/F-001(REV04-05.25)</span>
+    </div>
+
+    <!-- Bảng sản phẩm -->
+    <table class="table_detail_header" style="width: 100%; table-layout: fixed;">
+        <thead>
+            <tr>
+                <th style="width: 3%;">     NO</th>
+                <th style="width: 30%;">    TÊN HÀNG HÓA DỊCH VỤ</th>
+                <th style="width: 8%;">     SỐ LƯỢNG</th>
+                <th style="width: 7%;">     ĐƠN VỊ</th>
+                <th style="width: 25%;">    MÔ TẢ</th>
+                <th>                        MỤC ĐÍCH</th>
+                <th style="width: 10%;">    DỰ KIẾN</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{TABLE_DETAIL_ROWS}}
+        </tbody>
+    </table>
+
+    <h5>GHI CHÚ</h5>
+    <div class="descrip" style="margin-bottom: 8px;">{{GHI_CHU}}</div>
+
+    <h5>TÀI LIỆU ĐÍNH KÈM</h5>
+    <table style="width: 100%; border-collapse: collapse; border: none;">
+         <tr>
+            <td style="padding: 3px 0; border: none;">
+                <table style="width: auto; border-collapse: collapse; border: none; margin: 0;">
+                    {{ATT_FILE}}            
+                </table>
+            </td>   
+        </tr>
+    </table>
+
+    <h5>THÔNG TIN QUY TRÌNH KÝ DUYỆT <span class="descrip">(Processing info)</span></h5>
+    <table class="app-table">
+        <thead>
+            <tr>
+                <th style="width: 3%;"  >NO</th>
+                <th style="width: 20%;" >NGƯỜI DUYỆT</th>
+                <th style="width: 6%;"  >MÃ NV</th>
+                <th style="width: 15%;">CHỨC VỤ</th>
+                <th style="width: 8%;">KIỂU DUYỆT</th>
+                <th style="width: 12%;">TRẠNG THÁI</th>
+                <th style="width: 15%;">THỜI GIAN DUYỆT</th>
+                <th style="width: auto;">GHI CHÚ</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{APPROVAL_ROWS}}
+        </tbody>
+    </table>
+    <!-- Action -->
+    <h5 id="Action_title_h5"><span id="Action_title_span" class="descrip"></span></h5>
+    <table class="app-table">
+        <thead>
+        </thead>
+        <tbody>
+            <tr>
+                <div id="AppForm" class="appform">
+                    
+                    <div class="app_button">
+                        <button class="Atcbtn" id="BTN_dongy" style="margin-top: 0px;" > Duyệt phiếu này/ Approve </button>
+                        <button class="Atcbtn" id="BTN_huy" style="margin-top: 8px; color: rgb(233, 99, 99)" > Hủy phiếu / Cancel </button>
+                    </div>
+
+                    <div id="App_comment" class="app_note">
+                        <textarea id="TextComment" spellcheck="false" rows="3" placeholder="Nhập ghi chú ở đây! (input comment here!) :..."></textarea>
+                    </div>
+
+                </div>    
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

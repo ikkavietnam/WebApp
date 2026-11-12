@@ -1,0 +1,163 @@
+
+
+#APPLOGIN {
+    display: flex;
+    justify-content: center;  /* ngang */
+    /* align-items: center; */      /* dọc */
+    padding: 10px;
+    width: 100%;
+    
+}
+
+
+#LoginFrame{
+    height: fit-content;
+    min-height: 250px;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.226);
+    
+    
+
+}
+
+#LoginFrame h5,
+#LoginFrame h4 {
+    display: flex;
+    justify-content: center;  /* ngang */
+    text-align: center;
+    color: #0a3015;
+    border-bottom: 1px solid #0a401a;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+#LoginFrame h2 {
+    color: #07220f;
+    margin-top: 0px;   
+    margin-bottom: 10px; 
+}
+
+#username, #password {
+    width: 90%;
+    font-size: 12px;
+    padding: 2px 5px;
+    border: none;
+    border-radius: 3px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+
+/* 
+#APPLOGIN input:focus {
+  outline: none;
+  color: #0066ff;
+  box-shadow: 0 0 5px rgb(17, 88, 55);
+}
+
+#LoginFrame input::placeholder {
+                font-size: 11px;
+                font-style: italic;
+                color: #787a7cb2;
+            
+                
+            } */
+
+
+#btnLogin {
+    font-size: 11px;
+    color: #0b2512;
+    width: 80px;
+    height: 22px;
+    border: none;  
+    border-radius: 2px;
+    background-color: #ffffff;
+    text-shadow: 0 0 1px rgb(0, 0, 0);
+    box-shadow: 0 0 5px rgba(17, 88, 55, 0.407);
+}
+    /* ------------------------------------------ */
+    #btnLogin:hover {
+        cursor: pointer;
+        color: #ffffff;
+        background-color: #07220f;
+        box-shadow: 0 0 5px rgba(2, 14, 7, 0.952);
+        transition: all 0.2s ease;
+        transform: scale(1.1);
+        box-sizing: border-box;
+    } 
+
+#btnLogOut {
+    font-size: 11px;
+    color: #0b2512;
+    width: 75px;height: 18px;
+    border: none;  
+    border-radius: 2px;
+    background-color: #ffffff;
+    text-shadow: 0 0 1px rgb(0, 0, 0);
+    box-shadow: 0 0 5px rgb(17, 88, 55);
+}
+    /* ------------------------------------------ */
+    #btnLogOut:hover {
+        cursor: pointer;
+        color: #ffffff;
+        background-color: #07220f;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.952);
+        transition: all 0.2s ease;
+        transform: scale(1.1);
+    } 
+
+#msg {
+    margin-top: 10px;
+    color: rgb(194, 4, 4);
+    font-size:11px;
+
+}
+
+#LoginNote {
+    font-size: 11px;
+    margin-top: 10px;
+    text-align: center;
+
+    font-style: italic;
+    color: rgb(7, 121, 251);
+}
+/* HIỆU ỨNG CHO MSG */
+/* Màu chữ đỏ mặc định cho thông báo lỗi */
+#msg {
+    color: #dc3545;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+/* Định nghĩa hiệu ứng rung lắc */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3000px); }
+    75% { transform: translateX(3px); }
+}
+
+/* Class này sẽ được thêm vào bằng JS để kích hoạt hiệu ứng */
+.error-shake {
+    animation: shake 0.2s ease-in-out 0s 1; /* Rung 2 lần liên tiếp */
+}
+
+
+/* Hiệu ứng "Mờ dần và Lớn dần" (Fade-in Zoom) */
+@keyframes fadeInZoom {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.error-fade-zoom {
+    animation: fadeInZoom 0.4s ease-out;
+}

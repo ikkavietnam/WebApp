@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Approval request order</title>
+    <style>
+
+        /* ALL 🌟
+        🟢 ******************************************************* */    
+        * { box-sizing: border-box; }
+        
+        body { /* 🌟🌟🌟 */
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            color: #000000; 
+   
+  
+        }
+      
+        /* Chuyển class email-container sang style inline trực tiếp trong table để đảm bảo chiều rộng */
+        .email-container { /* 🌟🌟🌟 */
+            width: 800px; 
+            margin: 0px auto; 
+            border-radius: 8px; 
+            overflow: hidden; 
+            box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.998); 
+            border-collapse: collapse; 
+            overflow: hidden;
+        }
+
+        
+        p {
+            padding: 5px 0; 
+            font-size: 13px; 
+            color: #272727; 
+            margin: 0;
+        }
+
+        /* HEADER 
+        🟢 ******************************************************* */      
+        .header { 
+
+            overflow: hidden;
+            text-align: left; 
+            width: 100%;
+        }
+
+            .header td { 
+                margin: 0;
+                padding: 5px 10px;
+            }
+            .header h4 h5 { 
+                width: 100%;
+                margin: 0;
+                padding: 0 0 15px 0;
+            }
+    
+            .hdboot {
+                border-collapse: collapse; 
+                overflow: hidden;
+                margin: 0;
+                padding: 0;
+                font-weight: 900;
+            }
+
+                .hdboot td {
+                    margin: 0;
+                    padding: 0; 
+                }
+
+                .hdboot p {
+
+                    font-size: 10px;
+                }
+                
+        /* CONTENT
+        🟡 ******************************************************* */       
+        .content {
+            margin-top: 10px;
+            width: 100%;
+            line-height: 1.2;
+        }            
+
+        .content td p {
+            font-size: 11px;
+            font-weight: 500;
+        } 
+
+
+        /* FOOTER
+        🟡 ******************************************************* */   
+
+        .bangquytrinh .TitleSub,
+        .content td .TitleSub {
+            margin-top: 10px;
+            font-size: 11px; 
+            font-weight: bold; 
+            color: #000000; 
+            margin: 5px 0;
+            text-shadow: 0px 0px 0.75px #000000;
+        }
+        .content .TitleExt,
+        .bangquytrinh .TitleExt {
+            font-style: italic;
+            color: #114235; 
+            text-shadow: 0px 0px 0.5px #114235;
+        }
+        /*INFOMATION */
+        .info-box { 
+            padding: 10px 15px; 
+            margin-bottom: 20px; 
+            background-color: #fcfcfc; 
+        }
+        
+        /*NỘI DUNG CHI TIẾT */
+        .detail-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 15px; 
+            margin-bottom: 20px; 
+        }
+        .detail-table th { 
+            background-color: #dfdfdf; 
+            text-align: center; 
+            padding: 2px 5px !important; /* Ép buộc nhận padding 5px */
+            font-size: 11px; 
+            line-height: 1.2; 
+            max-height: fit-content;
+            margin: none;
+        }
+
+        .tableHeader {
+            margin: none !important;
+            padding: none !important;
+
+        }
+        .detail-table td { 
+            padding: 5px !important; /* Cố định padding 5px cho tất cả các ô dữ liệu */
+            font-size: 13px; 
+            line-height: 1.3; 
+        }
+     
+        /*THÔNG TIN KÝ DUYỆT --------------------- */
+        /* thead */
+            .bangquytrinh thead td {
+                text-align: left;
+                line-height: 1.2;
+                font-family: Arial, sans-serif;
+                font-size: 11px;
+                font-weight: bold;
+                padding: 2px 5px;
+            }
+        /* Body */    
+            .bangquytrinh tbody td {
+                
+                color: #5f5e5e;
+                text-align: left;
+                font-family: Arial, sans-serif;
+                font-size: 11px;
+                line-height: 1.2;
+                padding: 2px 5px;
+            }
+
+        /*THÔNG TIN KÝ DUYỆT --------------------- */
+        
+
+
+        /* FOOTER
+        🔴 */
+
+        .footer { 
+            background-color: #f1f1f1; 
+            padding: 15px; 
+            text-align: center; 
+            font-size: 11px; 
+            color: #666666; 
+        }
+        
+        
+
+        .btn-container { text-align: center; margin: 20px 0; padding: 10px; }
+        
+        /* Tối ưu hóa class button */
+        .btn-approve { 
+            display: inline-block;  
+            border: 1px solid #fdfdfd; 
+            border-radius: 4px; 
+            box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.998); 
+            font-size: 12px; 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            color: #ffffff !important; 
+            font-weight: bold;
+            text-decoration: none; 
+            padding: 10px 30px; /* Tăng padding trực tiếp tại đây */
+        }
+        .btn-approve:hover { background-color: #084f63; }
+    
+   
+    </style>
+
+</head>
+<body>
+    <table align="left" border="0" cellpadding="0" cellspacing="0" width="800" class="email-container">
+        <tr>
+            <td>
+
+                <!--🟢 HEADER --------------------------------------------------------------------------------------------------------------------- -->
+                <table border="0" cellpadding="5" cellspacing="0" width="100%" Class= "header">
+                    <tr>
+                        <td>
+                            <h5>CẬP NHẬT TIẾN ĐỘ PHÊ DUYỆT PHIẾU / UPDATE STATUS APPROVAL</h5>
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="hdboot">
+                                <tr>
+                                    <td style=" width: 100px;"><p> MÃ QUY TRÌNH /Process ID :</p></td>
+                                    <td><p><strong style="font-weight: bold;"># {{INSTANCE_ID}}</strong></p></td><!-- ⭕⭕⭕ {{INSTANCE_ID}} : Mã tiến trình -->
+                                </tr>
+
+                                <tr>
+                                    <td><p>MÃ PHIẾU /Document ID : </p></td>
+                                    <td><p><strong style="font-weight: bold; color: #ff4d4d; ">{{DOCUMENT_ID}}</strong></p></td> <!-- ⭕⭕⭕ {{DOCUMENT_ID}} : Mã Phiếu YCMH -->
+                                </tr>
+
+                                <tr>
+                                    <td><p>LOẠI PHIẾU /Document type : </p></td>
+                                    <td><p><strong style="font-weight: bold; color: #ff4d4d; ">{{DOCUMENT_TYPE}}</strong></p></td> <!-- ⭕⭕⭕ {{DOCUMENT_ID}} : Mã Phiếu YCMH -->
+                                </tr>
+
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                    
+                <!--🟢 PROCESS --------------------------------------------------------------------------------------------------------------------- -->
+                <table border="0" cellpadding="5" cellspacing="0" width="100%" Class= "bangquytrinh">
+                    <tr>
+                        <td>
+                            <p class="TitleSub">THÔNG TIN TIẾN ĐỘ KÝ DUYỆT /Approvals status<span class="TitleExt"> ( Processing info )</span></p>
+                           
+                            <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 100%; font-family: 'Segoe UI', Arial, sans-serif;">
+                                <thead>
+                                    <tr style="background-color: #dfdfdf;">
+                                        <!-- Form mẫu <td style="padding: 4px 5px; font-size: 11px; font-weight: bold; border: 1px solid #c2c0c0; line-height: 1.2; font-family: Arial, sans-serif;">No</td> -->
+                                        <td>No</td>
+                                        <td>Người duyệt / Approver name</td>
+                                        <td>Mã nhân viên / Code </td>
+                                        <td>Chức vụ / Possion</td>
+                                        <td>Loại duyệt / Approval type</td>
+                                        <td>Trạng thái / Status</td>
+                                        <td>Thời gian / Time</td>
+                                        <td>Note</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{UPDATE_LIST}} <!-- ⭕⭕⭕ BẢNG DỮ LIỆU Approval-->
+                                </tbody>
+                            </table>
+
+                        </td>
+                    </tr>
+                </table>
+                
+               
+
+
+                <p style="font-size: 11px; color: #020202; font-style: italic; margin: 15px 0 15px 0;">
+                    Để xem chi tiết vui lòng click vào đây
+                    <a href="{{CHITIET_URL}}" target="_blank">Click here</a> 
+                </p>
+                
+                <!--🟢 FOOTER --------------------------------------------------------------------------------------------------------------------- -->
+                <div class="footer">
+                    <strong>HỆ THỐNG ITV-Workflow 2026</strong><br>
+                    <p style="font-size: 11px; color: #666666; margin-top: 5px; line-height: 1.4;">
+                        Email này được gửi tự động từ hệ thống quản lý tiến trình công việc (Workflow) do bộ phận IT phát triển<br>
+                        Nếu có sai sót hoặc đóng góp ý kiến vui lòng liên hệ Mr-Thuy qua email: <a href="mailto:adm6@ikka-itv.com.vn" style="color: #143b2c; font-size: 11px; font-weight: bold;">adm6@ikka-itv.com.vn</a>
+                    </p>   
+                </div>
+                <!--🟢 END --------------------------------------------------------------------------------------------------------------------- -->
+            </td>
+        </tr>
+    </table>     
+</body>
+</html>
+
+
+

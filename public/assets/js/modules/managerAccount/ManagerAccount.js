@@ -1,0 +1,586 @@
+
+
+import { TableBase } from "../../core/tableERP/tableERPBase.js";
+import { attachERPBehavior } from "../../core/tableERP/tableERPBehavior.js";
+
+import {    GW_getListUsers,
+            GW_usersProfile,
+            GW_userNewProfile,
+            GW_SaveProfile,
+            GW_DeleteProfile,    
+   } from "../../getway.js";
+
+
+let table;
+
+/* 
+️☘️✅ DANH SÁCH NGƯỜI DÙNG
+````````````````````````````````````````````````````````````````````````````````` PHÂN LUỒNG */
+export async function ListAccountRender() { console.log("💛 ManagerAccount 🔈 ListAccountRender")
+
+    const app = document.getElementById("APP");
+// GET ARRAY........................................................
+    const initialData = Array.from({ length: 1 }, (_, i) => ({
+        id: i + 1,
+        UsID: null,
+   }));
+// HTML........................................................
+    app.innerHTML = `
+        <div id="KHUNG_ACCOUNT_LIST" style="padding: 0px 20px;">
+            <div> <h2> DANH SÁCH NGƯỜI DÙNG</h2> </div>
+            <div class="tbl1" id="tblListAccount" style="max-height: 500px; max-width: 1280px"></div>
+            <div style="margin-bottom: 10px;"> 
+                <button class="btn" id="btnUpdateSQL" style="margin-top: 15px;">💾 UPDATE</button>
+                <button class="btn" id="btnNewUse" style="margin-top: 15px; margin-left: 5px; color: #007bff;">REGISTRY</button>
+                <button class="btn" id="btnDelete" style="margin-top: 15px; margin-left: 5px; color: #dc3545;">Delete Account</button>
+            </div>
+            <div class="msg" id="msg_List"></div>
+        </div>    
+    `;
+// TABLE........................................................#007bff
+        table = new TableBase("#tblListAccount", {
+        data: initialData,
+        renderVertical: "virtual",    
+        columns: [
+            { formatter: "rowSelection", titleFormatter: "rowSelection", width: 40, headerSort: false },
+
+            { title: "ID",              field: "UsID",          formatter: "textarea",  editor: "erpAutoFit", width: 50, hozAlign: "center"  },
+            { title: "Tên đăng nhập",   field: "UsName",        formatter: "textarea",  editor: "erpAutoFit", width: 110, hozAlign: "left"    },
+            { title: "Mật khẩu",        field: "UsPwd",         formatter: "textarea",  editor: "erpAutoFit", width: 100, hozAlign: "left"    },
+            { title: "Mã NV",           field: "UsMemberCode",  formatter: "textarea",  editor: "erpAutoFit", width: 70 },
+            { title: "Tên hiển thị",    field: "UsDisplay",     formatter: "textarea",  editor: "erpAutoFit", width: 150 },
+            { title: "Bộ phận",         field: "DeptName",      formatter: "textarea",  editor: "erpAutoFit", width: 150 },
+            { title: "Chức vụ",         field: "PosName",       formatter: "textarea",  editor: "erpAutoFit", width: 130 },
+            { title: "Loại tk",         field: "UsType",        formatter: "textarea",  editor: "erpAutoFit", width: 65 },
+            { title: "Email",           field: "UsEmail",       formatter: "textarea",  editor: "erpAutoFit", width: 180 },
+            { title: "Phone",           field: "UsPhone",       formatter: "textarea",  editor: "erpAutoFit", width: 100 },
+            { title: "Tình trạng",      field: "IsActive",      formatter: "textarea",  editor: "erpAutoFit", width: 20, },
+            { title: "IsDelete",        field: "IsDelete",      formatter: "textarea",  editor: "erpAutoFit", width: 20, },
+        ],
+   });
+
+// CONNECT SQL GET DATA TABLE > LOAD TO TABLE
+    try {
+        const result = await GW_getListUsers(); //✅
+        console.log("Getway trả về",result)
+
+        if (Array.isArray(result)) {
+            table.table.setData(result);        //✅ lưu dữ liệu vào table
+       }else if (result && result.ok === false) {
+
+            console.error("Lỗi từ SQL Server:", result.msg);
+            //**************************************************   
+            Swal.fire({
+                title: 'Thông báo',
+                text: result.msg,
+                icon: 'error', // Các icon có sẵn: 'success', 'error', 'warning', 'info', 'question'
+                confirmButtonText: 'OK'
+           }).then((sweetResult) => {
+                if (sweetResult.isConfirmed) { 
+                    if (result.ErrCode && result.ErrCode === 401){
+                        localStorage.clear();
+                        sessionStorage.clear();
+                        window.location.href = '/#Home';
+                   }
+               }
+           });
+       }
+   } catch (error) {
+        console.error("Lỗi kết nối API:", error);
+        Swal.fire({
+                title: 'Thông báo',
+                text: "Lỗi kết nối API:",
+                icon: 'error', // Các icon có sẵn: 'success', 'error', 'warning', 'info', 'question'
+                confirmButtonText: 'OK'
+           })
+   }
+
+// HÀNH VI
+    attachERPBehavior(table);
+// GET FUNCTION CHO CÁC BTN
+    document.getElementById("btnUpdateSQL").onclick = async () => {//✅ UPDATE
+        SaveSelection();
+   };
+
+    document.getElementById("btnNewUse").onclick = async () => {//✅ CREATE
+       window.location.hash = "AddNewAccount";
+   };
+
+    document.getElementById("btnDelete").onclick = async () => {//✅ DELETE
+        DeleteSelection();
+   };
+
+}
+
+// ... (Các hàm AddNewAccountRender và handleCreateUser giữ nguyên)
+
+
+
+
+
+
+
+/* 
+️☘️✅ PHÂN QUYỀNAddNewAccountRender
+````````````````````````````````````````````````````````````````````````````````` PHÂN LUỒNG */
+//import {    GW_getListUsers,GW_usersProfile,   } from "../../getway.js";
+
+export async function AddNewAccountRender()   { console.log("💛 ManagerAccount 🔈 AddNewAccountRender")
+
+    const app = document.getElementById("APP");
+
+    const data = await GW_usersProfile();
+    const u = data.user;
+    
+    const mapNgdung = {
+        UsID: "ID",
+        UsName: "Tên đăng nhập *",
+        UsPwd: "Mật khẩu *",
+        UsMemberCode: "Mã nhân viên *",
+        UsDisplay: "Tên hiển thị",
+        UsPart: "Bộ phận *",
+        UsPartPos: "Chức vụ *",
+        UsType: "Loại người dùng *",
+        UsEmail: "Thư điện tử",
+        UsPhone: "Số điện thoại"
+   };
+
+    // 💬Danh sách các trường KHÔNG cho phép sửa (chỉ xem)
+        const readOnlyFields = ["UsID", "UsName", "UsPwd", "UsMemberCode", "UsType"];
+    // 💬Danh sách các trường ẨN
+        const hiddenFields = ["UsIsDelete", "UsID"]; //Cách 2.1
+
+    // 💬Tạo nội dung các hàng cho bảng bằng cách duyệt qua Object data.user
+    const tableRows = Object.entries(u).map(([key, value]) => {
+
+        //if (key === "UsIsDelete"|| key === "UsID") return "";     //Cách 1
+        if (hiddenFields.includes(key)) return "";              //Cách 2.2
+
+        const labelText = mapNgdung[key] || key;
+        const isReadOnly = readOnlyFields.includes(key) ? "readonly style='background:#eee'" : ""; 
+        return `
+            <tr>
+                <td><label>${labelText}</label></td>
+                <td>
+                    <input class="rowsTable" 
+                        id="${key}" 
+                        value="${''}"
+                    >
+                </td>
+            </tr>
+        `;
+
+   }).join("");
+
+       app.innerHTML = `
+        <div id="KHUNG_SALES_ORDER" style="padding: 15px;">
+            <div> <h2> CREATE NEW USER </h2> </div>
+            <table class="account-table">
+                ${tableRows}
+            </table>
+
+            <div style="margin-bottom: 10px;">
+                <button class="btn" id="btnCreateUser" style=" margin-top: 15px;"> CREATE </button>
+                <button class="btn" id="btnmanager" style=" margin-top: 15px; margin-left: 10px;"> Account manager </button>
+            </div>
+            <div class="msg" id="msg_CreateNew"></div>
+        </div>
+        `;
+
+        //💬 Đợi DOM render xong rồi mới gán sự kiện
+            document.addEventListener('click', async (e) => {
+            if (e.target && e.target.id === 'btnCreateUser') {
+            await handleCreateUser();
+           }
+           });
+
+             document.addEventListener('click', async (e) => {
+            if (e.target && e.target.id === 'btnmanager') {
+            window.location.hash = "#ListAccount";
+           }
+           });
+   }
+
+/* 
+️☘️✅ THÊM NGƯỜI DÙNG CLICK BTN CREATE
+````````````````````````````````````````````````````````````````````````````````` PHÂN LUỒNG */
+async function handleCreateUser() { console.log("💛 ManagerAccount 🔈 handleCreateUser")
+
+    const newUser = {};
+    const mapNgdung = {
+        UsID: "ID",
+        UsName: "Tên đăng nhập",
+        UsPwd: "Mật khẩu",
+        UsMemberCode: "Mã nhân viên",
+        UsDisplay: "Tên hiển thị",
+        UsPart: "Bộ phận",
+        UsPartPos: "Chức vụ",
+        UsType: "Loại người dùng",
+        UsEmail: "Thư điện tử",
+        UsPhone: "Số điện thoại"
+   };
+
+    //💬 1. Thu thập dữ liệu từ các Input dựa trên Key của Map
+    Object.keys(mapNgdung).forEach(key => {
+        const inputElement = document.getElementById(key);
+        if (inputElement) {
+            newUser[key] = inputElement.value.trim();
+       }
+   });
+
+    delete newUser.UsID;
+    delete newUser.UsIsDelete;
+
+    //💬 Kiểm tra nhanh (Validation) - không để trống Tên đăng nhập
+    if (!newUser.UsName || !newUser.UsPwd) {
+
+        const msgElement = document.getElementById("msg_CreateNew");
+        msgElement.innerText = "Vui lòng nhập đầy đủ Tên đăng nhập và Mật khẩu!";
+        msgElement.style.color = "red"; // Thêm màu đỏ cho giống thông báo lỗi
+        // Tự động xóa thông báo sau 3 giây
+        setTimeout(() => {
+            msgElement.innerText = "";
+       }, 3000);
+    return;
+   }
+    //💬 Kiểm tra nhanh (Validation) - trùng 
+
+
+
+    //💬 2. Gửi dữ liệu lên Server
+
+    let result = await GW_userNewProfile(newUser);
+
+    if (result.ok) {
+            alert("Tạo người dùng thành công!");
+            window.location.hash = "#ListAccount"; // Chuyển trang sau khi tạo xong
+       } else {
+            alert("Lỗi: " + result.message);
+       }
+
+
+}
+
+
+
+
+/* 
+️☘️✅ UPDATE TO DATABASE
+````````````````````````````````````````````````````````````````````````````````` PHÂN LUỒNG */
+export async function SaveSelection()   {console.log("💛 ManagerAccount 🔈 SaveSelection")
+        // 1. Lấy danh sách dữ liệu của các dòng đang được tích chọn
+        const tabulatorInstance = table.table;
+
+        if (!tabulatorInstance) {
+            console.error("Bảng chưa được khởi tạo!");
+        return;
+       }
+
+    const selectedData = tabulatorInstance.getSelectedData();
+
+        if (selectedData.length === 0) {
+
+            const msgElement = document.getElementById("msg_List");
+            msgElement.innerText = "Vui lòng chọn ít nhất một dòng để cập nhật!";
+            msgElement.style.color = "red"; // Thêm màu đỏ cho giống thông báo lỗi
+            
+            setTimeout(() => {// Tự động xóa thông báo sau 3 giây
+                msgElement.innerText = "";
+           }, 3000);    
+
+            return;
+       }
+
+        console.log("Dữ liệu đang được cập nhật:", selectedData);
+
+        // 2. Gửi dữ liệu lên Server (Ví dụ sử dụng Ajax)
+       let res =  await GW_SaveProfile(selectedData);
+    
+       if (res.ok) {
+            alert("Cập nhật dữ liệu thành công");
+            tabulatorInstance.deselectRow(); // Bỏ tích
+       } else {
+            alert("xảy ra lỗi : " + res.message);
+       }
+
+
+}
+
+
+
+
+/* 
+️☘️✅ DELETE USER DATABASE
+******************************************************************************** PHÂN LUỒNG */
+async function  DeleteSelection() { console.log("💛 ManagerAccount 🔈 DeleteSelection")    
+
+        const tabulatorInstance = table.table;
+
+        if (!tabulatorInstance) {
+            console.error("Bảng chưa được khởi tạo!");
+        return;
+       }
+
+    const selectedData = tabulatorInstance.getSelectedData();
+
+        if (selectedData.length === 0) {
+
+            const msgElement = document.getElementById("msg_List");
+            msgElement.innerText = "Vui lòng chọn ít nhất một dòng để xóa";
+            msgElement.style.color = "red"; // Thêm màu đỏ cho giống thông báo lỗi
+            // Tự động xóa thông báo sau 3 giây
+            setTimeout(() => {
+                msgElement.innerText = "";
+           }, 3000);    
+
+            return;
+       }
+
+        // 2. Gửi dữ liệu lên Server 
+       let res =  await GW_DeleteProfile(selectedData);
+    
+       if (res.ok) {
+            alert("Đã xóa người dùng thành công");
+            location.reload();
+       } else {
+            alert("xảy ra lỗi : " + res.message);
+       }
+}
+
+
+
+/* 
+️☘️ PHÂN QUYỀN 
+````````````````````````````````````````````````````````````````````````````````` PHÂN LUỒNG */
+export function PermissionAccountRender() {
+
+    const app = document.getElementById("APP");
+
+       app.innerHTML = `
+        <div id="KHUNG_SALES_ORDER" style="padding: 15px;">
+            <div style="margin-bottom: 10px;">
+                <div>1	HZR	IVTX50018	31/08/2025	25/07/2025	64002167	3080	29/07/2025 9:43	ITV-06	0	OKE	27/08/2025	29/07/2025 16:13	PC-Huong
+2	HZR	IVTX50018	31/08/2025	25/07/2025	64002305	3240	29/07/2025 9:43	ITV-06	0	OKE	27/08/2025	29/07/2025 16:13	PC-Huong
+3	HZR	IVTX50018	31/08/2025	25/07/2025	64002313	4320	29/07/2025 9:43	ITV-06	0	OKE	27/08/2025	29/07/2025 16:13	PC-Huong
+4	HZR	PHHX50030	31/08/2025	25/07/2025	63572516	5820	29/07/2025 9:49	ITV-06	0	OKE	27/08/2025	31/07/2025 17:39	PC-Huong
+5	CQWS	FITV58001	21/08/2025	28/07/2025	63514106	5400	29/07/2025 9:52	ITV-06	0	NG	30/07/2025	29/07/2025 16:05	PC-Huong
+6	CQWS	FITV58001	21/08/2025	28/07/2025	63565418	5400	29/07/2025 9:52	ITV-06	0	NG	30/07/2025	29/07/2025 16:05	PC-Huong
+7	CQWS	FITV58001	21/08/2025	28/07/2025	63572220	4896	29/07/2025 9:52	ITV-06	0	NG	30/07/2025	29/07/2025 16:05	PC-Huong
+8	CQWS	FITV58001	21/08/2025	28/07/2025	64002007	4800	29/07/2025 9:52	ITV-06	0	NG	30/07/2025	29/07/2025 16:05	PC-Huong
+9	CQWS	FITV58001	21/08/2025	28/07/2025	64002339	3960	29/07/2025 9:52	ITV-06	0	NG	30/07/2025	29/07/2025 16:05	PC-Huong
+10	SBI	PBA450026	25/08/2025	28/07/2025	64002329	768	31/07/2025 10:56	ITV-06	0	NG			
+11	PT CIPTA	PO25070759	24/09/2025	30/07/2025	63582848	9000	31/07/2025 11:03	ITV-06	0	OKE	22/09/2025	31/07/2025 17:30	PC-Huong
+12	SEWS	S39TSMA037	23/08/2025	29/07/2025	63515444	336	31/07/2025 11:06	ITV-06	0	OKE	19/08/2025	31/07/2025 17:37	PC-Huong
+13	SEWS	S39TSMA037	23/08/2025	29/07/2025	63566168	340	31/07/2025 11:06	ITV-06	0	OKE	19/08/2025	31/07/2025 17:37	PC-Huong
+14	SEWS	S39TNMA285	30/08/2025	30/07/2025	64002274	896	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:31	PC-Huong
+15	SEWS	S39TNMA280	30/08/2025	30/07/2025	63514304	240	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+16	SEWS	S39TNMA280	30/08/2025	30/07/2025	63514306	296	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+17	SEWS	S39TNMA280	30/08/2025	30/07/2025	63514312	400	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+18	SEWS	S39TNMA280	30/08/2025	30/07/2025	63514314	400	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+19	SEWS	S39TNMA280	30/08/2025	30/07/2025	63514315	400	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+20	SEWS	S39TNMA280	30/08/2025	30/07/2025	63514576	552	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+21	SEWS	S39TNMA280	30/08/2025	30/07/2025	63514586	520	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+22	SEWS	S39TNMA280	30/08/2025	30/07/2025	63514994	636	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+23	SEWS	S39TNMA280	30/08/2025	30/07/2025	63515007	420	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+24	SEWS	S39TNMA280	30/08/2025	30/07/2025	63565532	246	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+25	SEWS	S39TNMA280	30/08/2025	30/07/2025	63565534	288	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+26	SEWS	S39TNMA280	30/08/2025	30/07/2025	63565536	1956	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+27	SEWS	S39TNMA280	30/08/2025	30/07/2025	63565543	1408	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+28	SEWS	S39TNMA280	30/08/2025	30/07/2025	63565591	590	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+29	SEWS	S39TNMA280	30/08/2025	30/07/2025	63565667	660	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+30	SEWS	S39TNMA280	30/08/2025	30/07/2025	63588383	3200	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+31	SEWS	S39TNMA280	30/08/2025	30/07/2025	64001524	10080	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+32	SEWS	S39TNMA280	30/08/2025	30/07/2025	64001525	448	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+33	SEWS	S39TNMA280	30/08/2025	30/07/2025	64001783	3600	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+34	SEWS	S39TNMA280	30/08/2025	30/07/2025	64002084	594	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+35	SEWS	S39TNMA280	30/08/2025	30/07/2025	64002085	750	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+36	SEWS	S39TNMA280	30/08/2025	30/07/2025	64002126	324	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+37	SEWS	S39TNMA280	30/08/2025	30/07/2025	64002127	5940	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+38	SEWS	S39TNMA280	30/08/2025	30/07/2025	64002130	368	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+39	SEWS	S39TNMA280	30/08/2025	30/07/2025	64002135	7776	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+40	SEWS	S39TNMA280	30/08/2025	30/07/2025	64002138	324	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+41	SEWS	S39TNMA280	30/08/2025	30/07/2025	64002269	5670	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+42	SEWS	S39TNMA280	30/08/2025	30/07/2025	64002272	4800	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+43	SEWS	S39TNMA280	30/08/2025	30/07/2025	64002273	3600	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+44	SEWS	S39TNMA280	30/08/2025	30/07/2025	64002276	5280	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+45	SEWS	S39TNMA280	30/08/2025	30/07/2025	64002380	2550	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:30	PC-Huong
+46	SEWS	S39TCMA023	30/08/2025	31/07/2025	63565417	102	31/07/2025 11:06	ITV-06	0	OKE	26/08/2025	31/07/2025 17:59	PC-Huong
+47	SEWS-EG	ANO1288	08/09/2025	28/07/2025	64002135	324	31/07/2025 11:07	ITV-06	0	OKE	03/08/2025	31/07/2025 17:28	PC-Huong
+48	SEWS-EG	NNO4626	25/08/2025	30/07/2025	64002135	2592	31/07/2025 11:07	ITV-06	0	OKE	20/08/2025	31/07/2025 17:31	PC-Huong
+49	SEWS-EG	NNO4627	01/09/2025	30/07/2025	64002135	2916	31/07/2025 11:07	ITV-06	0	OKE	27/08/2025	31/07/2025 17:33	PC-Huong
+50	SEWS-EG	NNO4628	01/09/2025	30/07/2025	64002135	2592	31/07/2025 11:07	ITV-06	0	OKE	03/09/2025	31/07/2025 17:34	PC-Huong
+51	SPWS	SVN150027	25/08/2025	29/07/2025	64002135	648	31/07/2025 11:09	ITV-06	0	OKE	20/08/2025	31/07/2025 17:29	PC-Huong
+52	IWSP	0SVT58003	18/08/2025	30/07/2025	69202752	782	31/07/2025 11:10	ITV-06	0	OKE	14/08/2025	31/07/2025 17:27	PC-Huong
+53	HZSW	HKWV50024	31/08/2025	30/07/2025	63514312	1600	31/07/2025 11:14	ITV-06	0	OKE	27/08/2025	31/07/2025 17:29	PC-Huong
+54	HZSW	HKWV50024	31/08/2025	30/07/2025	64002084	1584	31/07/2025 11:14	ITV-06	0	OKE	27/08/2025	31/07/2025 17:29	PC-Huong
+55	HZSW	HKWV50024	31/08/2025	30/07/2025	64002085	1500	31/07/2025 11:14	ITV-06	0	OKE	27/08/2025	31/07/2025 17:29	PC-Huong
+56	WHSW	PDUW58061	24/08/2025	29/07/2025	63515445	360	31/07/2025 11:15	ITV-06	0	OKE	20/08/2025	31/07/2025 17:32	PC-Huong
+57	WHSW	PDUW58061	24/08/2025	29/07/2025	63572516	360	31/07/2025 11:15	ITV-06	0	OKE	20/08/2025	31/07/2025 17:32	PC-Huong
+58	WHSW	PDUW58061	24/08/2025	29/07/2025	64002167	280	31/07/2025 11:15	ITV-06	0	OKE	20/08/2025	31/07/2025 17:32	PC-Huong
+59	WHSW	PDUW58061	24/08/2025	29/07/2025	64002305	540	31/07/2025 11:15	ITV-06	0	OKE	20/08/2025	31/07/2025 17:32	PC-Huong
+60	WHSW	PDUW58062	24/08/2025	30/07/2025	63515445	2340	31/07/2025 11:15	ITV-06	0	OKE	20/08/2025	31/07/2025 17:32	PC-Huong
+61	WHSW	PDUW58062	24/08/2025	30/07/2025	63572516	2160	31/07/2025 11:15	ITV-06	0	OKE	20/08/2025	31/07/2025 17:32	PC-Huong
+62	WHSW	PDUW58062	24/08/2025	30/07/2025	64002167	2240	31/07/2025 11:15	ITV-06	0	OKE	20/08/2025	31/07/2025 17:32	PC-Huong
+63	WHSW	PDUW58062	24/08/2025	30/07/2025	64002305	2700	31/07/2025 11:15	ITV-06	0	OKE	20/08/2025	31/07/2025 17:32	PC-Huong
+64	WHSW	PDUW50100	07/09/2025	30/07/2025	63515445	2700	31/07/2025 11:15	ITV-06	0	OKE	03/09/2025	31/07/2025 17:37	PC-Huong
+65	WHSW	PDUW50100	07/09/2025	30/07/2025	63572516	3240	31/07/2025 11:15	ITV-06	0	OKE	03/09/2025	31/07/2025 17:37	PC-Huong
+66	WHSW	PDUW50100	07/09/2025	30/07/2025	64002167	3360	31/07/2025 11:15	ITV-06	0	OKE	03/09/2025	31/07/2025 17:37	PC-Huong
+67	WHSW	PDUW50100	07/09/2025	30/07/2025	64002305	2160	31/07/2025 11:15	ITV-06	0	OKE	03/09/2025	31/07/2025 17:37	PC-Huong
+68	JKWH	IPO212958	18/08/2025	30/07/2025	63512391	70	31/07/2025 11:17	ITV-06	0	OKE	13/08/2025	31/07/2025 17:31	PC-Huong
+69	JKWH	IPO212754	01/09/2025	30/07/2025	63515444	28	31/07/2025 11:17	ITV-06	0	OKE	27/08/2025	31/07/2025 17:32	PC-Huong
+70	JKWH	IPO212754	01/09/2025	30/07/2025	63566168	30	31/07/2025 11:17	ITV-06	0	OKE	27/08/2025	31/07/2025 17:32	PC-Huong
+71	JKWH	IPO212754	01/09/2025	30/07/2025	64001477	400	31/07/2025 11:17	ITV-06	0	OKE	27/08/2025	31/07/2025 17:32	PC-Huong
+72	JKWH	IPO212754	01/09/2025	30/07/2025	64001854	400	31/07/2025 11:17	ITV-06	0	OKE	27/08/2025	31/07/2025 17:32	PC-Huong
+73	SEWS-T (D)	PACD58001	13/08/2025	31/07/2025	63514589	24	31/07/2025 11:18	ITV-06	0	OKE	08/08/2025	31/07/2025 17:33	PC-Huong
+74	SEWS-T (D)	PACD58001	13/08/2025	31/07/2025	63565417	120	31/07/2025 11:18	ITV-06	0	OKE	08/08/2025	31/07/2025 17:33	PC-Huong
+75	SEWS-T (D)	PACD58001	13/08/2025	31/07/2025	63565596	30	31/07/2025 11:18	ITV-06	0	OKE	08/08/2025	31/07/2025 17:33	PC-Huong
+76	SEWS-T (D)	PACD58001	13/08/2025	31/07/2025	64002135	324	31/07/2025 11:18	ITV-06	0	OKE	08/08/2025	31/07/2025 17:33	PC-Huong
+77	SEWS-T (E)	PACE50030	03/09/2025	31/07/2025	63566163	200	31/07/2025 11:18	ITV-06	0	OKE	29/08/2025	31/07/2025 17:54	PC-Huong
+78	SEWS-T (E)	PACE50030	03/09/2025	31/07/2025	64002323	290	31/07/2025 11:18	ITV-06	0	OKE	29/08/2025	31/07/2025 17:54	PC-Huong
+79	SEWS-T (E)	PACE50030	03/09/2025	31/07/2025	64002326	280	31/07/2025 11:18	ITV-06	0	OKE	29/08/2025	31/07/2025 17:54	PC-Huong
+80	SEWS-T (S)	PACS50032	03/09/2025	31/07/2025	63515921	288	31/07/2025 11:20	ITV-06	0	OKE	29/08/2025	31/07/2025 17:55	PC-Huong
+81	SEWS-T (W)	PACW50031	03/09/2025	31/07/2025	63514589	300	31/07/2025 11:20	ITV-06	0	OKE	29/08/2025	31/07/2025 17:57	PC-Huong
+82	SEWS-T (W)	PACW50031	03/09/2025	31/07/2025	63521062	672	31/07/2025 11:20	ITV-06	0	OKE	29/08/2025	31/07/2025 17:57	PC-Huong
+83	SEWS-T (W)	PACW50031	03/09/2025	31/07/2025	63565596	300	31/07/2025 11:20	ITV-06	0	OKE	29/08/2025	31/07/2025 17:57	PC-Huong
+84	SEWS-T (W)	PACW50031	03/09/2025	31/07/2025	63582848	300	31/07/2025 11:20	ITV-06	0	OKE	29/08/2025	31/07/2025 17:57	PC-Huong
+85	SEWS-T (W)	PACW50031	03/09/2025	31/07/2025	64001316	1200	31/07/2025 11:20	ITV-06	0	OKE	29/08/2025	31/07/2025 17:57	PC-Huong
+86	SEWS-T (W)	PACW50031	03/09/2025	31/07/2025	64001477	800	31/07/2025 11:20	ITV-06	0	OKE	29/08/2025	31/07/2025 17:57	PC-Huong
+87	SEWS-T (W)	PACW50031	03/09/2025	31/07/2025	64001524	896	31/07/2025 11:20	ITV-06	0	OKE	29/08/2025	31/07/2025 17:57	PC-Huong
+88	SEWS-T (W)	PACW50031	03/09/2025	31/07/2025	64001574	1500	31/07/2025 11:20	ITV-06	0	OKE	29/08/2025	31/07/2025 17:57	PC-Huong
+89	SEWS-T (W)	PACW50031	03/09/2025	31/07/2025	64001854	400	31/07/2025 11:20	ITV-06	0	OKE	29/08/2025	31/07/2025 17:57	PC-Huong
+90	SEWS-T (W)	PACW50031	03/09/2025	31/07/2025	64002135	1296	31/07/2025 11:20	ITV-06	0	OKE	29/08/2025	31/07/2025 17:57	PC-Huong
+91	TSHP	PO25070790	15/08/2025	31/07/2025	64002135	324	31/07/2025 11:21	ITV-06	0	OKE	15/08/2025	01/08/2025 15:37	PC-Huong
+92	TSHP	PO25070790	15/08/2025	31/07/2025	64002270	520	31/07/2025 11:21	ITV-06	0	OKE	15/08/2025	01/08/2025 15:37	PC-Huong
+93	TSHP	PO25070790	15/08/2025	31/07/2025	64002131	512	31/07/2025 11:21	ITV-06	0	OKE	15/08/2025	01/08/2025 15:37	PC-Huong
+94	TSHP	PO25070790	15/08/2025	31/07/2025	64002273	600	31/07/2025 11:21	ITV-06	0	OKE	15/08/2025	01/08/2025 15:37	PC-Huong
+95	TSHP	PO25070790	15/08/2025	31/07/2025	64002274	448	31/07/2025 11:21	ITV-06	0	OKE	15/08/2025	01/08/2025 15:37	PC-Huong
+96	TSHP	PO25070790	15/08/2025	31/07/2025	64001524	672	31/07/2025 11:21	ITV-06	0	OKE	15/08/2025	01/08/2025 15:37	PC-Huong
+97	TJWS	NWST58037	31/08/2025	31/07/2025	63514312	2400	31/07/2025 11:23	ITV-06	0	OKE	27/08/2025	31/07/2025 17:47	PC-Huong
+98	TJWS	NWST58037	31/08/2025	31/07/2025	63514314	400	31/07/2025 11:23	ITV-06	0	OKE	27/08/2025	31/07/2025 17:47	PC-Huong
+99	TJWS	NWST58037	31/08/2025	31/07/2025	63514315	400	31/07/2025 11:23	ITV-06	0	OKE	27/08/2025	31/07/2025 17:47	PC-Huong
+100	TJWS	NWST58037	31/08/2025	31/07/2025	63514576	936	31/07/2025 11:23	ITV-06	0	OKE	27/08/2025	31/07/2025 17:47	PC-Huong
+101	TJWS	NWST58037	31/08/2025	31/07/2025	63514586	920	31/07/2025 11:23	ITV-06	0	OKE	27/08/2025	31/07/2025 17:47	PC-Huong
+102	TJWS	NWST58037	31/08/2025	31/07/2025	63514994	936	31/07/2025 11:23	ITV-06	0	OKE	27/08/2025	31/07/2025 17:47	PC-Huong
+103	TJWS	NWST58037	31/08/2025	31/07/2025	63515007	840	31/07/2025 11:23	ITV-06	0	OKE	27/08/2025	31/07/2025 17:47	PC-Huong
+104	TJWS	NWST58037	31/08/2025	31/07/2025	63565591	930	31/07/2025 11:23	ITV-06	0	OKE	27/08/2025	31/07/2025 17:47	PC-Huong
+105	TJWS	NWST58037	31/08/2025	31/07/2025	63565667	936	31/07/2025 11:23	ITV-06	0	OKE	27/08/2025	31/07/2025 17:47	PC-Huong
+106	TJWS	NWST58037	31/08/2025	31/07/2025	64001783	1200	31/07/2025 11:23	ITV-06	0	OKE	27/08/2025	31/07/2025 17:47	PC-Huong
+107	TJWS	NWST58037	31/08/2025	31/07/2025	64002084	2772	31/07/2025 11:23	ITV-06	0	OKE	27/08/2025	31/07/2025 17:47	PC-Huong
+108	TJWS	NWST58037	31/08/2025	31/07/2025	64002085	2700	31/07/2025 11:23	ITV-06	0	OKE	27/08/2025	31/07/2025 17:47	PC-Huong
+109	TJWS	NWST58037	31/08/2025	31/07/2025	64002126	972	31/07/2025 11:23	ITV-06	0	OKE	27/08/2025	31/07/2025 17:47	PC-Huong
+110	TJWS	NWST58037	31/08/2025	31/07/2025	64002127	810	31/07/2025 11:23	ITV-06	0	OKE	27/08/2025	31/07/2025 17:47	PC-Huong
+111	TJWS	NWST58037	31/08/2025	31/07/2025	64002130	920	31/07/2025 11:23	ITV-06	0	OKE	27/08/2025	31/07/2025 17:47	PC-Huong
+112	TJWS	NWST58037	31/08/2025	31/07/2025	64002135	1620	31/07/2025 11:23	ITV-06	0	OKE	27/08/2025	31/07/2025 17:47	PC-Huong
+113	TJWS	NWST58037	31/08/2025	31/07/2025	64002138	972	31/07/2025 11:23	ITV-06	0	OKE	27/08/2025	31/07/2025 17:47	PC-Huong
+114	SBI	PBA450026	25/08/2025	28/07/2025	64002329	768	31/07/2025 16:13	ITV-06	0	OKE	20/08/2025	31/07/2025 17:38	PC-Huong
+115	SPWS	SVN158025	04/08/2025	01/08/2025	64002135	1296	01/08/2025 8:50	ITV-06	0	OKE	06/08/2025	01/08/2025 15:24	PC-Huong
+116	WHSW	PDUW58063	03/08/2025	31/07/2025	63515445	2340	01/08/2025 8:52	ITV-06	0	OKE	13/08/2025	01/08/2025 15:32	PC-Huong
+117	WHSW	PDUW58063	03/08/2025	31/07/2025	63572516	3120	01/08/2025 8:52	ITV-06	0	OKE	13/08/2025	01/08/2025 15:32	PC-Huong
+118	WHSW	PDUW58063	03/08/2025	31/07/2025	64002167	2800	01/08/2025 8:52	ITV-06	0	OKE	13/08/2025	01/08/2025 15:32	PC-Huong
+119	WHSW	PDUW58063	03/08/2025	31/07/2025	64002305	2700	01/08/2025 8:52	ITV-06	0	OKE	13/08/2025	01/08/2025 15:32	PC-Huong
+120	PT DHARMA	PO25070850	17/09/2025	31/07/2025	63582848	12750	01/08/2025 8:53	ITV-06	0	OKE	15/09/2025	01/08/2025 15:28	PC-Huong
+121	SEWS-EG	ANO1288	08/09/2025	28/07/2025	64002135	324	01/08/2025 11:09	ITV-06	0	OKE	03/09/2025	01/08/2025 15:21	PC-Huong
+122	SEWS-EG	NNO4628	08/09/2025	30/07/2025	64002135	2592	01/08/2025 11:09	ITV-06	0	OKE	03/09/2025	01/08/2025 15:21	PC-Huong
+123	IWSP	0SVT50028	25/08/2025	01/08/2025	63514106	1390	06/08/2025 11:59	ITV-06	0	OKE	21/08/2025	08/08/2025 11:34	PC-Huong
+124	IWSP	0SVT50028	25/08/2025	01/08/2025	63565418	1578	06/08/2025 11:59	ITV-06	0	OKE	21/08/2025	08/08/2025 11:34	PC-Huong
+125	IWSP	0SVT50028	25/08/2025	01/08/2025	63565700	1980	06/08/2025 11:59	ITV-06	0	OKE	21/08/2025	08/08/2025 11:34	PC-Huong
+126	IWSP	0SVT50028	25/08/2025	01/08/2025	63572220	1632	06/08/2025 11:59	ITV-06	0	OKE	21/08/2025	08/08/2025 11:34	PC-Huong
+127	IWSP	0SVT50028	25/08/2025	01/08/2025	63582848	12150	06/08/2025 11:59	ITV-06	0	OKE	21/08/2025	08/08/2025 11:34	PC-Huong
+128	IWSP	0SVT50028	25/08/2025	01/08/2025	64002007	1440	06/08/2025 11:59	ITV-06	0	OKE	21/08/2025	08/08/2025 11:34	PC-Huong
+129	IWSP	0SVT50028	25/08/2025	01/08/2025	64002085	1800	06/08/2025 11:59	ITV-06	0	OKE	21/08/2025	08/08/2025 11:34	PC-Huong
+130	IWSP	0SVT50028	25/08/2025	01/08/2025	64002127	6750	06/08/2025 11:59	ITV-06	0	OKE	21/08/2025	08/08/2025 11:34	PC-Huong
+131	IWSP	0SVT50028	25/08/2025	01/08/2025	64002135	1944	06/08/2025 11:59	ITV-06	0	OKE	21/08/2025	08/08/2025 11:34	PC-Huong
+132	IWSP	0SVT50028	25/08/2025	01/08/2025	64002167	1120	06/08/2025 11:59	ITV-06	0	OKE	21/08/2025	08/08/2025 11:34	PC-Huong
+133	IWSP	0SVT50028	25/08/2025	01/08/2025	64002267	4104	06/08/2025 11:59	ITV-06	0	OKE	21/08/2025	08/08/2025 11:34	PC-Huong
+134	IWSP	0SVT50028	25/08/2025	01/08/2025	64002269	378	06/08/2025 11:59	ITV-06	0	OKE	21/08/2025	08/08/2025 11:34	PC-Huong
+135	IWSP	0SVT50028	25/08/2025	01/08/2025	64002270	1560	06/08/2025 11:59	ITV-06	0	OKE	21/08/2025	08/08/2025 11:34	PC-Huong
+136	IWSP	0SVT50028	25/08/2025	01/08/2025	64002272	960	06/08/2025 11:59	ITV-06	0	OKE	21/08/2025	08/08/2025 11:34	PC-Huong
+137	IWSP	0SVT50028	25/08/2025	01/08/2025	64002273	900	06/08/2025 11:59	ITV-06	0	OKE	21/08/2025	08/08/2025 11:34	PC-Huong
+138	IWSP	0SVT50028	25/08/2025	01/08/2025	64002276	1920	06/08/2025 11:59	ITV-06	0	OKE	21/08/2025	08/08/2025 11:34	PC-Huong
+139	IWSP	0SVT50028	25/08/2025	01/08/2025	64002339	1320	06/08/2025 11:59	ITV-06	0	OKE	21/08/2025	08/08/2025 11:34	PC-Huong
+140	SUMITOMO - OCSC	926179	12/08/2025	05/08/2025	63516273	120	06/08/2025 13:11	ITV-06	0	OKE	12/08/2025	08/08/2025 11:35	PC-Huong
+141	SUMITOMO - OCSC	926179	12/08/2025	05/08/2025	63516269	120	06/08/2025 13:11	ITV-06	0	OKE	12/08/2025	08/08/2025 11:35	PC-Huong
+142	SUMITOMO - OCSC	926179	12/08/2025	05/08/2025	63516277	120	06/08/2025 13:11	ITV-06	0	OKE	12/08/2025	08/08/2025 11:35	PC-Huong
+143	SUMITOMO - OCSC	926179	12/08/2025	05/08/2025	63516275	120	06/08/2025 13:11	ITV-06	0	OKE	12/08/2025	08/08/2025 11:35	PC-Huong
+144	SUMITOMO - OCSC	926178	12/08/2025	05/08/2025	63516273	120	06/08/2025 13:11	ITV-06	0	OKE	12/08/2025	08/08/2025 11:35	PC-Huong
+145	SUMITOMO - OCSC	926178	12/08/2025	05/08/2025	63516277	600	06/08/2025 13:11	ITV-06	0	OKE	12/08/2025	08/08/2025 11:35	PC-Huong
+146	SUMITOMO - OCSC	926178	12/08/2025	05/08/2025	63516275	60	06/08/2025 13:11	ITV-06	0	OKE	12/08/2025	08/08/2025 11:35	PC-Huong
+147	SBI	PBA450027	01/09/2025	05/08/2025	64002329	1056	06/08/2025 13:12	ITV-06	0	OKE	27/08/2025	08/08/2025 11:28	PC-Huong
+148	SEWS-T (D)	PACD58002	20/08/2025	07/08/2025	69202956	240	07/08/2025 13:54	ITV-06	0	OKE	22/08/2025	08/08/2025 11:24	PC-Huong
+149	SEWS-T (E)	PACE50031	10/09/2025	07/08/2025	63515444	140	07/08/2025 13:55	ITV-06	0	OKE	05/09/2025	08/08/2025 11:21	PC-Huong
+150	SEWS-T (E)	PACE50031	10/09/2025	07/08/2025	63515445	180	07/08/2025 13:55	ITV-06	0	OKE	05/09/2025	08/08/2025 11:21	PC-Huong
+151	SEWS-T (E)	PACE50031	10/09/2025	07/08/2025	63566163	200	07/08/2025 13:55	ITV-06	0	OKE	05/09/2025	08/08/2025 11:21	PC-Huong
+152	SEWS-T (E)	PACE50031	10/09/2025	07/08/2025	63566168	100	07/08/2025 13:55	ITV-06	0	OKE	05/09/2025	08/08/2025 11:21	PC-Huong
+153	SEWS-T (E)	PACE50031	10/09/2025	07/08/2025	63572516	180	07/08/2025 13:55	ITV-06	0	OKE	05/09/2025	08/08/2025 11:21	PC-Huong
+154	SEWS-T (E)	PACE50031	10/09/2025	07/08/2025	64002325	280	07/08/2025 13:55	ITV-06	0	OKE	05/09/2025	08/08/2025 11:21	PC-Huong
+155	SEWS-T (E)	PACE50031	10/09/2025	07/08/2025	64002326	280	07/08/2025 13:55	ITV-06	0	OKE	05/09/2025	08/08/2025 11:21	PC-Huong
+156	SEWS-T (S)	PACS50033	10/09/2025	07/08/2025	63515921	240	07/08/2025 13:56	ITV-06	0	OKE	05/09/2025	08/08/2025 11:26	PC-Huong
+157	SEWS-T (W)	PACW50032	10/09/2025	07/08/2025	63514589	240	07/08/2025 13:57	ITV-06	0	OKE	05/09/2025	08/08/2025 11:22	PC-Huong
+158	SEWS-T (W)	PACW50032	10/09/2025	07/08/2025	63565596	240	07/08/2025 13:57	ITV-06	0	OKE	05/09/2025	08/08/2025 11:22	PC-Huong
+159	SEWS-T (W)	PACW50032	10/09/2025	07/08/2025	63582848	1500	07/08/2025 13:57	ITV-06	0	OKE	05/09/2025	08/08/2025 11:22	PC-Huong
+160	SEWS-T (W)	PACW50032	10/09/2025	07/08/2025	64001316	4000	07/08/2025 13:57	ITV-06	0	OKE	05/09/2025	08/08/2025 11:22	PC-Huong
+161	SEWS-T (W)	PACW50032	10/09/2025	07/08/2025	64001477	1200	07/08/2025 13:57	ITV-06	0	OKE	05/09/2025	08/08/2025 11:22	PC-Huong
+162	SEWS-T (W)	PACW50032	10/09/2025	07/08/2025	64001524	448	07/08/2025 13:57	ITV-06	0	OKE	05/09/2025	08/08/2025 11:22	PC-Huong
+163	SEWS-T (W)	PACW50032	10/09/2025	07/08/2025	64001574	3000	07/08/2025 13:57	ITV-06	0	OKE	05/09/2025	08/08/2025 11:22	PC-Huong
+164	SEWS-T (W)	PACW50032	10/09/2025	07/08/2025	64001854	1200	07/08/2025 13:57	ITV-06	0	OKE	05/09/2025	08/08/2025 11:22	PC-Huong
+165	SEWS-T (W)	PACW50032	10/09/2025	07/08/2025	64002081	288	07/08/2025 13:57	ITV-06	0	OKE	05/09/2025	08/08/2025 11:22	PC-Huong
+166	SEWS-T (W)	PACW50032	10/09/2025	07/08/2025	64002135	3240	07/08/2025 13:57	ITV-06	0	OKE	05/09/2025	08/08/2025 11:22	PC-Huong
+167	SEWS-T (W)	PACW50032	10/09/2025	07/08/2025	64002270	2600	07/08/2025 13:57	ITV-06	0	OKE	05/09/2025	08/08/2025 11:22	PC-Huong
+168	SEWS	S39TNMA290	06/09/2025	06/08/2025	63514306	24	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+169	SEWS	S39TNMA290	06/09/2025	06/08/2025	63514314	400	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+170	SEWS	S39TNMA290	06/09/2025	06/08/2025	63514315	400	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+171	SEWS	S39TNMA290	06/09/2025	06/08/2025	63514576	768	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+172	SEWS	S39TNMA290	06/09/2025	06/08/2025	63514586	760	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+173	SEWS	S39TNMA290	06/09/2025	06/08/2025	63514994	636	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+174	SEWS	S39TNMA290	06/09/2025	06/08/2025	63515007	840	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+175	SEWS	S39TNMA290	06/09/2025	06/08/2025	63565534	30	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+176	SEWS	S39TNMA290	06/09/2025	06/08/2025	63565536	60	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+177	SEWS	S39TNMA290	06/09/2025	06/08/2025	63565543	448	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+178	SEWS	S39TNMA290	06/09/2025	06/08/2025	63565591	660	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+179	SEWS	S39TNMA290	06/09/2025	06/08/2025	63565667	666	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+180	SEWS	S39TNMA290	06/09/2025	06/08/2025	63588383	2900	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+181	SEWS	S39TNMA290	06/09/2025	06/08/2025	64001524	13664	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+182	SEWS	S39TNMA290	06/09/2025	06/08/2025	64001783	4200	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+183	SEWS	S39TNMA290	06/09/2025	06/08/2025	64001887	600	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+184	SEWS	S39TNMA290	06/09/2025	06/08/2025	64002084	396	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+185	SEWS	S39TNMA290	06/09/2025	06/08/2025	64002085	450	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+186	SEWS	S39TNMA290	06/09/2025	06/08/2025	64002126	972	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+187	SEWS	S39TNMA290	06/09/2025	06/08/2025	64002127	6750	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+188	SEWS	S39TNMA290	06/09/2025	06/08/2025	64002130	920	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+189	SEWS	S39TNMA290	06/09/2025	06/08/2025	64002135	9720	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+190	SEWS	S39TNMA290	06/09/2025	06/08/2025	64002138	972	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+191	SEWS	S39TNMA290	06/09/2025	06/08/2025	64002269	7182	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+192	SEWS	S39TNMA290	06/09/2025	06/08/2025	64002272	7200	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+193	SEWS	S39TNMA290	06/09/2025	06/08/2025	64002273	3600	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+194	SEWS	S39TNMA290	06/09/2025	06/08/2025	64002276	6720	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+195	SEWS	S39TNMA290	06/09/2025	06/08/2025	64002380	2700	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+196	SEWS	S39TNMA297	07/09/2025	06/08/2025	64002274	224	07/08/2025 13:59	ITV-06	0	OKE	03/09/2025	08/08/2025 11:31	PC-Huong
+197	WHSW	PDUW50101	14/09/2025	06/08/2025	63572516	570	07/08/2025 14:11	ITV-06	0	OKE	10/09/2025	08/08/2025 11:30	PC-Huong
+198	WHSW	PDUW50101	14/09/2025	06/08/2025	64002167	1680	07/08/2025 14:11	ITV-06	0	OKE	10/09/2025	08/08/2025 11:30	PC-Huong
+199	WHSW	PDUW50101	14/09/2025	06/08/2025	64002313	1080	07/08/2025 14:11	ITV-06	0	OKE	10/09/2025	08/08/2025 11:30	PC-Huong
+200	JKWH	IPO213448	08/09/2025	07/08/2025	63515444	504	07/08/2025 14:12	ITV-06	0	OKE	05/09/2025	08/08/2025 11:29	PC-Huong
+201	JKWH	IPO213448	08/09/2025	07/08/2025	63515445	540	07/08/2025 14:12	ITV-06	0	OKE	05/09/2025	08/08/2025 11:29	PC-Huong
+202	JKWH	IPO213448	08/09/2025	07/08/2025	63566168	510	07/08/2025 14:12	ITV-06	0	OKE	05/09/2025	08/08/2025 11:29	PC-Huong
+203	JKWH	IPO213448	08/09/2025	07/08/2025	63572516	510	07/08/2025 14:12	ITV-06	0	OKE	05/09/2025	08/08/2025 11:29	PC-Huong
+204	JKWH	IPO213448	08/09/2025	07/08/2025	64002167	560	07/08/2025 14:12	ITV-06	0	OKE	05/09/2025	08/08/2025 11:29	PC-Huong
+205	JKWH	IPO213448	08/09/2025	07/08/2025	64002305	540	07/08/2025 14:12	ITV-06	0	OKE	05/09/2025	08/08/2025 11:29	PC-Huong
+206	JKWH	IPO213448	08/09/2025	07/08/2025	64002316	560	07/08/2025 14:12	ITV-06	0	OKE	05/09/2025	08/08/2025 11:29	PC-Huong
+207	JKWH	IPO213448	08/09/2025	07/08/2025	64002325	840	07/08/2025 14:12	ITV-06	0	OKE	05/09/2025	08/08/2025 11:29	PC-Huong
+208	SPWS	SVN150029	01/09/2025	07/08/2025	64001823	3200	07/08/2025 14:13	ITV-06	0	OKE	27/08/2025	08/08/2025 11:30	PC-Huong
+209	HZR	PHHX50032	14/09/2025	07/08/2025	63572516	2910	07/08/2025 14:15	ITV-06	0	OKE	10/09/2025	08/08/2025 11:27	PC-Huong
+210	HZR	PHHX50033	14/09/2025	07/08/2025	63572516	2910	07/08/2025 14:15	ITV-06	0	OKE	10/09/2025	08/08/2025 11:27	PC-Huong
+211	HZR	PHHX50031	07/09/2025	07/08/2025	63572516	5820	07/08/2025 14:15	ITV-06	0	OKE	03/09/2025	08/08/2025 11:25	PC-Huong
+212	HZR	IVTX50020	14/09/2025	07/08/2025	63515445	3240	07/08/2025 14:15	ITV-06	0	OKE	10/09/2025	08/08/2025 11:26	PC-Huong
+213	HZR	IVTX50020	14/09/2025	07/08/2025	64002167	9240	07/08/2025 14:15	ITV-06	0	OKE	10/09/2025	08/08/2025 11:26	PC-Huong
+214	HZR	IVTX50020	14/09/2025	07/08/2025	64002305	3240	07/08/2025 14:15	ITV-06	0	OKE	10/09/2025	08/08/2025 11:26	PC-Huong
+215	HZR	IVTX50020	14/09/2025	07/08/2025	64002313	6480	07/08/2025 14:15	ITV-06	0	OKE	10/09/2025	08/08/2025 11:26	PC-Huong
+216	HZR	IVTX50019	07/09/2025	07/08/2025	63515445	3240	07/08/2025 14:15	ITV-06	0	OKE	03/09/2025	08/08/2025 11:25	PC-Huong
+217	HZR	IVTX50019	07/09/2025	07/08/2025	64002167	6160	07/08/2025 14:15	ITV-06	0	OKE	03/09/2025	08/08/2025 11:25	PC-Huong
+218	HZR	IVTX50019	07/09/2025	07/08/2025	64002305	3240	07/08/2025 14:15	ITV-06	0	OKE	03/09/2025	08/08/2025 11:25	PC-Huong
+</div>
+                <button class="btn" id="btnAddRow" style="background-color: #007bff; color: white;">AddNewAccountRender</button>
+                <button class="btn" id="btnRemoveRow" style="background-color: #dc3545; color: white; margin-left: 5px;">Xóa dòng</button>
+            </div>
+            <div class="tbl" id="tblSalesOrder"></div></div>
+        `;
+}

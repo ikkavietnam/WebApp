@@ -1,0 +1,258 @@
+ 
+<!DOCTYPE html>
+<html>
+    <!--
+    ⬜⬜⬜~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~    HEAD    ~~~~~~~~~~~~~~~~~~~~~~~~~~~   BODY
+    📌📌📌Thứ tự ưu tiên META → TITLE → FONT → LIB CSS → CUSTOM CSS → LIB JS → APP JS --> 
+    <head>
+ 
+        <!--
+        💛 META -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--
+        💚 TITLE -->
+        <title>ERP-Approval</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/img/Logo32x32.png">
+        <!--
+        💙 FONTS -->
+        <link rel="stylesheet" href="../../../assets/css/base/fonts.css">
+        
+        <!--
+        💜 CUSTOM CSS -->
+        <link rel="stylesheet" href="../../../assets/vendor/scrollbars/overlayscrollbars.min.css">
+        <link rel="stylesheet" href="../../../assets/css/components/components.css">
+    
+        <!--
+        💛 LIB JS **** -->
+        <script src="../../../assets/vendor/scrollbars/overlayscrollbars.browser.es6.min.js"></script>
+        <script src="../../../assets/vendor/tabulator/tabulator.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
+        <script src="../../../assets/vendor/sweetalert2.all.min.js"></script>
+
+        <!--
+        💛 APP JS --> 
+        <script type="module" src="../approval.js"></script>
+ 
+        <style>
+            /* 🔴 BODY */ 
+            html body{
+                font-family: 'Roboto Condensed', sans-serif;
+                flex-shrink: 0;
+                margin: 0;
+                padding: 0;
+                width: 100vw;
+                height: auto;
+                box-sizing: border-box;
+            }
+            /* 🔴 HEADER */  
+            .HEADER-WRAP {
+                background-color: rgb(12, 40, 24) !important;
+                font-family: 'Roboto Condensed', sans-serif;
+            }  
+            #HEADER {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                width: 100%;
+                max-width: 210mm;
+
+                height: max-content;
+                max-height: 30px;
+
+                padding: 5px 10px;
+                box-sizing: border-box;
+                margin: auto;
+                margin-top: 0;
+                
+            }
+            .HEADER-colunm1,
+            .HEADER-colunm2,
+            .HEADER-colunm3 {
+                flex: 1;
+                display: flex;
+                
+            }
+
+            .btn_BACK {
+                height: 100%;
+                padding: 2px 10px;
+                box-shadow: 0px 0px 0px 0.5px white;
+            }
+            .btn_BACK:hover {
+                box-shadow: 0px 0px 0px 0.5px rgb(251, 1, 1);
+                transition: all 0.3s ease-in-out;
+                
+            }
+
+            .btn_BACK a {
+                font-size: 11px;
+                font-weight: 500;
+                color: whitesmoke !important;
+                text-decoration: none;
+            }
+            .btn_BACK a:hover{font-weight: 700;transition: all 0.3s ease-in-out;}
+
+            /* MSG */
+            #MsgResponse{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                margin: 5px 0;
+            }
+
+            /* 🔴 LOGIN */ 
+            /*MsgContent*/
+            #MsgContent{
+                color: #f83535;
+                margin: auto;
+                text-align: center;
+                padding: 10px;
+                font-size: 12px;
+                font-weight: 500;
+            }
+
+            /*APPLOGIN*/
+            #APPLOGIN {
+                display: none;
+                flex-direction: column;
+                justify-items: center;
+                align-items: center;
+
+            }
+                /*LoginFrame*/
+                #LoginFrame {
+                    padding: 10px 5px;
+                    max-width: 150px;
+                    border-radius: 5px;
+                    box-shadow: 0 0 5px 1px rgb(194, 174, 170);
+                    background-color: rgb(255, 255, 255);
+                    
+                }
+                    /* h4 Welcome to IKKA Technology VIET NAM */
+                    .lbl {
+                        font-size: 12px;
+                        font-weight: 700;
+                        text-align: center;
+                        color: #0a3015;
+                        padding: 5px 0px;
+                        margin: 0px;
+                        border-bottom: 1px solid #0a3015 ;
+                    }
+                    #LoginFrame h3 {
+                        color: #0a3015;
+                        font-weight: 700;
+                        padding: 15px 0px;
+                        text-align: center;
+                    }
+                    /* username */
+                    /* password */
+                    #LoginFrame input {
+                        margin-bottom: 10px;
+                        width: 100%;
+                    }
+                    #LoginFrame input::placeholder {
+                        color: #07070752;
+                    }
+                    /* btnLogin */
+                    #LoginFrame button {
+                        width: 100%;
+                        background-color: rgb(12, 40, 24);
+                        
+                        font-family: 'Roboto Condensed', sans-serif;
+                        font-size: 12px;
+                        font-weight: 500;
+                        color: rgb(254, 254, 254);
+                        border-radius: 3px;
+                        border: 1px solid transparent;
+                        border: 0.5px solid rgb(255, 255, 255);
+                        padding: 4px 5px;
+                        margin: 10px 0;
+                        
+                    }
+
+                    #LoginFrame button:hover{
+                        border: 1px solid rgb(255, 255, 255);
+                        box-shadow: 0 0 5px 0.5px black;
+                        transition: all 0.5s ease;
+                    }
+                    #LoginFrame button:active{
+                        box-shadow: 0 0 5px 0.5px rgb(255, 51, 51);
+                        border: 1px solid rgb(255, 51, 51);
+                        transition: all 0.1s ease;
+                    }
+
+                    .MsgNote{
+                        font-size: 11px;
+                        font-style: italic;
+                        color: gray;
+                        margin: 0;
+                        padding: 3px 0px;
+                        
+                    }
+
+        </style>
+    </head>
+
+    <!--
+    ⬜⬜⬜~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~    BODY    ~~~~~~~~~~~~~~~~~~~~~~~~~~~   BODY -->
+    <body>
+        <div id="duyetYCMH_WRAP">
+            <table class="table_form_header" style="width: 100%;">
+                <thead></thead>
+                <tbody>
+                    <tr>
+                        <td class="HEADER-WRAP">
+                            <div id="HEADER">
+                                
+                                <div class="HEADER-colunm1" >
+                                    <div class="btn_BACK">
+                                        <a href="http://192.168.110.235:8085/#ToDoList"> BACK TO HOME </a>
+                                    </div>           
+                                </div>
+
+                                <div class="HEADER-colunm2" >
+                                    <h4 style="margin: 0; padding: auto; color: white; width: 100%;text-align: center;">
+                                        APPROVAL ORDER REQUEST
+                                    </h4>
+                                </div>
+
+                                <div class="HEADER-colunm3" >
+                
+                                </div>
+                                                            
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <div  id="MsgResponse" class="MsgNote" style="color: #f83535; text-align: center;margin-bottom: 10px; font-weight: 500;">    
+            </div>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+            <div id="APPLOGIN">
+                <div id="LoginFrame">
+                    <p class="lbl ">Welcome to IKKA Technology VIET NAM</p>
+                    <h3>LOGIN</h3>
+                    <p class="MsgNote">Nhập mã NV hoặc tên đăng nhập</p>
+                    <input id="username" placeholder="Mã nhân viên" autocomplete="itv-manhanvien">
+                    
+                    <p class="MsgNote">Nhập mặt khẩu tối thiểu 8 ký tự</p>
+                    <input id="password" type="password" placeholder="Mật khẩu">
+                    <button id="btnLogin">Login</button>
+                    <div id="msg"></div>
+                    <div class="MsgNote" style=" margin-bottom: 15px;">
+                        Nếu chưa có tài khoản hoặc quên mật khẩu vui lòng liên lạc IT
+                    </div>
+                </div>
+            </div>
+                
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+           
+        </div>          
+    </body>
+</html>
+

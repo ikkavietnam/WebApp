@@ -1,0 +1,11 @@
+src/config/config.php
+src/config/config_smb_server.php
+.env
+.env.*
+*.log
+vendor/
+node_modules/
+public/uploads/
+*.sql
+*.bak
+Thumbs.db

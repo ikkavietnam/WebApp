@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Ví dụ Callback Confirm Dialog</title>
+    <style>
+        html, body{
+            font-family:'Segoe UI', sans-serif;
+            font-size: 12px;
+            box-sizing: border-box;
+        }
+        html {
+            box-sizing: border-box;
+        }
+
+     
+        
+        /* CSS tạo Popup Modal đơn giản */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.248);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 250px;
+        }
+        .btn { 
+            display: inline-flex;
+            justify-content: center; /* Căn giữa theo chiều ngang */
+            align-items: center;     /* Căn giữa theo chiều dọc */
+
+            line-height: 1;
+            padding: 0px 16px; 
+            margin: 5px; 
+            cursor: pointer;
+            border-radius: 3px; 
+            min-height: 24px;
+            height: max-content;
+            border: 1px solid transparent;
+            
+
+        }
+        .btn:hover{
+            /* border: 1px solid rgb(255, 10, 10); */
+            
+            box-shadow: 0px 0px 5px 2px #02491a;
+            transition: all ease-in-out 0.3s;
+        }
+        .btn-danger { background: #e74c3c; color: white; border: none; }
+        .btn-secondary { background: #95a5a6; color: white; border: none; }
+    </style>
+</head>
+<body>
+
+    <!-- Nút bấm ở giao diện chính -->
+    <button id="btnDeleteRow" class="btn btn-danger">
+        Delete
+    </button>
+
+    <!-- Popup Xác nhận (Dialog Modal) -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <p>Bạn có chắc chắn muốn xóa bản ghi này không?</p>
+            <button id="btnYes" class="btn btn-danger">Đồng ý</button>
+            <button id="btnNo" class="btn btn-secondary">Hủy bỏ</button>
+        </div>
+    </div>
+
+    <script>
+        // =========================================================================
+        // 1. ĐỊNH NGHĨA HÀM FnConfirm (Nhận tham số là một Callback Function)
+        // =========================================================================
+        function FnConfirm(onConfirmCallback) {
+            const modal = document.getElementById("confirmModal");
+            const btnYes = document.getElementById("btnYes");
+            const btnNo = document.getElementById("btnNo");
+            // Hiển thị Modal
+
+            modal.style.display = "flex";
+            // Tạo hàm dọn dẹp sự kiện sau khi tương tác xong (Tránh lặp Listener)
+            const cleanup = () => {
+                modal.style.display = "none";
+                btnYes.removeEventListener("click", handleYes);
+                btnNo.removeEventListener("click", handleNo);
+            };
+
+            // Khi người dùng bấm "Đồng ý"
+            const handleYes = () => {
+                cleanup();
+                if (typeof onConfirmCallback === "function") {
+                    onConfirmCallback(); // 📌 KÍCH HOẠT CALLBACK ĐƯỢC TRUYỀN VÀO
+                }
+            };
+
+            // Khi người dùng bấm "Hủy bỏ"
+            const handleNo = () => {
+                cleanup();
+                console.log("Người dùng đã hủy thao tác.");
+            };
+
+            // Lắng nghe sự kiện click trên 2 nút của Popup
+            btnYes.addEventListener("click", handleYes);
+            btnNo.addEventListener("click", handleNo);
+        }
+
+        // =========================================================================
+        // 2. ỨNG DỤNG VÀO HÀM handleDelete
+        // =========================================================================
+        const handleDelete = () => {
+            // Gọi FnConfirm và truyền đoạn mã muốn chạy sau khi bấm "Đồng ý" vào bên trong
+            FnConfirm(() => {
+                // Đoạn code này CHỈ CHẠY khi người dùng bấm "Đồng ý" trên Modal
+                console.log("Đã xóa dữ liệu thành công!");
+                alert("Đã xóa bản ghi thành công khỏi hệ thống!");
+            });
+        };
+
+        // Gắn sự kiện cho nút "Xóa dữ liệu" ngoài màn hình
+        document.getElementById("btnDeleteRow").addEventListener("click", handleDelete);
+    </script>
+</body>
+</html>
+
+<!-- 
+2. Luồng hoạt động chi tiết
+    1. Người dùng bấm nút "Xóa dữ liệu" $\rightarrow$ Kích hoạt hàm handleDelete().
+    2. handleDelete() gọi FnConfirm(...) và truyền vào một Arrow Function ẩn danh (Callback).
+    3. FnConfirm mở Modal xác nhận lên màn hình và tạm dừng chờ tương tác.
+    4. Khi người dùng bấm nút "Đồng ý" (#btnYes):
+    FnConfirm đóng Modal lại.
+    Lệnh onConfirmCallback() thực thi $\rightarrow$ Chạy ngược lại đoạn mã console.log("Đã xóa...") và alert(...) nằm ở handleDelete.
+    5. Nếu người dùng bấm "Hủy bỏ" (#btnNo):
+    FnConfirm đóng Modal và không bao giờ gọi onConfirmCallback(), giúp bảo vệ dữ liệu không bị xóa nhầm.
+
+
+-->

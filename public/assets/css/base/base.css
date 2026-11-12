@@ -1,0 +1,109 @@
+/* ======================================================================⚪
+A.💦 Reset/Normalize (Đưa mọi trình duyệt về cùng một chuẩn) 💦
+  »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» */
+
+
+
+
+
+
+/* ======================================================================⚪
+B.💦 B. Định nghĩa biến (CSS Variables) 💦
+  »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» */
+:root {
+    /* Màu sắc chính */
+    --primary-color: #ffffff;
+    --secondary-color: #ffffff;
+
+    --accent-color: #ffffff;
+    --success-color: #27ae60;
+    --danger-color: #e74c3c;
+    
+    /* Màu nền và chữ */
+    --bg-body: #f4f7f6;
+    --text-main: #333333;
+    --text-muted: #7f8c8d;
+    --border-color: #6e6e6e13;
+    --input-border-color: #072c158f;
+
+    --bgMain: #091410;
+    --bgMain1: #091413;
+    --bgMain2: #1d2e28;
+    --bgMain3: #18392b;
+    --bgMain4: #14452f;
+    --bgMain5: #0f5432;
+    --bgMain6: #0b6e4f;
+    --bgMain7: #08a045;
+    --bgMain8: #21d375;
+    --bgMain9: #ffffff;
+   
+
+    --bgMainHover: #408A71;
+
+    --txtPri: #ffffff;  
+    --txtPri1: #B0E4CC;
+    --txtPri2: #21d375;
+    --txtPri3: #08a045;
+    --txtPri4: #0b6e4f;
+    --txtPri5: #14452f;
+    --txtPri6: #18392b;
+    --txtPri7: #1d2e28;
+    --txtPri8: #091413;
+    --txtPri9: #000000;
+    
+
+    --txtSec: #A0CFC0;
+
+
+
+
+
+
+
+    /* Font chữ */
+    --font-main: 'Roboto condensed','Segoe UI', Helvetica, Arial, sans-serif;
+    /* font-family: var(--font-main); */
+
+
+
+    /* KHÁC */
+  --SideBarBGcolor: #ffffff;
+  --SideBarcolor: #00856f;
+  --SideBarTieudeColor: #0457b1;
+  --SideBarMenuActiveColor: #0400ff;
+
+  --tabulatorColor:#011a14;
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ======================================================================⚪
+C.💦 C. Cấu hình mặc định cho thẻ HTML 💦
+  »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» */
+
+
+
+
+
+
+
+
+
+
+
+/* ======================================================================⚪
+A.💦 Reset/Normalize (Đưa mọi trình duyệt về cùng một chuẩn) 💦
+  »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» */

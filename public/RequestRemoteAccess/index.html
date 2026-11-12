@@ -1,0 +1,368 @@
+ 
+<!DOCTYPE html>
+<html>
+    <!--
+    ⬜⬜⬜~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~    HEAD    ~~~~~~~~~~~~~~~~~~~~~~~~~~~   BODY
+    📌📌📌Thứ tự ưu tiên META → TITLE → FONT → LIB CSS → CUSTOM CSS → LIB JS → APP JS --> 
+    <head>
+ 
+        <!--
+        💛 META -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--
+        💚 TITLE -->
+        <title>Ikka-Yêu cầu mở  Ultraview</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/img/Logo32x32.png">
+        <!--
+        💙 FONTS -->
+        <link rel="stylesheet" href="../../../assets/css/base/fonts.css">
+        <link rel="stylesheet" href="../../../assets/css/base/base.css">
+        <!--
+        💜 LIB CSS -->
+        <link rel="stylesheet" href="../../../assets/vendor/tabulator/tabulator.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css">
+        <link rel="stylesheet" href="../assets/css/app.css">
+        <link rel="stylesheet" href="./css/RequestRemoteAccess.css">
+
+        <!--
+        💜 CUSTOM CSS -->
+        <link rel="stylesheet" href="../../../assets/vendor/scrollbars/overlayscrollbars.min.css">
+        <link rel="stylesheet" href="../../../assets/css/components/components.css">
+        
+
+        
+        <!--
+        💛 LIB JS **** -->
+        <script src="../../../assets/vendor/scrollbars/overlayscrollbars.browser.es6.min.js"></script>
+        <script src="../../../assets/vendor/tabulator/tabulator.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
+        <script src="../../../assets/vendor/sweetalert2.all.min.js"></script>
+
+        
+
+        <!-- CSS Flatpickr -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <!-- CSS của Plugin Flatpickr ConfirmDate -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/confirmDate/confirmDate.css">
+        <!-- JS Flatpickr -->
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <!-- JS của Plugin Flatpickr ConfirmDate -->
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/confirmDate/confirmDate.js"></script>
+    
+        <!--
+        💛 APP JS --> 
+        <script type="module" src="./js/RequestRemoteAccess.js"></script> <!-- 💛 -->
+    </head>
+
+    <!--
+    ⬜⬜⬜~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~    BODY    ~~~~~~~~~~~~~~~~~~~~~~~~~~~   BODY -->
+    <body>
+        <div id="MAIN_WRAP" style="height: 100%;">
+            <!--🟢 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <div id="RRA-HEADER">
+                <h4> YÊU CẦU MỞ KẾT NỐI TỪ XA</h4>
+            </div>
+
+            <!--🟢 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <div id="RRA_CONTENTS" class="resizable-container" style="width:100%" >
+                <!--🌟 ~~~~~ ~~~~~~~🌟 ~~~~~ ~~~~~~~🌟 ~~~~~ ~~~~~~~🌟 ~~~~~ ~~~~~~~🌟 ~~~~~ ~~~~~~~ -->
+                <div id="CONTENTS-L" class="resizable-column" style="width:250px">
+                    <div id="CONTENTS-L_FRAME">
+                        <!--📌-->
+                        <div class="thongtinphieu" id="CONTENT01">
+                            <!--  -->
+                            <h4 style="padding: 10px; color: blue;">YÊU CẦU MỞ KẾT NỐI ULTRAVIEWER</h4>
+                            <!--  -->
+                            <div class="taophieumoi">
+                                <h5 style="padding: 10px; color: rgb(255, 76, 26);">KHU VỰC TẠO YÊU CẦU </h5>
+                                <label for="IP_MEMBER_CODE">Nhập mã nhân viên để tạo yêu cầu</label>
+                                <span class="ghichu">(Nhập đủ 4 ký tự số để lấy thông tin người yêu cầu)</span>
+                                <input inputmode="numeric" maxlength="4" class="input_box" id="IP_MEMBER_CODE" style="text-align: center; width: 50px; height: 18px; font-weight: 700;">
+                                
+                                <div id="MSG1" class="thongbao"></div>
+
+                            </div>
+                            <!--  -->
+                            <div class="xacnhanphieu">
+                                <h5 style="padding: 10px; color: rgb(255, 76, 26);" >KHU VỰC XÁC NHẬN YÊU CẦU </h5>
+                                <label for="IP_CONFIRM_CODE">Nhập mã xác nhận được gửi về email vào đây</label>
+                                <span class="ghichu">(Nhập đủ 20 ký tự số để xác nhận phiếu)</span>
+                                <input class="input_box" id="IP_CONFIRM_CODE" style="text-align: center; width: 150px; height: 18px; font-weight: 700;">
+                                <button type="botton" class="btn" id="BTN_CONFIRM_DONGY"  style="margin: 10px 10px 0px 10px; font-size: 11px; width: 150px; padding: 3px 10px; height: 20px;"> 
+                                    XÁC NHẬN 
+                                </button>
+                                <button type="botton" class="btn" id="BTN_CONFIRM_TUCHOI"  style="margin: 3px 10px 0px 10px; font-size: 11px; width: 150px; padding: 3px 10px; height: 20px; color: red;"> 
+                                    TỪ CHỐI
+                                </button>
+                                <div class="thongbao">
+                                    Lưu ý! Vui lòng xác nhận lại thông tin thành viên yêu cầu đúng hay chưa, tránh trường hợp kẻ gian truy cập mã nhân viên của thành viên khác để đăng ký 
+                                </div>
+    
+                            </div>
+
+                        </div>
+                        <!--📌-->
+                        <div id="CONTENT02">
+                            <h4 style="padding:10px 0px; color: blue;">YÊU CẦU MỞ KẾT NỐI ULTRAVIEWER</h4>
+                            <div class="thongtinketnoi">
+                                <h5>THÔNG TIN NGƯỜI YÊU CẦU </h5>
+                                    <input id="MEMBERCODE" style="color: green; font-weight:900;" readonly>
+
+                                    <label>Nhân viên </label>
+                                    <input class="input_box" id="NHANVIEN" readonly>   
+                                                                                        
+                                    <label>Bộ phận </label>
+                                    <input class="input_box" id="BOPHAN"  readonly>
+                                
+                                <h5>THÔNG TIN KẾT NỐI </h5>
+                                    <label for="MAYTINH">Máy tính cần mở UltraViewer </label>
+                                    <input class=" input_box" id="MAYTINH" > 
+
+                                    <label style="font-family: var(--font-main); font-weight: bold; font-size: 11px; margin: 10px 0 0 0;">THỜI GIAN DỰ KIẾN </label>     
+
+                                    <label for="TIMESTART"  >Thời gian bắt đầu  </label>
+                                    <input class=" input_date input_select_time_master " id="TIMESTART" type="datetime-local" >
+                                    <div id="MSGSTART" class="thongbao msgclear"></div>      
+
+                                    <label for="TIMEEND"    >Thời gian kết thúc  </label>
+                                    <input class=" input_date input_select_time_ext" id="TIMEEND"    type="datetime-local" >
+                                    <div id="MSGEND" class="thongbao msgclear"></div>
+
+                                    <div id="MSGTOTAL" class="thongbao msgclear"></div>
+                            </div>
+                                
+                            <!---->
+                            <div class="thongtinkhach">
+                                <h5>THÔNG TIN NGƯỜI DÙNG HOẶC TỔ CHỨC KẾT ĐƯỢC KẾT NỐI </h5>
+                                <label>Người dùng hoặc tổ chức trực tiếp kết nối </label>
+                                <input class="input_box" id="DESTION" type="text" >
+
+                                <label>Lý do - Mục đích kết nối </label>
+                                <textarea class="input_box" id="MsgText" rows="1"></textarea>
+
+                                <span class="thongbao">Người yêu cầu cam kết sử dụng đúng mục đích, 
+                                    trong trường hợp xảy ra sự cố hệ thống ở khoảng thời gian yêu cầu này phải chấp nhận cùng phối hợp điều tra và chịu trách nhiệm nếu có liên quan trực tiếp đén sự cố
+                                </span>
+                            </div>
+
+                            <!---->
+                            <div class="chucnang">
+                                <button type="botton" class="btn" id="BTN_SEND"  style="margin: 10px; font-size: 11px; padding: 3px 10px; height: 20px;"                 > GỬI YÊU CẦU </button>
+                                <button type="button" class="btn" id="BTN_BACK"  style="margin: 10px; font-size: 11px; padding: 3px 10px; height: 20px;color: red;"    > Quay lại         </button>
+                            </div>
+                            <!-- MSG_SEND -->
+                             <div id="MSG_SEND" class=" thongbao msgclear"></div>
+
+                        </div>    
+                    </div>
+                </div> 
+                <!--🌟 ~~~~~ ~~~~~~~ -->
+                <div class="resizable-divider"></div>
+                <!--🌟 ~~~~~ ~~~~~~~🌟 ~~~~~ ~~~~~~~🌟 ~~~~~ ~~~~~~~🌟 ~~~~~ ~~~~~~~🌟 ~~~~~ ~~~~~~~🌟 ~~~~~ ~~~~~~~ -->
+                <div id="CONTENTS-R" 
+                    class="resizable-column" 
+                    style="
+                        flex:1 !important; 
+                        padding: 10px;
+                        max-width: 100%;
+                        box-sizing: border-box;
+                        ">
+                    <div id="MSG_CONFIRM"></div>
+                    <h4 style="padding-bottom: 5px;">DANH SÁCH CÁC REQUEST</h4>
+                    <div class="table" id="LISTMANAGER" style=" 
+                       
+                        width: 100%;  
+                        box-sizing: 
+                        border-box;
+                        max-height: 90vh;
+                    ">
+                    </div>    
+                </div>
+
+            </div>
+
+            <!--🟢 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <div id="FOOTER">
+
+            </div>
+
+        </div>          
+    </body>
+</html>
+
+
+
+<script>
+    //🟡
+    document.querySelectorAll('input, textarea').forEach(el => {
+    el.setAttribute('spellcheck', 'false');
+    });
+
+    //🟡 BẢNG SELECT DATETIME START
+    flatpickr(".input_select_time_master", {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        time_24hr: true,
+        minDate: "today",// Khóa toàn bộ thời gian trong quá khứ ngay trên lịch
+
+        onOpen: function(selectedDates, dateStr, instance) {// Mỗi khi lịch được mở lên:
+            if (selectedDates.length === 0) {
+                const masterDate = new Date();
+                const minutes = masterDate.getMinutes();
+                    if (minutes > 30) {
+                        masterDate.setHours(masterDate.getHours() + 1);
+                        masterDate.setMinutes(0, 0, 0);
+                    } else if (minutes > 0) {
+                        masterDate.setMinutes(30, 0, 0);
+                    } else { 
+                        masterDate.setSeconds(0, 0);// Đúng 00 phút -> Giữ nguyên, xóa giây/mili-giây
+                    }
+
+                instance.setDate(masterDate, false); 
+            }
+        },   
+        
+        onClose: function(selectedDates, dateStr, instance) {
+            instance.input.dispatchEvent(new Event("change", { bubbles: true }));
+        },
+
+        plugins: [
+            new confirmDatePlugin({
+                confirmIcon: "<i class='fa fa-check'></i>", // Icon (nếu có)
+                confirmText: "SELECT",                      // Chữ hiển thị trên nút
+                showAlways: true,                           // Chỉ hiện khi chọn ngày/giờ
+                theme: "light",                             // Giao diện nút (light/dark)
+            })
+        ],        
+    });
+
+
+
+    //🟡 BẢNG SELECT DATETIME END
+    flatpickr(".input_select_time_ext", {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        time_24hr: true,
+        plugins: [new confirmDatePlugin({ confirmText: "SELECT", showAlways: true })],
+
+        // Mỗi khi mở lịch ô phụ -> Đọc Session
+        onOpen: function(selectedDates, dateStr, instance) {
+            let MasterDate = sessionStorage.getItem("inputDateMaster");
+                if (MasterDate) {
+                    let dateObj = new Date(MasterDate);
+                    dateObj.setTime(dateObj.getTime() + 30 * 60 * 1000);
+                    instance.setDate(dateObj,false);
+                }
+            if (selectedDates.length > 0) {
+                instance.setDate(selectedDates,false);
+            }
+
+            let savedDate = sessionStorage.getItem("flatpickrSession");
+            // Nếu KHÔNG có session -> Tự động lấy ngày hôm nay làm session mới
+            if (!savedDate) {
+                const now = new Date();
+                
+                savedDate = now.toISOString().slice(0, 10);// Chuyển đối tượng Date thành chuỗi "YYYY-MM-DD"
+                // Ghi đè vào sessionStorage
+                sessionStorage.setItem("flatpickrSession", savedDate);
+            }
+            // Luôn áp dụng minDate/maxDate theo ngày đã có (hoặc vừa khởi tạo)
+            instance.set("minDate", `${savedDate} 08:00`);
+            instance.set("maxDate", `${savedDate} 17:00`);
+        },
+
+        onClose: function(selectedDates,dateStr,instance){
+            instance.input.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //🟡
+    const textarea = document.getElementById("MsgText");
+    textarea.addEventListener("input", function () {
+    this.style.height = "auto";                    /* RS chiều cao về mặc định */
+    this.style.height = this.scrollHeight + "px";  /* Gán chiều cao theo nội dung thực tế */
+    });
+
+</script>
+
+
+
+
+
+<style>
+  #MsgText {
+    resize: none;         /* An không cho kéo giãn thủ công */
+    overflow-y: hidden;   /* Ẩn thanh cuộn mặc định */
+    box-sizing: border-box;
+    min-height:max-content;
+    border: 1px solid rgba(0, 0, 0, 0.059);
+    border-radius: 2px;
+    background-color:rgb(243, 243, 243);
+    
+  }
+
+  /* Phóng to toàn bộ bảng lịch */
+    .flatpickr-calendar {
+    font-size: 12px !important;  /* Tăng chữ -> Khung lịch tự to ra tương ứng */
+    /* width: 300px !important;   */   /* Cố định chiều rộng nếu muốn */
+    color: #0051ff !important;
+    }
+
+    /* Tăng kích thước các ô chọn ngày */
+    .flatpickr-day {
+    height: 20px !important;
+    line-height: 20px !important;
+    }
+
+    /* Tăng kích thước vùng chọn giờ */
+    .flatpickr-time {
+    font-size: 14px !important;
+   
+    }
+
+        /* Đổi màu nền và màu chữ cho nút OK */
+    .flatpickr-confirm {
+    background-color: #0051ff !important; /* Thay màu nền  */
+    
+    color: #ffffff !important;           /* Màu chữ (Trắng) */
+    fill: #ffffff !important;            /* Màu icon (nếu dùng icon SVG) */
+    font-weight: bold;                   /* Làm đậm chữ */
+    padding: 8px 10px !important;        /* Chỉnh độ dày của nút */
+    border-radius: 0 0 5px 5px;          /* Bo góc dưới cho đẹp */
+    }
+
+    /* Đổi màu khi rê chuột (Hover) vào nút OK */
+    .flatpickr-confirm:hover {
+    background-color: #0056b3 !important; /* Màu nền đậm hơn khi hover */
+    cursor: pointer;
+    }
+
+</style>
