@@ -1,11 +1,9 @@
 
 import { sidebarRender } from "./modules/sidebar/sidebarRender.js"; //🔵✅
 import { HANDLEROUTER } from "./router.js";
-import { 
-        GW_LoginClick,
-        GW_CheckSession,
-} from "./getway.js";
+
 import {apiFetch}     from "./core/request/fetch_Api.js";
+import {showApiError,ConverErrToDataSwal} from "./core/request/fetch_ApiShowError.js";
 
 
 
@@ -199,8 +197,8 @@ async function LoginClick(){
             init();//🔵✅
         }
         
-    } catch (error) {
-        document.getElementById("msg").innerText = error.mesage();
+    } catch (e) {
+        showApiError(e,"msg",10);
     }
     
 }/*❌❌❌❌❌ End Function */ 

@@ -60,7 +60,7 @@ export function showApiError(error,elementId = "MSG_ApiFetch",time_DisplayMsg=0)
             line-height: 1.2;
             text-align: left;
 
-        ">  <h4>${escapeHtml(title)}</h4>
+        ">  <h4 style="color: #f83f3f;">${escapeHtml(title)}</h4>
             <b></b>
             <b style="font-style: italic; font-weight: 500;">${escapeHtml(msg)}</b>
 

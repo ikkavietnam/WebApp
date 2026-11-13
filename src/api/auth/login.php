@@ -106,7 +106,7 @@
             echo json_encode([
                 "ok"        => false,
                 "title"     => 'ĐĂNG NHẬP THẤT BẠI',
-                "msg"       => "Sai tài khoản hoặc mật khẩu111",
+                "msg"       => "Sai tài khoản hoặc mật khẩu",
                 "MsgPhp"     => $MsgPhp,
                 "ErrCode"   => 401,
             ], JSON_UNESCAPED_UNICODE);
@@ -128,7 +128,7 @@
             echo json_encode([
                 "ok"        => false,
                 "title"     => 'ĐĂNG NHẬP THẤT BẠI ❌',
-                "msg"       => "Sai Tài khoản hoặc Mật khẩu",
+                "msg"       => "Sai tài khoản hoặc mật khẩu",
                 "ErrCode"   => 401,
        
             ], JSON_UNESCAPED_UNICODE);
