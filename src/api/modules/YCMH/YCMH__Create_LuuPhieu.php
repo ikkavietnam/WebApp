@@ -8,7 +8,7 @@
         use PHPMailer\PHPMailer\Exception;      //Dùng PHPMailer để gửi mail bảo mật
 
     //✅ THAM CHIẾU CÁC MODULE CHỨC NĂNG
-        require_once __DIR__ . '/../../../../public/vendor/autoload.php';
+        require_once __DIR__ . '/../../../vendor/autoload.php';
         require_once __DIR__ . '/../../../core/Database.php';
         require_once __DIR__ . '/../../../core/Authorization.php';
 
@@ -333,9 +333,12 @@
                     // ⭐ Trỏ trực tiếp vào thư mục Bind Mount trên NAS host (đã thông sang container)
                     $upload_dir = '/mnt/itv_share/Data/Attach/';
 
-                    // ⭐ Tự động kiểm tra và tạo thư mục nếu chưa tồn tại
-                    if (!is_dir($upload_dir)) {
-                        mkdir($upload_dir, 0755, true);
+                    // ⭐ Kiểm tra thư mục lưu trữ (lỗi → Exception → rollback, không in Warning làm hỏng JSON)
+                    if (!is_dir($upload_dir) && !@mkdir($upload_dir, 0775, true)) {
+                        throw new Exception("Không tìm thấy thư mục lưu file đính kèm ($upload_dir). Kiểm tra volume /mnt/itv_share đã được mount vào container chưa. Liên hệ IT.");
+                    }
+                    if (!is_writable($upload_dir)) {
+                        throw new Exception("Máy chủ web không có quyền ghi vào thư mục lưu file đính kèm ($upload_dir). Liên hệ IT.");
                     }
 
                     // ⭐ Tạo mã security
@@ -365,7 +368,7 @@
                             $att_link            = "\\\\ITV-SV\\Document\\Data\\Attach\\" . $att_file_name_logic;
 
                             // Dùng move_uploaded_file để chuyển file tạm sang đường dẫn Bind Mount local
-                            if (move_uploaded_file($tmp_path, $target_file)) {
+                            if (@move_uploaded_file($tmp_path, $target_file)) {
 
                                 // Thêm dữ liệu vào bảng ERP_AttLink
                                 $QrIns_AttLink = "

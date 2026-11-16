@@ -32,7 +32,6 @@ if (!isset($_SESSION['user'])) {
         💜 LIB CSS -->
         <link rel="stylesheet" href="assets/vendor/scrollbars/overlayscrollbars.min.css">
         <link rel="stylesheet" href="assets/vendor/tabulator/tabulator.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css">
 
         <!--
         💜 CUSTOM CSS -->
@@ -42,7 +41,6 @@ if (!isset($_SESSION['user'])) {
         💛 LIB JS **** -->
         <script src="assets/vendor/scrollbars/overlayscrollbars.browser.es6.min.js"></script>
         <script src="assets/vendor/tabulator/tabulator.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
         <script src="assets/vendor/sweetalert2.all.min.js"></script>
 
         <!--
@@ -53,10 +51,12 @@ if (!isset($_SESSION['user'])) {
 
     <!--
     ⬜⬜⬜~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~    BODY    ~~~~~~~~~~~~~~~~~~~~~~~~~~~   BODY -->
-    <body>
+    <body class="guest">
 
+        <div id="GUEST"></div>
         <div id="HEADER">
             <div id="HeaderLeft">
+                <a id="btnBackGuest" href="#Welcome" title="Về trang Welcome">⌂ WELCOME</a>
                 <span> ♡✩‧₊˚ ✧⋄⋆⋅⋆⋄✧ ☾ ⋆*･ﾟ:⋆*･ﾟ </span>
                     Welcome to IKKA Technology VIETNAM 
                 ✩‧₊˚ ✧⋄⋆⋅⋆⋄✧ ☾ ⋆*･ﾟ:⋆*･ﾟ

@@ -164,7 +164,7 @@ export async function ErpAlert(title, text, type = 'warning', themeColor = null)
 }
 // Cách xài cực kỳ ngắn gọn ở các file JS khác:
 // Lỗi nghiêm trọng -> Đỏ
-//ErpAlert('Cảnh báo lỗi', 'Bạn chưa nhập tên hàng hóa!', 'error', '#d32f2f'); 
+//ErpAlert('Cảnh báo lỗi', 'Bạn chưa nhập tên hàng hóa!', 'error', '#d32f2f');
 // Nhắc nhở nhẹ nhàng -> Màu cam
 //ErpAlert('Lưu ý', 'Số lượng hơi lớn, bạn chắc chứ?', 'warning', '#f39c12');
 

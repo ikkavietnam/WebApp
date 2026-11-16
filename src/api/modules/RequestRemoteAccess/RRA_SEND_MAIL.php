@@ -7,7 +7,7 @@
         use PHPMailer\PHPMailer\PHPMailer;
         use PHPMailer\PHPMailer\Exception;
     // REQUIRE
-        require_once __DIR__ . '/../../../../public/vendor/autoload.php'; //* Support SEND EMAIL
+        require_once __DIR__ . '/../../../vendor/autoload.php'; //* Support SEND EMAIL
 
     header('Content-Type: application/json; charset=utf-8'); //THÔNG BÁO VỚI CLIENT : Dữ liệu sắp được trả về sẽ có định dạng JSON (JavaScript Object Notation) 🔈 Bắt buocj phải có dòng này
     date_default_timezone_set('Asia/Ho_Chi_Minh');

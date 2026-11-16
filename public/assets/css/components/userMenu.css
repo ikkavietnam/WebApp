@@ -1,0 +1,128 @@
+/* 🟢 DROPDOWN USER (mectrl) — dùng chung #GUEST .topbar và #HEADER */
+
+.mectrl {
+    position: relative;
+}
+
+.mectrl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 4px 2px 10px;
+    border: 0;
+    border-radius: 20px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s ease;
+}
+
+.mectrl-btn:hover,
+.mectrl-btn[aria-expanded="true"] {
+    background: rgba(255, 255, 255, .25);
+}
+
+.mectrl-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #3eaa7c, #0e6246);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .02em;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, .7);
+}
+
+.mectrl-avatar.lg {
+    width: 64px;
+    height: 64px;
+    font-size: 22px;
+}
+
+.mectrl-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 10000;
+    width: 320px;
+    color: #18392b;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, .22);
+    overflow: hidden;
+    font-size: 12px;
+}
+
+.mectrl-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: #f3f7f5;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .05em;
+}
+
+.mectrl-logout {
+    border: 0;
+    background: transparent;
+    color: #0e6246;
+    font: inherit;
+    font-weight: 600;
+    letter-spacing: 0;
+    cursor: pointer;
+}
+
+.mectrl-logout:hover {
+    color: #c0392b;
+    text-decoration: underline;
+}
+
+.mectrl-body {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 16px;
+}
+
+.mectrl-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.mectrl-info b {
+    font-size: 15px;
+}
+
+.mectrl-info span {
+    color: #4b6358;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Header ERP cao 30px → thu nhỏ nút */
+#HEADER .mectrl-btn {
+    padding: 1px 3px 1px 8px;
+    font-size: 11px;
+}
+
+#HEADER .mectrl-avatar:not(.lg) {
+    width: 22px;
+    height: 22px;
+    font-size: 10px;
+}
+
+#HEADER .mectrl-panel {
+    top: calc(100% + 4px);
+}

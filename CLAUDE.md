@@ -7,7 +7,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Session Management**: PHP Sessions (`$_SESSION`)
 - **Database**: SQL Server 2019 (via `sqlsrv_*` extension)
 - **Key Dependencies**:
-  - `phpoffice/phpspreadsheet` (v5.7+) - Excel/spreadsheet operations
+  - `phpoffice/phpspreadsheet` (^5.7, đang dùng 5.11) - Excel/spreadsheet operations
+  - `phpmailer/phpmailer` (^7.2) - gửi mail (YCMH workflow, RequestRemoteAccess)
+  - `dompdf/dompdf` (^3.1) - xuất PDF phiếu YCMH
+  - Tất cả cài trong `src/vendor` — load bằng `require_once __DIR__ . '/../../../vendor/autoload.php'` (từ `src/api/modules/<module>/`)
   - PHP Extensions: `sqlsrv` (SQL Server driver), `gd` (image processing), `zip` (archive handling)
 - **Build Tool**: Composer (dependency management)
 - **Frontend**: HTML/CSS/JavaScript (Tabulator.js, Handsontable for data grids)
@@ -17,13 +20,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```
 w:\WebStandard\www\App/
 ├── public/                              # Web root (document root)
-│   ├── index.php                       # Main application SPA entry point
-│   ├── loginForm.php                   # Login page
-│   ├── About.php                       # About page
+│   ├── index.php                       # SPA entry (Guest + ERP)
+│   ├── loginForm.php                   # Popup đăng nhập lại khi hết phiên
 │   ├── api_gateway.php                 # API Gateway - routes all API requests to src/api/
+│   ├── api/user/logout.php             # Logout (gọi trực tiếp, không qua gateway)
+│   ├── view/ycmh/approval/             # Trang duyệt phiếu YCMH độc lập (link gửi qua email)
+│   ├── RequestRemoteAccess/            # Form yêu cầu remote access độc lập (public)
 │   ├── assets/                         # Static files (CSS, JS, images, fonts, vendor libs)
-│   │   ├── css/
-│   │   ├── js/
+│   │   ├── css/                        # app.css import base/ layout/ components/ modules/
+│   │   ├── js/                         # app.js (APPROUTER), router.js, core/, modules/
 │   │   ├── img/
 │   │   ├── fonts/
 │   │   └── vendor/                     # Tabulator, Handsontable, SweetAlert2, etc.
@@ -33,9 +38,8 @@ w:\WebStandard\www\App/
 ├── src/                                 # Source code (outside web root)
 │   ├── api/                            # API endpoint implementations
 │   │   ├── auth/                       # Authentication (login, session check)
-│   │   ├── manager/                    # Admin/manager features
-│   │   ├── modules/                    # Feature modules (YCMH, RequestRemoteAccess, etc.)
-│   │   └── ...                         # Other API route endpoints
+│   │   ├── users/                      # Thông tin user
+│   │   └── modules/                    # Feature modules (YCMH, RequestRemoteAccess, managerAccount...)
 │   ├── config/                         # Configuration (gitignored)
 │   │   ├── config.php                  # DB connection, app config
 │   │   └── config_smb_server.php       # SMB/network config
@@ -79,6 +83,42 @@ The application uses a **centralized API Gateway** pattern:
    - `GW_PUBLIC` - no authentication required
    - `GW_USER` - any authenticated user
    - Numeric (1, 3, 5, etc.) - role-based, numeric ≤ specified level (1=Admin, higher numbers=lower privilege)
+
+## 🖥️ Frontend SPA — 2 giao diện, 1 router
+
+`public/index.php` là SPA duy nhất, chứa 2 giao diện. Chuyển qua lại bằng class `guest` trên `<body>` (CSS ẩn/hiện trong `welcome.css`):
+
+| Giao diện | Container | Hash | Session |
+|-----------|-----------|------|---------|
+| **Guest** (public) | `#GUEST` | `#Welcome` (mặc định), `#About`, `#Services`, `#Contact`, `#Login` | Không bắt buộc. Nếu đã login thì góc phải hiện dropdown user thay vì nút LOGIN |
+| **ERP** (local) | `#HEADER` + `#SIDEBAR` + `#APP` | `#Home`, `#listYCMH`, `#Account`... (key trong `menuConfig.js`) | **Bắt buộc** — check session mỗi lần đổi hash |
+
+**Luồng điều phối** — `APPROUTER()` trong `assets/js/app.js` là listener `hashchange` **duy nhất** cho việc chuyển trang:
+1. Hash rỗng → `#Welcome`
+2. Gọi `/api/auth/check-session` lấy `user` (hoặc `null`)
+3. Hash thuộc `GUEST_ROUTES` → `GuestRender(key, user, {onLogin, onLogout})`
+4. Hash khác (ERP): chưa login → lưu hash vào `sessionStorage.url_after_login` → `#Login`; đã login → `AppRender(user)` → `HANDLEROUTER()` (`router.js`) kiểm tra `MenuPermission` rồi render trang
+
+**Chuyển giao diện (giữ session):** nav `SYSTEM` (Guest) → `#Home`; nút `⌂ WELCOME` (`#btnBackGuest` trong `#HeaderLeft`) → `#Welcome`.
+**Login OK** → `url_after_login` hoặc `#Welcome`. **Logout** (trong dropdown) → `#Welcome`.
+
+**Quy tắc khi thêm trang:**
+- Trang ERP: thêm key vào `MenuPermission`/`MENU` (`menuConfig.js`) + `case` trong `RENDERCONTENT` (`router.js`). Không thêm listener `hashchange` riêng.
+- Trang Guest: thêm key vào `GUEST_ROUTES` + hàm trong `PAGES` (`modules/guest/guestRender.js`).
+- Hash 2 giao diện **không được trùng nhau**.
+- CSS Guest phải nằm trong `#GUEST` để không lan sang ERP.
+- **Không dùng id `HEADER`/`SIDEBAR`/`APP`/`GUEST` trong nội dung module** và không viết selector toàn cục (`html`, `body`, `h1`...) trong CSS module — CSS module (`loadModuleCSS`) không bị gỡ khi rời trang.
+
+**Layout ERP (`layout/body.css`)** — vừa khít 1 màn hình: `body:not(.guest)` là grid `30px | 1fr` × `160px | 1fr`, `html/body` `overflow:hidden`. Chỉ `#SIDEBAR` và `#APP` tự cuộn. Không dùng `100vw`/`100vh` trong module — dùng `100%` của `#APP`.
+**Sidebar**: dựng lại mỗi lần vào ERP từ Guest (reset active); `SyncSidebarWithHash` (sidebarRender.js) là nơi duy nhất set `.active`/`.sub-active`.
+
+**File chính:**
+- `assets/js/app.js` — `APPROUTER`, `AppRender`, `LoginClick`, `LogoutClick`
+- `assets/js/router.js` — `HANDLEROUTER` / `RENDERCONTENT` (trang ERP)
+- `assets/js/modules/guest/guestRender.js` + `assets/css/modules/welcome.css` — giao diện Guest
+- `assets/js/core/ui/userMenu.js` + `assets/css/components/userMenu.css` — dropdown user (dùng chung 2 header)
+- `assets/js/core/auth/handleSessionExpired.js` + `public/loginForm.php` — popup đăng nhập lại khi hết phiên giữa chừng (id `#LoginFrame`)
+- `assets/js/core/request/fetch_Api.js` — `apiFetch()`: throw `ApiError` khi HTTP lỗi hoặc `ok !== true`
 
 ## 🔧 Coding Standards & Conventions
 
@@ -141,8 +181,7 @@ cp src/config/config_smb_server.php.example src/config/config_smb_server.php
 1. Configure web server document root to `public/` folder
 2. Ensure SQL Server connection credentials in `src/config/config.php`
 3. Set correct `$appRoot` path in `public/api_gateway.php` (currently hardcoded for Docker: `/var/www/App`)
-4. Access via: `http://localhost/` or `http://localhost/index.php`
-5. Login via: `http://localhost/loginForm.php`
+4. Access via: `http://localhost/` → tự chuyển `#Welcome`; đăng nhập tại `#Login`
 
 ### API Testing
 - **Via curl**:
@@ -214,9 +253,9 @@ cp src/config/config_smb_server.php.example src/config/config_smb_server.php
   ```
 
 ### Handle File Uploads/Downloads
-- **Downloads**: `src/api/modules/AttachDownload/AttachDownload.php`
-- **Upload folder**: `public/uploadAttach/` (ensure write permissions)
-- **Download handler**: `public/downloadAttach/index1.php`
+- **Downloads**: `src/api/modules/AttachDownload/AttachDownload.php` (chưa đăng ký route trong `ApiRouter.php`)
+- **Download page**: `public/downloadAttach/index.html` (link `downloadAttach?Id=&Type=&Sec=` — đang dở dang)
+- **SMB credentials**: chỉ đặt trong `src/config/config_smb_server.php`, không viết cứng trong code
 
 ## ⚠️ Important Notes & Security
 
@@ -252,7 +291,9 @@ These must be created locally before running:
 ### Composer & Dependencies
 - Installed in `src/` directory (separate from root)
 - Run `composer install` in `src/` folder, NOT root
-- Key dependency: `phpoffice/phpspreadsheet` ^5.7
+- Dependencies: `phpoffice/phpspreadsheet`, `phpmailer/phpmailer`, `dompdf/dompdf`
+- `vendor/` bị gitignore → server/Docker phải chạy `composer install` trong `src/`
+- Kiểm tra lỗ hổng: `composer audit` (trong `src/`)
 - Extensions required: sqlsrv, gd, zip (verified in `src/composer.json` config)
 - `composer update` should be rare - prefer pinned versions in `composer.lock`
 
@@ -260,8 +301,9 @@ These must be created locally before running:
 
 | File | Purpose |
 |------|---------|
-| `public/index.php` | Main SPA entry point, loads UI framework |
-| `public/loginForm.php` | Authentication page |
+| `public/index.php` | SPA entry — chứa cả giao diện Guest (`#GUEST`) và ERP |
+| `public/assets/js/app.js` | `APPROUTER` — router chung Guest/ERP, login/logout |
+| `public/loginForm.php` | Popup đăng nhập lại khi hết phiên (nạp bởi `handleSessionExpired.js`) |
 | `public/api_gateway.php` | Central API router - maintains `$routes` mapping |
 | `src/core/Database.php` | SQL Server connection & helper functions |
 | `src/core/Helpers.php` | Utility functions for handlers |
@@ -281,6 +323,7 @@ These must be created locally before running:
 - [ ] Session storage path outside web root (PHP default or custom `session.save_path`)
 - [ ] Error logging configured (check PHP ini settings)
 - [ ] `$appRoot` path in `public/api_gateway.php` matches deployment path
+- [ ] Volume `/mnt/itv_share` (CIFS `//192.168.110.232/Document`, uid/gid 33) — khai báo trong `image/SetupOrg/docker-compose.yaml`, thông tin SMB trong `.env` (mẫu: `.env.example`). Thiếu volume → upload file đính kèm YCMH lỗi
 
 ## 📝 Commit Message Format
 - Use Vietnamese or English (preferably English)

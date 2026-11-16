@@ -145,9 +145,12 @@ function SyncSidebarWithHash(){
     const hash = location.hash.replace("#", "");
     if (!hash) return;
 
-    // Chỉ dọn dẹp class active của các item con và menu đơn (Không đụng vào class sub-active của menu-title)
-    document.querySelectorAll(".submenu-item.active, .menu.single.active")
-        .forEach(el => el.classList.remove("active"));
+    // Hash không thuộc sidebar (trang Guest) → giữ nguyên
+    if (!document.querySelector(`#SIDEBAR [data-key="${hash}"]`)) return;
+
+    // Reset toàn bộ trạng thái active
+    document.querySelectorAll("#SIDEBAR .active").forEach(el => el.classList.remove("active"));
+    document.querySelectorAll("#SIDEBAR .sub-active").forEach(el => el.classList.remove("sub-active"));
 
     // ===== TRƯỜNG HỢP: SUBMENU =====
     const sub = document.querySelector(`.submenu-item[data-key="${hash}"]`);

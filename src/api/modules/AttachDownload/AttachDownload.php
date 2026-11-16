@@ -7,7 +7,7 @@
         use PHPMailer\PHPMailer\Exception;
 
     // REQUIRE
-        require_once __DIR__ . '/../../../../public/vendor/autoload.php';
+        require_once __DIR__ . '/../../../vendor/autoload.php';
         require_once __DIR__ . '/../../../core/Database.php';
     header('Content-Type: application/json; charset=utf-8'); //THÔNG BÁO VỚI CLIENT : Dữ liệu sắp được trả về sẽ có định dạng JSON (JavaScript Object Notation) 🔈 Bắt buocj phải có dòng này
     //LẤY DỮ LIỆU TỪ CLIENT GỬI

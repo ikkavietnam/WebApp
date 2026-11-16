@@ -8,7 +8,7 @@
     //✅ THAM CHIẾU CÁC MODULE CHỨC NĂNG
         require_once __DIR__ . '/../../../core/Database.php';     //Database
         require_once __DIR__ . '/../../../core/Authorization.php';//Auth
-        require_once __DIR__ . '/../../../../public/vendor/autoload.php';   //HỖ TRỢ SEND MAIL
+        require_once __DIR__ . '/../../../vendor/autoload.php';   //HỖ TRỢ SEND MAIL
 
     //✅ CHECK SESSION & HEADER
         if (session_status() === PHP_SESSION_NONE) {

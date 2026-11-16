@@ -1,16 +1,10 @@
 #SIDEBAR {
-    width: 160px;
-    height: calc(100vh - 30px);
-    
+    min-height: 0;
     color: var(--txtPri8);
     background: var(--bgMain9);
     font-family: var(--font-main);
-    float: left;
-    
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.555);
-    /* box-sizing: border-box; */
-    position: sticky; /* Giữ sidebar cố định khi cuộn trang (tùy chọn) */
-    overflow-y: auto; /* Cho phép cuộn bên trong sidebar nếu nội dung quá dài */
+    overflow-y: auto;
 }
 
 .frame {

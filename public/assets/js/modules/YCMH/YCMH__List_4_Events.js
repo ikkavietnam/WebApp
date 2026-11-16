@@ -503,7 +503,7 @@ function GET_HTML_RENDER_CONTENT() {
             <tbody>
                 <tr>
                     <td>
-                        <div id="HEADER"></div>
+                        <div id="PHIEU_HEADER"></div>
                     </td>
                 </tr>
             </tbody>
@@ -673,8 +673,8 @@ function GET_HTML_RENDER_STYLE() {
         h5 { font-size: 11px; font-weight: bold; margin: 12px 0 4px 0; color: #222; text-transform: uppercase; }
 
 
-        /* 🔴 HEADER */    
-        #HEADER {
+        /* 🔴 HEADER */
+        #PHIEU_HEADER {
             display: none;
             width: 100%;
             height: max-content;

@@ -37,8 +37,8 @@ import { loadModuleCSS } from "./core/Utils/styleLoader.js";
 
 // 
 
-/*   
-🎲🎲🎲✅  KÍCH HOẠT  MỖI KHI LOCATION HASH THAY ĐỔI 
+/*
+🎲🎲🎲✅  ROUTER TRANG ERP — được gọi từ APPROUTER (app.js) sau khi đã check session
 ````````````````````````````````````````````````````````````````````````````````` 🎲 HANDLEROUTERR 🎲*/
 export function HANDLEROUTER(){
     //🟢 NẾU CHƯA ĐĂNG NHẬP\
@@ -54,14 +54,7 @@ export function HANDLEROUTER(){
         // Kiểm tra tồn tại (useType): Đảm bảo biến useType không bị null, undefined hoặc bằng 0 trước khi so sánh. Điều này giúp tránh lỗi chương trình (Crash).
         // So sánh giá trị (currentUser.UsType > useType): Kiểm tra xem cấp bậc/loại của người dùng hiện tại có cao hơn mức yêu cầu hay không.
 
-    //🟢 ===== HIGHLIGHT =====
-        const menus = document.querySelectorAll("#SIDEBAR .menu");
-        menus.forEach(m => m.classList.remove("active"));
-
-        const el = document.querySelector(`[data-menu="${key}"]`);
-        if(el) el.classList.add("active");
-
-    // ===== RENDER ===== 
+    // ===== RENDER (highlight sidebar do sidebarRender.js xử lý) =====
         RENDERCONTENT(key); //🔵✅
 
 
@@ -164,8 +157,6 @@ function RENDERCONTENT(key){
             app.innerHTML = "<h2>DEFAULT Err 404 WEB đang quá trình xây dựng</h2>";
     }
 }/*❌❌❌❌❌*/
-
-/*⚪*/  window.addEventListener("hashchange", HANDLEROUTER); 
 
 
    

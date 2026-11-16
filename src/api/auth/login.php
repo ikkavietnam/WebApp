@@ -66,7 +66,7 @@
         $sql = "
             SELECT 
 
-                UsID1
+                UsID
                 ,UsPwdHash
                 ,UsName
                 ,UsDisplay

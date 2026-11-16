@@ -4,7 +4,7 @@
         require_once __DIR__ . '/../../../core/Authorization.php';
         require_once __DIR__ . '/YCMH__Function_LOAD_Data_PHIEU.php';
     // Gọi autoload của Composer
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+        require_once __DIR__ . '/../../../vendor/autoload.php';
         
         use Dompdf\Dompdf;
         use Dompdf\Options;

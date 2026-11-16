@@ -1,8 +1,8 @@
-import { 
-        GW_getUsersDetail,
-        GW_ChangePass,
-        GW_SaveUser,
-        GW_CheckSession,
+import {
+    GW_getUsersDetail,
+    GW_ChangePass,
+    GW_SaveUser,
+    GW_CheckSession,
 
 } from "./../../getway.js";
 
@@ -13,26 +13,26 @@ import { handleSessionExpired } from "./../../core/auth/handleSessionExpired.js"
 🟢BEGIN
 ````````````````````````````````````````````````````````````````````````````````` */
 export async function accountRender() {
-console.log("🚩 accountRender 🔈  accountRender()")
-handleSessionExpired(accountRender); //🔳Auth001
+    console.log("🚩 accountRender 🔈  accountRender()")
+    handleSessionExpired(accountRender); //🔳Auth001
 
 
-const app = document.getElementById("APP");
+    const app = document.getElementById("APP");
 
     let res = await GW_getUsersDetail();
     if (!res.ok) {
         app.innerHTML = "Xảy ra lỗi chưa xác định";
         return;
     }
-   
+
     /////////////////////////////////////////////////
-    let userData = res.user.user;  
+    let userData = res.user.user;
     let configData = res.user.config;
     /////////////////////////////////////////////////
     // 💬Tạo nội dung các hàng cho bảng bằng cách duyệt qua Object data.user
     const tableRows = Object.entries(userData).map(([key, value]) => {
         let _key = configData[key].label;
-        let _satus = configData[key].isReadOnly==='isReadOnly' ? 'disabled' : '';
+        let _satus = configData[key].isReadOnly === 'isReadOnly' ? 'disabled' : '';
         return `
             <tr>
                 <td><label>${_key}</label></td>
@@ -70,7 +70,7 @@ const app = document.getElementById("APP");
     </div>
     `;
 
-// 💬===== XỬ LÝ LƯU (SAVE) =====
+    // 💬===== XỬ LÝ LƯU (SAVE) =====
     document.getElementById("btnSave").onclick = async () => {
         //💬 Tự động thu thập dữ liệu từ các input (chỉ lấy những trường được phép sửa)
         let payload = {};
@@ -79,13 +79,13 @@ const app = document.getElementById("APP");
                 payload[key] = document.getElementById(key).value;
             }
         });
-  
-        let res = await GW_SaveUser (payload);  
+
+        let res = await GW_SaveUser(payload);
 
         const msg = document.getElementById("accountMsg");
         msg.innerText = "Saved ✅";
         setTimeout(() => msg.innerText = "", 3000); // Ẩn thông báo sau 3s
-        
+
     };
 
 
@@ -100,7 +100,7 @@ const app = document.getElementById("APP");
 🟢BEGIN
 ````````````````````````````````````````````````````````````````````````````````` */
 export async function renderChangePassword() {
-console.log("🚩 accountRender 🔈2.  renderChangePassword()")
+    console.log("🚩 accountRender 🔈2.  renderChangePassword()")
 
     const app = document.getElementById("APP");
 
@@ -147,7 +147,7 @@ console.log("🚩 accountRender 🔈2.  renderChangePassword()")
     document.getElementById("btnUpdatePwd").onclick = async () => {
         ChangePass();
     };
-    
+
 }//END❌
 
 
@@ -156,119 +156,104 @@ console.log("🚩 accountRender 🔈2.  renderChangePassword()")
 /*  
 🟢BEGIN
 ☘️ ◆▪▪▪ ◆▪▪▪◆▪▪▪◆▪▪▪◆▪▪▪◆▪▪▪◆▪▪▪◆▪▪▪◆▪▪▪◆▪▪▪◆▪▪▪◆▪▪▪◆▪▪▪◆▪▪▪◆▪▪▪◆▪▪▪◆▪▪▪◆▪▪▪◆▪▪▪◆▪▪▪☘️*/
-async function ChangePass () {
+async function ChangePass() {
 
     const app = document.getElementById("APP");
     let isUser = await GW_CheckSession();
 
-    if (!isUser.ok && isUser.ErrCode === 401){
-        handleSessionExpired(ChangePass); 
+    if (!isUser.ok && isUser.ErrCode === 401) {
+        handleSessionExpired(ChangePass);
         return;
     }
-        
 
-        const oldPwd = document.getElementById("oldPwd").value;
-        const newPwd = document.getElementById("newPwd").value;
-        const confirmPwd = document.getElementById("confirmPwd").value;
-        const msg = document.getElementById("pwdMsg");
-        
-        // 📝3.1 Kiểm tra logic Client-side (Validation) ---
-        if (!oldPwd) {
-            msg.innerText = "❌ Mật khẩu hiện tại Không được để trống";
-            setTimeout(() => msg.innerText = "", 3000); 
-            msg.style.color = "red";
-            return;
-        }
-                if (!newPwd) {
-                    msg.innerText = "❌ Mật khẩu mới không được để trống";
-                    msg.style.color = "red";
 
-                    return;
+    const oldPwd = document.getElementById("oldPwd").value;
+    const newPwd = document.getElementById("newPwd").value;
+    const confirmPwd = document.getElementById("confirmPwd").value;
+    const msg = document.getElementById("pwdMsg");
+
+    // 📝3.1 Kiểm tra logic Client-side (Validation) ---
+    if (!oldPwd) {
+        msg.innerText = "❌ Mật khẩu hiện tại Không được để trống";
+        setTimeout(() => msg.innerText = "", 3000);
+        msg.style.color = "red";
+        return;
+    }
+    if (!newPwd) {
+        msg.innerText = "❌ Mật khẩu mới không được để trống";
+        msg.style.color = "red";
+
+        return;
+    }
+    if (!confirmPwd) {
+        msg.innerText = "❌ nhập lại mật khẩu mới ! không được để trống";
+        msg.style.color = "red";
+
+        return;
+    }
+
+    if (newPwd.length < 6) {
+        msg.innerText = "❌ Mật khẩu mới phải có ít nhất 6 ký tự";
+        msg.style.color = "red";
+        return;
+    }
+
+    if (newPwd !== confirmPwd) {
+        msg.innerText = "❌ Mật khẩu mới và mật khẩu xác nhận không trùng nhau";
+        msg.style.color = "red";
+        return;
+    }
+
+    // --- Gửi dữ liệu lên Server ---
+    msg.innerText = "Processing...";
+    msg.style.color = "orange";
+    //************************************************************************************************* CHANGE
+    try {
+        let result = await GW_ChangePass(oldPwd, newPwd);
+
+        if (result.ok) {
+            // THAY ĐỔI THÀNH CÔNG
+            msg.innerText = "✅ Password changed Success ✅";
+            msg.style.color = "green";
+            // Sau 3 giây tự động quay về trang tài khoản
+
+
+            Swal.fire({
+                title: 'Thông báo',
+                text: result.msg,
+                icon: 'error', // Các icon có sẵn: 'success', 'error', 'warning', 'info', 'question'
+                confirmButtonText: 'OK'
+            }).then((sweetResult) => {
+                if (sweetResult.isConfirmed) {
+                    setTimeout(() => accountRender(), 3000);
                 }
-                        if (!confirmPwd) {
-                            msg.innerText = "❌ nhập lại mật khẩu mới ! không được để trống";
-                            msg.style.color = "red";
+            });
 
-                            return;
-                        }
-
-        if (newPwd.length < 6) {
-            msg.innerText = "❌ Mật khẩu mới phải có ít nhất 6 ký tự";
+        } else {
+            msg.innerText = "❌ " + (result.msg || "Update failed!");
             msg.style.color = "red";
-            return;
-        }
-
-        if (newPwd !== confirmPwd) {
-            msg.innerText = "❌ Mật khẩu mới và mật khẩu xác nhận không trùng nhau";
-            msg.style.color = "red";
-            return;
-        }
-
-        // --- Gửi dữ liệu lên Server ---
-        msg.innerText = "Processing...";
-        msg.style.color = "orange";
-//************************************************************************************************* CHANGE
-        try {
-            let result = await GW_ChangePass (oldPwd,newPwd);
-
-            if (result.ok) {
-                // THAY ĐỔI THÀNH CÔNG
-                msg.innerText = "✅ Password changed Success ✅";
-                msg.style.color = "green";
-                // Sau 3 giây tự động quay về trang tài khoản
-                
-
+            //========================================================= THONG BÁO LỖI
             Swal.fire({
                 title: 'Thông báo',
                 text: result.msg,
                 icon: 'error', // Các icon có sẵn: 'success', 'error', 'warning', 'info', 'question'
                 confirmButtonText: 'OK'
             }).then((sweetResult) => {
-                    if (sweetResult.isConfirmed) { 
-                        setTimeout(() => accountRender(), 3000);
-                    }
-                });
-
-            } else {
-                msg.innerText = "❌ " + (result.msg || "Update failed!");
-                msg.style.color = "red";
-                //========================================================= THONG BÁO LỖI
-                Swal.fire({
-                    title: 'Thông báo',
-                    text: result.msg,
-                    icon: 'error', // Các icon có sẵn: 'success', 'error', 'warning', 'info', 'question'
-                    confirmButtonText: 'OK'
-                }).then((sweetResult) => {
-                    if (sweetResult.isConfirmed) { 
-                        if (result.ErrCode && result.ErrCode === 401){
-                            localStorage.clear();
-                            sessionStorage.clear();
-                            window.location.href = '/#Home';
-                        }
-                    }
-                });
-                //=========================================================
-
-
-            }
-        } 
-        catch (error) {
-            msg.innerText = "❌ Server error!";
-            msg.style.color = "red";
-        }
-}//END❌
-/*  //**************************************************   
-            Swal.fire({
-                title: 'Thông báo',
-                text: result.msg,
-                icon: 'error', // Các icon có sẵn: 'success', 'error', 'warning', 'info', 'question'
-                confirmButtonText: 'OK'
-            }).then((sweetResult) => {
-                if (sweetResult.isConfirmed) { 
-                    if (result.ErrCode && result.ErrCode === 401){
+                if (sweetResult.isConfirmed) {
+                    if (result.ErrCode && result.ErrCode === 401) {
                         localStorage.clear();
                         sessionStorage.clear();
                         window.location.href = '/#Home';
                     }
                 }
-            }); */
+            });
+            //=========================================================
+
+
+        }
+    }
+    catch (error) {
+        msg.innerText = "❌ Server error!";
+        msg.style.color = "red";
+    }
+}//END❌

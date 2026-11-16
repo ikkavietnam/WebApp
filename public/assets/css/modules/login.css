@@ -1,14 +1,4 @@
-
-
-#APPLOGIN {
-    display: flex;
-    justify-content: center;  /* ngang */
-    /* align-items: center; */      /* dọc */
-    padding: 10px;
-    width: 100%;
-    
-}
-
+/* Popup đăng nhập lại khi hết phiên (loginForm.php). Trang đăng nhập chính: welcome.css */
 
 #LoginFrame{
     height: fit-content;
@@ -42,7 +32,7 @@
     margin-bottom: 10px; 
 }
 
-#username, #password {
+#LoginFrame #username, #LoginFrame #password {
     width: 90%;
     font-size: 12px;
     padding: 2px 5px;
@@ -68,7 +58,7 @@
             } */
 
 
-#btnLogin {
+#LoginFrame #btnLogin {
     font-size: 11px;
     color: #0b2512;
     width: 80px;
@@ -80,7 +70,7 @@
     box-shadow: 0 0 5px rgba(17, 88, 55, 0.407);
 }
     /* ------------------------------------------ */
-    #btnLogin:hover {
+    #LoginFrame #btnLogin:hover {
         cursor: pointer;
         color: #ffffff;
         background-color: #07220f;
@@ -90,63 +80,15 @@
         box-sizing: border-box;
     } 
 
-#btnLogOut {
-    font-size: 11px;
-    color: #0b2512;
-    width: 75px;height: 18px;
-    border: none;  
-    border-radius: 2px;
-    background-color: #ffffff;
-    text-shadow: 0 0 1px rgb(0, 0, 0);
-    box-shadow: 0 0 5px rgb(17, 88, 55);
-}
-    /* ------------------------------------------ */
-    #btnLogOut:hover {
-        cursor: pointer;
-        color: #ffffff;
-        background-color: #07220f;
-        box-shadow: 0 0 5px rgba(255, 255, 255, 0.952);
-        transition: all 0.2s ease;
-        transform: scale(1.1);
-    } 
-
-#msg {
+#LoginFrame #msg {
     margin-top: 10px;
-    color: rgb(194, 4, 4);
-    font-size:11px;
-
-}
-
-#LoginNote {
-    font-size: 11px;
-    margin-top: 10px;
-    text-align: center;
-
-    font-style: italic;
-    color: rgb(7, 121, 251);
-}
-/* HIỆU ỨNG CHO MSG */
-/* Màu chữ đỏ mặc định cho thông báo lỗi */
-#msg {
     color: #dc3545;
+    font-size: 11px;
     font-weight: bold;
     transition: all 0.3s ease;
 }
 
-/* Định nghĩa hiệu ứng rung lắc */
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-3000px); }
-    75% { transform: translateX(3px); }
-}
-
-/* Class này sẽ được thêm vào bằng JS để kích hoạt hiệu ứng */
-.error-shake {
-    animation: shake 0.2s ease-in-out 0s 1; /* Rung 2 lần liên tiếp */
-}
-
-
-/* Hiệu ứng "Mờ dần và Lớn dần" (Fade-in Zoom) */
+/* Hiệu ứng "Mờ dần và Lớn dần" — dùng bởi .MsgEff002 (components.css) */
 @keyframes fadeInZoom {
     0% {
         opacity: 0;
@@ -156,8 +98,4 @@
         opacity: 1;
         transform: scale(1) translateY(0);
     }
-}
-
-.error-fade-zoom {
-    animation: fadeInZoom 0.4s ease-out;
 }
