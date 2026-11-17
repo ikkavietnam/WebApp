@@ -244,62 +244,6 @@ function GET_SQLSRV_ERROR_DETAIL(): string
 }
 
 
-//⚪ HÀM CHECK KẾT NỐI MỖI KHI THỰC HIỆN TRUY VẤN (REMAKE)
-// Cách dùng : KIEMTRATRUYVAN($stmt, $conn, "Đang kiểm tra cái gì?")
-//=========================================================================
-/* function KIEMTRATRUYVAN($stmt, $conn, $msg = "Lỗi trong quá trình thực thi SQL") 
-{
-    try {
-        if (!$stmt) {
-            $sql_Err = sqlsrv_errors();
-            $err_detail = "";
-            
-            if ($sql_Err !== null) {
-                foreach ($sql_Err as $err) {
-                    $err_detail .= "[SQL " . $err['code'] . "] " . $err['message'] . "\n";
-                }
-            }
-            
-            // Sử dụng tham số $msg làm thông báo chính
-            $message = !empty($msg) ? $msg : "Lỗi trong quá trình thực thi SQL";
-            throw new Exception($message, 500, new Exception(trim($err_detail)));
-        } 
-        return true;
-
-    } catch (Throwable $e) {
-        // Kiểm tra kết nối trước khi truy vấn số lượng Transaction
-        if ($conn) {
-            $check_trans = @sqlsrv_query($conn, "SELECT @@TRANCOUNT AS ActiveTrans");
-            if ($check_trans !== false) {
-                $trans_row = sqlsrv_fetch_array($check_trans, SQLSRV_FETCH_ASSOC);
-                if ($trans_row && $trans_row['ActiveTrans'] > 0) {
-                    @sqlsrv_rollback($conn);
-                }
-            }
-            sqlsrv_close($conn);
-        }
-
-        // Đảm bảo Header trả về là JSON
-        if (!headers_sent()) {
-            header('Content-Type: application/json; charset=utf-8');
-        }
-
-        echo json_encode([
-            "ok"        => false,
-            "title"     => "LỖI TRUY VẤN / ERROR QUERY",
-            "SwTitle"   => "Lỗi thực thi SQL",
-            "msg"       => $e->getMessage(),
-            "ErrDetail" => $e->getPrevious() ? $e->getPrevious()->getMessage() : $e->getTraceAsString(),
-        ], JSON_UNESCAPED_UNICODE);
-        exit;
-    }
-} */
-
-
-//⚪HÀM CHECK KẾT NỐI MỖI KHI THỰC HIỆN TRUY VẤN
-//=========================================================================
-
-
 //🟣Utils - HÀM TẠO KÝ TỰ NGẪU NHIÊN
 //=========================================================================
 function GetSecCode(int $length): string 

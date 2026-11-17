@@ -1,14 +1,14 @@
 
 //LOAD FUNCTION
 import { MakeResizable } from "../../core/layout/RESIZABLE.js";
-import { getCoreTable} from '../../core/Utils/helpers.js';
+import { getCoreTable } from '../../core/Utils/helpers.js';
 
 import { INIT_YCMH_Table } from "./YCMH__List_2_Table.js";
 import { Bind_YCMH_Events } from "./YCMH__List_4_Events.js";
 
 //NEW FETCH API 
-import {apiFetch}     from "../../core/request/fetch_Api.js";
-import {showApiError,ConverErrToDataSwal} from "../../core/request/fetch_ApiShowError.js";
+import { apiFetch } from "../../core/request/fetch_Api.js";
+import { showApiError, ConverErrToDataSwal } from "../../core/request/fetch_ApiShowError.js";
 
 
 /*
@@ -29,60 +29,76 @@ import {showApiError,ConverErrToDataSwal} from "../../core/request/fetch_ApiShow
  MakeResizable               ...Kéo dãn cột          📞core/layout/RESIZABLE.js
 */
 
-/*LOAD LIST TABLE
-🟡 --●--●--●--●--●--●--●--●--●--●--●--●--●--●--●--●--●--●--●--● */
+
+
+
+/*
+⎝ 𓆩༺✧🟡 YCMH_List_LOAD 🟡✧༻𓆪 ⎠
+Mô tả chức năng : 
+Các hàm liên quan :
+    -
+    -
+*/
 export async function YCMH_List_LOAD() {
 
     const app = document.getElementById("APP");
     //🍒1. TẠO FORM LIST & RESIZABLE
-        app.innerHTML = await INIT_FORM_LIST_HTML();
-        MakeResizable("YCMH_HEADER_FRAME", "YCMH_Storage");
+    app.innerHTML = await INIT_FORM_LIST_HTML();
+    MakeResizable("YCMH_HEADER_FRAME", "YCMH_Storage");
 
     //🍒2. THAM SÓ FILTER
-        const FINTER_STATE = {
-            search: "",
-            status: "all",
-            depts: [],
-            isAscending: false,
-        };
+    const FINTER_STATE = {
+        search: "",
+        status: "all",
+        depts: [],
+        isAscending: false,
+    };
 
     //🍒3. KHỞI TẠO BẢNG 
-        const tableInstance =  INIT_YCMH_Table("#tblYCMH_LIST");    //from "./YCMH__List_2_Table.js";
+    const tableInstance = INIT_YCMH_Table("#tblYCMH_LIST");    //from "./YCMH__List_2_Table.js";
 
     //🍒4. ĐĂNG KÝ SỰ KIỆN
-        const coreTable = getCoreTable(tableInstance);
-        if (coreTable) {Bind_YCMH_Events(coreTable, FINTER_STATE);} //from "./YCMH__List_4_Events.js";
+    const coreTable = getCoreTable(tableInstance);
+    if (coreTable) { Bind_YCMH_Events(coreTable, FINTER_STATE); } //from "./YCMH__List_4_Events.js";
 
     //🍒5. LOAD DATA TABLE
-        try {
-            //🔴SEND NEW apiFetch 🔄
-            let KQ = await apiFetch("/api/modules/YCMH__List_1_Load", { 
-                method: "GET",
-            });
+    try {
+        //🔴SEND NEW apiFetch 🔄
+        let KQ = await apiFetch("/api/modules/YCMH__List_1_Load", {
+            method: "GET",
+        });
 
-            //💌Receive data
-            const result = KQ.data
-            if (Array.isArray(result)) {
-                if (coreTable) {
-                    await   coreTable.setData(result); 
-                            coreTable.redraw(true);   
-                }
-            } else if (result && result.ok === false) {
-                handleAPIError(result);
+        //💌Receive data
+        const result = KQ.data
+        if (Array.isArray(result)) {
+            if (coreTable) {
+                await coreTable.setData(result);
+                coreTable.redraw(true);
             }
-
-        } catch (e) {
-            console.error(e);
-            await Swal.fire(
-                ConverErrToDataSwal(e)
-            );
+        } else if (result && result.ok === false) {
+            handleAPIError(result);
         }
-        
+
+    } catch (e) {
+        console.error(e);
+        await Swal.fire(
+            ConverErrToDataSwal(e)
+        );
+    }
+
 }//End LOAD
 
 
-/*INIT_FORM_LIST_HTML Tạo giao diện bảng hiển thị
-🟡 --●--●--●--●--●--●--●--●--●--●--●--●--●--●--●--●--●--●--●--●  INIT_FORM_LIST_HTML */
+
+
+
+/*
+⎝ 𓆩༺✧🟡 INIT_FORM_LIST_HTML 🟡✧༻𓆪 ⎠
+Mô tả chức năng : 
+Các hàm liên quan :
+    -
+    -
+*/
 async function INIT_FORM_LIST_HTML() {
     return `
         <div class="resizable-container" id="YCMH_HEADER_FRAME"  style="height: 100%;">
@@ -146,7 +162,7 @@ async function INIT_FORM_LIST_HTML() {
     `;
 
 
-    
+
 }//End
 
 

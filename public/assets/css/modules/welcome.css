@@ -280,6 +280,21 @@ body:not(.guest) #GUEST {
     background: linear-gradient(135deg, #ebf1ef, #a1f9ec);
 }
 
+.mectrl-name {
+    font-size: 12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 /* ---------- Khung nội dung glass ---------- */
 #GUEST .content {
     position: relative;

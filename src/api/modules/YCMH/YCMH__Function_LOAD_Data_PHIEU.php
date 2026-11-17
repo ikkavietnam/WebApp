@@ -401,7 +401,7 @@ function LOAD_Data_PHIEU($UsID,$InstanceID) {
         "APP_UsViewer_Status"    => $APP_UsViewer_Status,   //⚠️Trạng thái người đang xem trong tiến trình
         "MaskStatus"             => $MaskStatus,            //⚠️TAM THỜI CHƯA DÙNG TỚI
         "ChkPermission"          => $ChkPermission,         //✔️Kiểm quyền hạn người duyệt    
-        "so_phieu_number"      => $DOCUMENT_ID
+        "so_phieu_number"       => $DOCUMENT_ID
     ];
     return $dataRES;
 }

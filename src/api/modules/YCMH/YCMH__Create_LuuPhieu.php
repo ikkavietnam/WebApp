@@ -597,7 +597,7 @@
                     "msg" => $e->getMessage() ? $e->getMessage() : "Lỗi giai đoạn ghi dữ liệu vào table YCMH",  
                     "SwTitle"   => "Lỗi kết nối SQL",
                     "ErrDetail" =>$Err_detail ? $Err_detail : $e->getTraceAsString()
-                ]);
+                ], JSON_UNESCAPED_UNICODE);
             //🚩CLOSE CONNET & THOÁT
                 sqlsrv_close($conn);
                 exit;
