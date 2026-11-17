@@ -20,6 +20,7 @@
         if (isset($_SESSION['user']) && isset($_SESSION['user']['UsID'])) {
             $userID = (int)$_SESSION['user']['UsID'];
         }
+        session_write_close(); // ❗ nhả khóa session sớm: gửi mail chạy lâu, không chặn request khác (vd YCMH_Duyet_INIT)
 
     //🌟 KHAI BÁO CÁC BIẾN THỜI GIAN ĐỒNG BỘ THEO NHIỀU ĐỊNH DẠNG
             date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -372,7 +373,7 @@ MAIN
         $HtmlBody_MailSenToProcess = str_replace('{{MHHD_ATTACK}}',          $MHHD_ATTACK,       $HtmlBody_MailSenToProcess);//🔐
         $HtmlBody_MailSenToProcess = str_replace('{{APPROVERS_LIST}}',       $APPROVERS_LIST,    $HtmlBody_MailSenToProcess);//🔐
         $HtmlBody_MailSenToProcess = str_replace('{{TABLE_DETAIL_ROWS}}',    $TABLE_DETAIL_ROWS, $HtmlBody_MailSenToProcess);//🔐
-        $HtmlBody_MailSenToProcess = str_replace('{{APPROVE_ACTION_URL}}', "http://192.168.110.235:8085/view/ycmh/approval?id=" . $INSTANCE_ID, $HtmlBody_MailSenToProcess);
+        $HtmlBody_MailSenToProcess = str_replace('{{APPROVE_ACTION_URL}}', "http://192.168.110.235:8086/view/ycmh/approval?id=" . $INSTANCE_ID, $HtmlBody_MailSenToProcess);
 
 
 //🟡5-SETUP EMAIL & SEND       
@@ -434,7 +435,7 @@ MAIN
         $HtmlBody_MailStatusUpdate = str_replace('{{DOCUMENT_ID}}',          $DOCUMENT_ID,       $HtmlBody_MailStatusUpdate);//🔐
         $HtmlBody_MailStatusUpdate = str_replace('{{DOCUMENT_TYPE}}',        $DOCUMENT_TYPE,     $HtmlBody_MailStatusUpdate);//🔐
         $HtmlBody_MailStatusUpdate = str_replace('{{UPDATE_LIST}}',          $UPDATE_LIST,       $HtmlBody_MailStatusUpdate);//🔐
-        $HtmlBody_MailStatusUpdate = str_replace('{{CHITIET_URL}}', "http://192.168.110.235:8085/view/ycmh/approval?id=" . $INSTANCE_ID, $HtmlBody_MailStatusUpdate);
+        $HtmlBody_MailStatusUpdate = str_replace('{{CHITIET_URL}}', "http://192.168.110.235:8086/view/ycmh/approval?id=" . $INSTANCE_ID, $HtmlBody_MailStatusUpdate);
 
 //🟡7-SETUP EMAIL & SEND EMAIL STATUS UPDATE
         // Khởi tạo tiến trình gửi MailNotify bằng SMTP
@@ -572,7 +573,7 @@ function SENDMAIL_HOAN_THANH ($data)
         $HtmlBody_EmailSuccess = str_replace('{{DOCUMENT_ID}}',          $DOCUMENT_ID,       $HtmlBody_EmailSuccess);//🔐
         $HtmlBody_EmailSuccess = str_replace('{{DOCUMENT_TYPE}}',        $DOCUMENT_TYPE,     $HtmlBody_EmailSuccess);//🔐
         $HtmlBody_EmailSuccess = str_replace('{{APPROVERS_LIST}}',       $APPROVERS_LIST,    $HtmlBody_EmailSuccess);//🔐
-        $HtmlBody_EmailSuccess = str_replace('{{CHITIET_URL}}', "http://192.168.110.235:8085/view/ycmh/approval?id=" . $INSTANCE_ID, $HtmlBody_EmailSuccess);
+        $HtmlBody_EmailSuccess = str_replace('{{CHITIET_URL}}', "http://192.168.110.235:8086/view/ycmh/approval?id=" . $INSTANCE_ID, $HtmlBody_EmailSuccess);
     //🟡3-SETUP EMAIL & SEND
         // Khởi tạo tiến trình gửi EmailSuccess bằng SMTP
         if (!empty($EmailList)) {
@@ -719,7 +720,7 @@ function SENDMAIL_HUY ($data)
         $HtmlBody_EmailRejected = str_replace('{{DOCUMENT_ID}}',          $DOCUMENT_ID,       $HtmlBody_EmailRejected);//🔐
         $HtmlBody_EmailRejected = str_replace('{{DOCUMENT_TYPE}}',        $DOCUMENT_TYPE,     $HtmlBody_EmailRejected);//🔐
         $HtmlBody_EmailRejected = str_replace('{{APPROVERS_LIST}}',       $APPROVERS_LIST,    $HtmlBody_EmailRejected);//🔐
-        $HtmlBody_EmailRejected = str_replace('{{CHITIET_URL}}', "http://192.168.110.235:8085/view/ycmh/approval?id=" . $INSTANCE_ID, $HtmlBody_EmailRejected);
+        $HtmlBody_EmailRejected = str_replace('{{CHITIET_URL}}', "http://192.168.110.235:8086/view/ycmh/approval?id=" . $INSTANCE_ID, $HtmlBody_EmailRejected);
     //🟡3-SETUP EMAIL & SEND
         // KHỞI TẠO TIẾN TRÌNH GỬI MAIL bằng SMTP
         if (!empty($EmailList)) {
@@ -785,7 +786,7 @@ function SENDMAIL_HUY ($data)
 
 
 // MAP CODE
-/*
+/* 
     ⏩SEND_EMAIL
     │
     ├──🟡1-XỬ lÝ INPUT DATA
@@ -868,30 +869,4 @@ function SENDMAIL_HUY ($data)
     ├──🟡2-LOAD FORM EMAIL
     ├──🟡3-SETUP EMAIL & SEND
 
-
-    //Tham số input
-        //$mhhd_id_input
-        //$mhhd_name_input
-    // tìm 
-        //$InstanceID
-                //$dataINS
-                //$dataApp
-                //$QrEmail
-                //$Users
-                //$dataHD
-                //$dataDT
-    //'✓ ' . $row['ApprovalStatus'];
-    //'✘ ' . $row['ApprovalStatus'];
-
-
-    ⏩SENDMAIL_HUY      TƯƠNG TỰ 
-
-    $data['InstanceID'] = $InstanceID;  //🚩
-    $data['dataINS']    = $dataINS;     //🚩
-    $data['dataAPP']    = $dataAPP;     //🚩
-    $data['dataMHHD']   = $dataMHHD;    //🚩
-    $data['dataMHDT']   = $dataMHDT;    //🚩
-    $data['dataATT']    = $dataATT;     //🚩
-    $data['MsgPhp']     = $MsgPhp;      //🚩
-
-    */
+ */
